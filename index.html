@@ -404,7 +404,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: #C4982A;
+      background: #B1BBBA;
       border-radius: 5px;
       padding: 5px 2px 4px;
       min-width: 0;
@@ -494,6 +494,77 @@
     /* ── Divider color ── */
     .divider { color: #8a907e; }
     .divider-text { color: #5f624e; font-weight: 600; }
+
+    /* ── Upcoming Group Rows ── */
+    .upcoming-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      background: #B1BBBA;
+      border-radius: 8px;
+      border: 1px solid #B1BBBA;
+    }
+
+    .upcoming-info { flex: 1; min-width: 0; }
+
+    .upcoming-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #3a3a38;
+      font-family: sans-serif;
+      line-height: 1.3;
+    }
+
+    .upcoming-date {
+      display: inline-block;
+      font-size: 0.62rem;
+      color: #5f624e;
+      font-family: sans-serif;
+      margin-top: 3px;
+      letter-spacing: 0.3px;
+    }
+
+    .remind-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 13px;
+      border-radius: 20px;
+      border: 1px solid #8A470F;
+      background: rgba(138,71,15,0.08);
+      color: #8A470F;
+      font-size: 0.65rem;
+      font-family: sans-serif;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    .remind-btn:hover { background: rgba(138,71,15,0.18); }
+    .remind-btn:active { background: rgba(138,71,15,0.26); }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #5f624e;
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-family: sans-serif;
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; }
 
     /* Footer */
     .footer {
@@ -700,6 +771,19 @@
         </div>
       </div><!-- /perm-grid -->
 
+      <div class="divider"><span class="divider-text">開團預備</span></div>
+
+      <!-- 開團預備 ── 填入品名、預計日期（格式 YYYYMMDD）、連結 -->
+      <div class="upcoming-row">
+        <div class="upcoming-info">
+          <p class="upcoming-name">即將開團，敬請期待</p>
+          <span class="upcoming-date">預計近期開團</span>
+        </div>
+        <button class="remind-btn" onclick="addReminder('微絜近期開團提醒', '20260701', 'https://picks-rho.vercel.app')">
+          🔔 提醒我
+        </button>
+      </div>
+
       <div class="divider"><span class="divider-text">已結團</span></div>
 
       <a href="https://www.meimaii.com/KOL/MjFjYQ%3D%3D/" target="_blank" rel="noopener" class="ended-row">
@@ -724,6 +808,8 @@
 
     </div>
   </div>
+
+  <div class="toast" id="toast"></div>
 
   <script>
     // 截止日期設定（格式：年, 月-1, 日, 時, 分）← 月份需 -1，例如6月填5
@@ -763,6 +849,44 @@
 
     updateCountdowns();
     setInterval(updateCountdowns, 1000);
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function addReminder(name, dateStr, url) {
+      const ics = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//微絜//Picks//ZH-TW',
+        'BEGIN:VEVENT',
+        'DTSTART;VALUE=DATE:' + dateStr,
+        'DTEND;VALUE=DATE:' + dateStr,
+        'SUMMARY:🛒 ' + name,
+        'DESCRIPTION:微絜開團啦！趕快去搶～\\n' + (url || 'https://picks-rho.vercel.app'),
+        'URL:' + (url || 'https://picks-rho.vercel.app'),
+        'BEGIN:VALARM',
+        'TRIGGER:-PT0M',
+        'ACTION:DISPLAY',
+        'DESCRIPTION:' + name + ' 開團提醒',
+        'END:VALARM',
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+
+      const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = name + '.ics';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+      showToast('📅 已加入行事曆提醒！');
+    }
   </script>
 </body>
 </html>
