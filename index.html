@@ -495,56 +495,54 @@
     .divider { color: #8a907e; }
     .divider-text { color: #5f624e; font-weight: 600; }
 
-    /* ── Upcoming Group Rows ── */
-    .upcoming-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 11px 14px;
-      background: #B1BBBA;
-      border-radius: 8px;
-      border: 1px solid #B1BBBA;
+    /* ── Upcoming Grid ── */
+    .upcoming-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      width: 100%;
     }
 
-    .upcoming-info { flex: 1; min-width: 0; }
+    .upcoming-chip {
+      background: #B1BBBA;
+      border-radius: 8px;
+      padding: 8px 4px 9px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 3px;
+    }
 
-    .upcoming-name {
-      font-size: 0.8rem;
+    .upcoming-chip-name {
+      font-size: 0.6rem;
       font-weight: 600;
       color: #3a3a38;
       font-family: sans-serif;
-      line-height: 1.3;
+      line-height: 1.35;
+      word-break: break-all;
     }
 
-    .upcoming-date {
-      display: inline-block;
-      font-size: 0.62rem;
+    .upcoming-chip-date {
+      font-size: 0.55rem;
       color: #5f624e;
       font-family: sans-serif;
-      margin-top: 3px;
-      letter-spacing: 0.3px;
     }
 
-    .remind-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 6px 13px;
-      border-radius: 20px;
+    .upcoming-chip-btn {
+      margin-top: 3px;
+      padding: 3px 7px;
+      border-radius: 10px;
       border: 1px solid #8A470F;
       background: rgba(138,71,15,0.08);
       color: #8A470F;
-      font-size: 0.65rem;
+      font-size: 0.58rem;
       font-family: sans-serif;
-      font-weight: 600;
-      white-space: nowrap;
       cursor: pointer;
-      flex-shrink: 0;
-      transition: background 0.15s;
+      line-height: 1.4;
     }
 
-    .remind-btn:hover { background: rgba(138,71,15,0.18); }
-    .remind-btn:active { background: rgba(138,71,15,0.26); }
+    .upcoming-chip-btn:active { background: rgba(138,71,15,0.22); }
 
     /* Toast */
     .toast {
@@ -773,76 +771,52 @@
 
       <div class="divider"><span class="divider-text">開團預備</span></div>
 
-      <div class="upcoming-row">
-        <div class="upcoming-info">
-          <p class="upcoming-name">良爽衛生棉</p>
-          <span class="upcoming-date">預計 6/1 開團</span>
+      <div class="upcoming-grid">
+        <div class="upcoming-chip">
+          <span class="upcoming-chip-name">良爽衛生棉</span>
+          <span class="upcoming-chip-date">6/1</span>
+          <button class="upcoming-chip-btn" onclick="addReminder('良爽衛生棉', '20260601', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
-        <button class="remind-btn" onclick="addReminder('良爽衛生棉', '20260601', 'https://picks-rho.vercel.app')">🔔 提醒我</button>
-      </div>
-
-      <div class="upcoming-row">
-        <div class="upcoming-info">
-          <p class="upcoming-name">美姬饅頭</p>
-          <span class="upcoming-date">預計 6/1 開團</span>
+        <div class="upcoming-chip">
+          <span class="upcoming-chip-name">美姬饅頭</span>
+          <span class="upcoming-chip-date">6/1</span>
+          <button class="upcoming-chip-btn" onclick="addReminder('美姬饅頭', '20260601', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
-        <button class="remind-btn" onclick="addReminder('美姬饅頭', '20260601', 'https://picks-rho.vercel.app')">🔔 提醒我</button>
-      </div>
-
-      <div class="upcoming-row">
-        <div class="upcoming-info">
-          <p class="upcoming-name">伯尼寢具</p>
-          <span class="upcoming-date">預計 6/3 開團</span>
+        <div class="upcoming-chip">
+          <span class="upcoming-chip-name">伯尼寢具</span>
+          <span class="upcoming-chip-date">6/3</span>
+          <button class="upcoming-chip-btn" onclick="addReminder('伯尼寢具', '20260603', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
-        <button class="remind-btn" onclick="addReminder('伯尼寢具', '20260603', 'https://picks-rho.vercel.app')">🔔 提醒我</button>
-      </div>
-
-      <div class="upcoming-row">
-        <div class="upcoming-info">
-          <p class="upcoming-name">上誼桌遊</p>
-          <span class="upcoming-date">預計 6/5 開團</span>
+        <div class="upcoming-chip">
+          <span class="upcoming-chip-name">上誼桌遊</span>
+          <span class="upcoming-chip-date">6/5</span>
+          <button class="upcoming-chip-btn" onclick="addReminder('上誼桌遊', '20260605', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
-        <button class="remind-btn" onclick="addReminder('上誼桌遊', '20260605', 'https://picks-rho.vercel.app')">🔔 提醒我</button>
-      </div>
-
-      <div class="upcoming-row">
-        <div class="upcoming-info">
-          <p class="upcoming-name">防爆行動電源</p>
-          <span class="upcoming-date">預計 6/10 開團</span>
+        <div class="upcoming-chip">
+          <span class="upcoming-chip-name">防爆行動電源</span>
+          <span class="upcoming-chip-date">6/10</span>
+          <button class="upcoming-chip-btn" onclick="addReminder('防爆行動電源', '20260610', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
-        <button class="remind-btn" onclick="addReminder('防爆行動電源', '20260610', 'https://picks-rho.vercel.app')">🔔 提醒我</button>
-      </div>
-
-      <div class="upcoming-row">
-        <div class="upcoming-info">
-          <p class="upcoming-name">QA BOTTLE</p>
-          <span class="upcoming-date">預計 6/11 開團</span>
+        <div class="upcoming-chip">
+          <span class="upcoming-chip-name">QA BOTTLE</span>
+          <span class="upcoming-chip-date">6/11</span>
+          <button class="upcoming-chip-btn" onclick="addReminder('QA BOTTLE', '20260611', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
-        <button class="remind-btn" onclick="addReminder('QA BOTTLE', '20260611', 'https://picks-rho.vercel.app')">🔔 提醒我</button>
-      </div>
-
-      <div class="upcoming-row">
-        <div class="upcoming-info">
-          <p class="upcoming-name">舒爾特專注力訓練機</p>
-          <span class="upcoming-date">預計 6/15 開團</span>
+        <div class="upcoming-chip">
+          <span class="upcoming-chip-name">舒爾特專注力訓練機</span>
+          <span class="upcoming-chip-date">6/15</span>
+          <button class="upcoming-chip-btn" onclick="addReminder('舒爾特專注力訓練機', '20260615', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
-        <button class="remind-btn" onclick="addReminder('舒爾特專注力訓練機', '20260615', 'https://picks-rho.vercel.app')">🔔 提醒我</button>
-      </div>
-
-      <div class="upcoming-row">
-        <div class="upcoming-info">
-          <p class="upcoming-name">KOM 三色碗</p>
-          <span class="upcoming-date">預計 6/18 開團</span>
+        <div class="upcoming-chip">
+          <span class="upcoming-chip-name">KOM 三色碗</span>
+          <span class="upcoming-chip-date">6/18</span>
+          <button class="upcoming-chip-btn" onclick="addReminder('KOM 三色碗', '20260618', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
-        <button class="remind-btn" onclick="addReminder('KOM 三色碗', '20260618', 'https://picks-rho.vercel.app')">🔔 提醒我</button>
-      </div>
-
-      <div class="upcoming-row">
-        <div class="upcoming-info">
-          <p class="upcoming-name">蘋果洋蔥水</p>
-          <span class="upcoming-date">預計 6/29 開團</span>
+        <div class="upcoming-chip">
+          <span class="upcoming-chip-name">蘋果洋蔥水</span>
+          <span class="upcoming-chip-date">6/29</span>
+          <button class="upcoming-chip-btn" onclick="addReminder('蘋果洋蔥水', '20260629', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
-        <button class="remind-btn" onclick="addReminder('蘋果洋蔥水', '20260629', 'https://picks-rho.vercel.app')">🔔 提醒我</button>
       </div>
 
       <div class="divider"><span class="divider-text">已結團</span></div>
