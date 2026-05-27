@@ -6,7 +6,7 @@
   <title>微絜</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Playfair+Display:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -70,7 +70,7 @@
       display: flex;
       align-items: center;
       gap: 5px;
-      background: #5f624e;
+      background: #8A470F;
       color: #fff;
       border: none;
       border-radius: 6px;
@@ -127,11 +127,11 @@
     }
 
     .profile-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      font-weight: 700;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem;
+      font-weight: 300;
       color: #5f624e;
-      letter-spacing: 5px;
+      letter-spacing: 8px;
       margin-top: 4px;
     }
 
@@ -280,6 +280,41 @@
       font-family: 'Playfair Display', serif;
     }
 
+    /* ── Countdown badge ── */
+    .countdown-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #B1BBBA;
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      font-family: sans-serif;
+      padding: 2px 7px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      vertical-align: middle;
+      margin-left: 6px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .countdown-badge.urgent {
+      background: #8A470F;
+      animation: pulse-urgent 1s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.75; transform: scale(0.96); }
+    }
+
+    @keyframes pulse-urgent {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+    }
+
+    /* ── Divider with Shadow color ── */
+    .divider { color: #B1BBBA; }
+
     /* Footer */
     .footer {
       margin-top: 8px;
@@ -338,11 +373,56 @@
 
       <div class="divider"><span class="divider-text">開團中</span></div>
 
-      <a href="#" class="link-btn">
-        <div class="btn-icon">團</div>
+      <a href="https://www.meimaii.com/KOL/MjFjYQ%3D%3D/" target="_blank" rel="noopener" class="link-btn">
+        <div class="btn-icon">車</div>
         <div class="btn-text">
-          <span class="btn-title">最新開團</span>
-          <span class="btn-sub">查看目前進行中的團購</span>
+          <span class="btn-title">Bonson 折疊收納手推車 <span class="countdown-badge" id="countdown1"></span></span>
+          <span class="btn-sub">輕量折疊，收納出遊好幫手</span>
+        </div>
+        <span class="btn-arrow">→</span>
+      </a>
+
+      <a href="https://p4.groupbuyforms.tw/i2iri" target="_blank" rel="noopener" class="link-btn">
+        <div class="btn-icon">袋</div>
+        <div class="btn-text">
+          <span class="btn-title">HARU 寶可樂收袋 <span class="countdown-badge" id="countdown2"></span></span>
+          <span class="btn-sub">多功能收納袋系列</span>
+        </div>
+        <span class="btn-arrow">→</span>
+      </a>
+
+      <a href="https://p2.groupbuyforms.tw/f1ogf" target="_blank" rel="noopener" class="link-btn">
+        <div class="btn-icon">食</div>
+        <div class="btn-text">
+          <span class="btn-title">微絜 × 麗克特 <span class="countdown-badge" id="countdown3"></span></span>
+          <span class="btn-sub">母の日溫暖食光大賞</span>
+        </div>
+        <span class="btn-arrow">→</span>
+      </a>
+
+      <a href="https://p3.groupbuyforms.tw/8r8wk" target="_blank" rel="noopener" class="link-btn">
+        <div class="btn-icon">旅</div>
+        <div class="btn-text">
+          <span class="btn-title">微絜 × Sansui <span class="countdown-badge" id="countdown4"></span></span>
+          <span class="btn-sub">旅箱 · 雨傘 · 美髮工具</span>
+        </div>
+        <span class="btn-arrow">→</span>
+      </a>
+
+      <a href="https://www.mntltw.com/pages/promote-page-888/?sl-ref=mntl888" target="_blank" rel="noopener" class="link-btn">
+        <div class="btn-icon">磁</div>
+        <div class="btn-text">
+          <span class="btn-title">MNTL 磁力片 <span class="countdown-badge" id="countdown5"></span></span>
+          <span class="btn-sub">開放式益智玩具</span>
+        </div>
+        <span class="btn-arrow">→</span>
+      </a>
+
+      <a href="https://pickmebuy.com.tw/one/%E5%B0%8F%E7%A2%A9%E5%AA%BD%E5%92%AA%E5%A5%B6%E7%93%B6%E6%B8%85%E6%B4%97%E6%A9%9Fx%E9%9B%BB%E7%86%B1%E6%B0%B4%E7%93%B6x%E8%AA%BF%E7%90%86%E6%A9%9Fx%E6%B4%97%E5%8A%91" target="_blank" rel="noopener" class="link-btn">
+        <div class="btn-icon">廚</div>
+        <div class="btn-text">
+          <span class="btn-title">小碩媽咪 多功能組合 <span class="countdown-badge" id="countdown6"></span></span>
+          <span class="btn-sub">奶瓶清洗機 · 電熱水瓶 · 調理機</span>
         </div>
         <span class="btn-arrow">→</span>
       </a>
@@ -363,5 +443,46 @@
     </div>
   </div>
 
+  <script>
+    // 設定每個開團的截止日期（格式：年, 月-1, 日, 時, 分）← 月份需 -1
+    const groups = [
+      { id: 'countdown1', end: new Date(2026, 5, 5, 23, 59) },  // Bonson 手推車
+      { id: 'countdown2', end: new Date(2026, 4, 27, 23, 59) }, // HARU 收袋
+      { id: 'countdown3', end: new Date(2026, 5, 3, 23, 59) },  // 麗克特
+      { id: 'countdown4', end: new Date(2026, 4, 31, 23, 59) }, // Sansui
+      { id: 'countdown5', end: new Date(2026, 5, 10, 23, 59) }, // MNTL 磁力片
+      { id: 'countdown6', end: new Date(2026, 5, 7, 23, 59) },  // 小碩媽咪
+    ];
+
+    function updateCountdowns() {
+      const now = new Date();
+      groups.forEach(({ id, end }) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const diff = end - now;
+        if (diff <= 0) {
+          el.textContent = '已截止';
+          el.classList.add('urgent');
+          return;
+        }
+        const days  = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
+        const mins  = Math.floor((diff % 3600000)  / 60000);
+
+        if (days > 0) {
+          el.textContent = `剩 ${days} 天`;
+        } else if (hours > 0) {
+          el.textContent = `剩 ${hours} 時`;
+          el.classList.add('urgent');
+        } else {
+          el.textContent = `剩 ${mins} 分`;
+          el.classList.add('urgent');
+        }
+      });
+    }
+
+    updateCountdowns();
+    setInterval(updateCountdowns, 60000);
+  </script>
 </body>
 </html>
