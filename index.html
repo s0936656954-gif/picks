@@ -441,6 +441,54 @@
       background: #b7b397;
     }
 
+    /* ── Ended Item Row ── */
+    .ended-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      background: #fefefd;
+      border-radius: 8px;
+      border: 1px solid #e8e4de;
+      text-decoration: none;
+      transition: background 0.15s ease;
+    }
+
+    .ended-row:hover { background: #f0ede8; }
+
+    .ended-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      background-size: cover;
+      background-position: center;
+      filter: grayscale(55%);
+      opacity: 0.7;
+    }
+
+    .ended-info { flex: 1; min-width: 0; }
+
+    .ended-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #9da6a3;
+      font-family: sans-serif;
+      line-height: 1.3;
+    }
+
+    .ended-tag {
+      display: inline-block;
+      font-size: 0.6rem;
+      color: #b7b397;
+      background: #f0ede8;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-family: sans-serif;
+      margin-top: 3px;
+      letter-spacing: 0.5px;
+    }
+
     /* ── Divider with Shadow color ── */
     .divider { color: #B1BBBA; }
 
@@ -503,27 +551,6 @@
       <div class="divider"><span class="divider-text">開團中</span></div>
 
       <div class="group-grid">
-
-        <!-- Card 1: Bonson -->
-        <div class="group-card">
-          <a href="https://www.meimaii.com/KOL/MjFjYQ%3D%3D/" target="_blank" rel="noopener" class="card-image">
-            <div class="card-img-bg" style="background: linear-gradient(135deg, #c8bfb0, #ddd3c4);">車</div>
-            <span class="card-buy-btn">前往購買 →</span>
-          </a>
-          <div class="card-body">
-            <p class="card-name">Bonson 折疊收納手推車</p>
-            <div class="card-countdown" id="badge1">
-              <div class="cd-block"><span class="cd-num" id="cd1_d">--</span><span class="cd-label">天</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd1_h">--</span><span class="cd-label">時</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd1_m">--</span><span class="cd-label">分</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd1_s">--</span><span class="cd-label">秒</span></div>
-            </div>
-            <a href="https://www.meimaii.com/KOL/MjFjYQ%3D%3D/" target="_blank" rel="noopener" class="card-detail">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              詳細介紹
-            </a>
-          </div>
-        </div>
 
         <!-- Card 2: HARU -->
         <div class="group-card">
@@ -636,6 +663,28 @@
 
       </div><!-- /group-grid -->
 
+      <div class="divider"><span class="divider-text">已結團</span></div>
+
+      <a href="https://www.meimaii.com/KOL/MjFjYQ%3D%3D/" target="_blank" rel="noopener" class="ended-row">
+        <div class="ended-thumb" style="background: linear-gradient(135deg, #c8bfb0, #ddd3c4);"></div>
+        <div class="ended-info">
+          <p class="ended-name">Bonson 折疊收納手推車</p>
+          <span class="ended-tag">已結團</span>
+        </div>
+        <span class="btn-arrow">→</span>
+      </a>
+
+      <a href="https://www.instagram.com/jay1102/" target="_blank" rel="noopener" class="link-btn">
+        <div class="btn-icon" style="background:#9da6a3;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="btn-text">
+          <span class="btn-title" style="color:#5f624e;">聯絡客服</span>
+          <span class="btn-sub">已結團有問題？來 IG 私訊我</span>
+        </div>
+        <span class="btn-arrow">→</span>
+      </a>
+
       <div class="divider"><span class="divider-text">精選好物</span></div>
 
       <a href="https://shopee.tw/" target="_blank" rel="noopener" class="link-btn">
@@ -655,7 +704,6 @@
   <script>
     // 截止日期設定（格式：年, 月-1, 日, 時, 分）← 月份需 -1，例如6月填5
     const groups = [
-      { n:1, badgeId:'badge1', end: new Date(2026, 5, 5, 23, 59) },   // Bonson
       { n:2, badgeId:'badge2', end: new Date(2026, 4, 27, 23, 59) },  // HARU
       { n:3, badgeId:'badge3', end: new Date(2026, 5, 3, 23, 59) },   // 麗克特
       { n:4, badgeId:'badge4', end: new Date(2026, 4, 31, 23, 59) },  // Sansui
