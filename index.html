@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>微絜</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Lora', 'PingFang TC', 'Microsoft JhengHei', serif;
+      min-height: 100vh;
+      background-color: #EAEAE6;
+    }
+
+    /* ══════════════════════════
+       TOP IG BAR（固定）
+    ══════════════════════════ */
+    .ig-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      background: #fff;
+      border-bottom: 1px solid #e8e4de;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ig-bar-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid #8A470F;
+      background-image: url('avatar.jpg');
+      background-size: 130%;
+      background-position: 50% 35%;
+      flex-shrink: 0;
+    }
+
+    .ig-bar-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .ig-bar-name {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #2c2c2c;
+      font-family: sans-serif;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ig-bar-sub {
+      font-size: 0.72rem;
+      color: #888;
+      font-family: sans-serif;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ig-bar-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: #5f624e;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 7px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      font-family: sans-serif;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ══════════════════════════
+       MAIN SCROLL AREA
+    ══════════════════════════ */
+    .page {
+      padding-top: 64px; /* ig-bar height */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ══════════════════════════
+       PROFILE SECTION
+    ══════════════════════════ */
+    .profile-section {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 24px 14px;
+      gap: 7px;
+      background: #EAEAE6;
+    }
+
+    .avatar-wrap {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, #8A470F, #C4A26A, #8A470F);
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-image: url('avatar.jpg');
+      background-size: 130%;
+      background-position: 50% 35%;
+      background-repeat: no-repeat;
+      border: 3px solid #EAEAE6;
+    }
+
+    .profile-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #5f624e;
+      letter-spacing: 5px;
+      margin-top: 4px;
+    }
+
+    .profile-handle {
+      font-size: 0.78rem;
+      color: #9da6a3;
+      letter-spacing: 1px;
+      font-style: italic;
+    }
+
+    .profile-rule {
+      width: 40px;
+      height: 2px;
+      background: #8A470F;
+      border-radius: 2px;
+      margin: 4px 0;
+    }
+
+    .profile-bio {
+      text-align: center;
+      color: #5f624e;
+      line-height: 2;
+      font-size: 0.85rem;
+    }
+
+    .profile-bio .marker {
+      font-size: 0.75rem;
+      color: #9da6a3;
+      letter-spacing: 1px;
+    }
+
+    .profile-bio .tagline {
+      margin-top: 14px;
+      font-style: italic;
+      font-size: 0.82rem;
+      color: #5f624e;
+      opacity: 0.85;
+    }
+
+    .profile-bio .closing {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #8A470F;
+    }
+
+    /* ══════════════════════════
+       LINKS SECTION
+    ══════════════════════════ */
+    .links-section {
+      width: 100%;
+      max-width: 480px;
+      padding: 8px 20px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Section divider */
+    .divider {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 8px 0 2px;
+      color: #b7b397;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: currentColor;
+    }
+    .divider-text {
+      font-size: 0.62rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-family: 'Lora', serif;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* Link buttons */
+    .link-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 16px;
+      border-radius: 5px;
+      border: 1px solid #b7b397;
+      background: #fefefd;
+      text-decoration: none;
+      transition: background 0.18s ease, border-color 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+      cursor: pointer;
+    }
+
+    .link-btn:hover {
+      background: #e4e4dc;
+      border-color: #5f624e;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(95, 98, 78, 0.12);
+    }
+
+    .link-btn:active {
+      transform: translateY(0);
+      background: #d5d5cc;
+    }
+
+    .btn-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 3px;
+      background: #5f624e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #e4e4dc;
+      flex-shrink: 0;
+    }
+
+    .btn-text { flex: 1; }
+
+    .btn-title {
+      display: block;
+      font-family: 'Lora', 'PingFang TC', serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #5f624e;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-sub {
+      display: block;
+      font-size: 0.72rem;
+      color: #9da6a3;
+      margin-top: 2px;
+      font-style: italic;
+    }
+
+    .btn-arrow {
+      font-size: 1rem;
+      color: #b7b397;
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 8px;
+      font-size: 0.65rem;
+      color: #9da6a3;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'Lora', serif;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- IG Bar (固定頂部) -->
+  <div class="ig-bar">
+    <div class="ig-bar-avatar"></div>
+    <div class="ig-bar-info">
+      <div class="ig-bar-name">@jay1102</div>
+      <div class="ig-bar-sub">嗨，我是微絜 · 用過才說話</div>
+    </div>
+    <a href="https://www.instagram.com/jay1102/" target="_blank" rel="noopener" class="ig-bar-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      追蹤 IG
+    </a>
+  </div>
+
+  <div class="page">
+
+    <!-- Profile -->
+    <div class="profile-section">
+      <div class="avatar-wrap">
+        <div class="avatar"></div>
+      </div>
+
+      <h1 class="profile-name">微絜</h1>
+      <p class="profile-handle">@jay1102</p>
+      <div class="profile-rule"></div>
+
+      <div class="profile-bio">
+        <p><span class="marker">:: </span>挑剔不是壞事，是品味<span class="marker"> ::</span></p>
+        <p>不隨便開口，不隨便開團</p>
+        <p>用過、喜歡，才帶你一起買</p>
+        <p>好東西值得等，值得挑</p>
+
+        <p class="tagline">
+          不跟風，只跟質感<br>
+          每一樣開團的，都是我自己先愛上的<br>
+          <span class="closing">我挑的，你可以放心入手 ♡</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Links -->
+    <div class="links-section">
+
+      <div class="divider"><span class="divider-text">開團中</span></div>
+
+      <a href="#" class="link-btn">
+        <div class="btn-icon">團</div>
+        <div class="btn-text">
+          <span class="btn-title">最新開團</span>
+          <span class="btn-sub">查看目前進行中的團購</span>
+        </div>
+        <span class="btn-arrow">→</span>
+      </a>
+
+      <div class="divider"><span class="divider-text">精選好物</span></div>
+
+      <a href="https://shopee.tw/" target="_blank" rel="noopener" class="link-btn">
+        <div class="btn-icon">選</div>
+        <div class="btn-text">
+          <span class="btn-title">精選好物</span>
+          <span class="btn-sub">買過用過，才推薦</span>
+        </div>
+        <span class="btn-arrow">→</span>
+      </a>
+
+      <p class="footer">© 2025 &nbsp;·&nbsp; 微絜</p>
+
+    </div>
+  </div>
+
+</body>
+</html>
