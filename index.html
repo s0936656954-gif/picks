@@ -624,6 +624,199 @@
     }
     .toast.show { opacity: 1; }
 
+    /* ── Side Game Buttons ── */
+    .side-btns {
+      position: fixed;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 150;
+    }
+
+    .side-btn {
+      width: 44px;
+      height: 44px;
+      background: #5f624e;
+      border: none;
+      border-radius: 0 10px 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      cursor: pointer;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.18);
+      transition: background 0.15s, transform 0.15s;
+      line-height: 1;
+    }
+
+    .side-btn:hover { background: #8A470F; transform: translateX(4px); }
+
+    /* ── Game Modal ── */
+    .game-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(60,56,48,0.52);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .game-modal.open { display: flex; }
+
+    .game-card {
+      background: #fefefd;
+      border-radius: 16px;
+      padding: 28px 22px 24px;
+      width: min(380px, 92vw);
+      max-height: 82vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 12px 40px rgba(60,56,48,0.22);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      color: #9da6a3;
+      cursor: pointer;
+    }
+
+    .game-title {
+      font-family: 'ZCOOL QingKe HuangYou', cursive;
+      font-size: 1.4rem;
+      color: #5f624e;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .game-desc {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #9da6a3;
+      font-family: sans-serif;
+      margin-bottom: 18px;
+    }
+
+    /* Heel game */
+    .heel-wrap { display: flex; justify-content: center; margin: 10px 0; }
+
+    .heel-btn {
+      font-size: 3.8rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      line-height: 1;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+    }
+
+    .heel-btn.tap { animation: heelTap 0.28s ease; }
+
+    @keyframes heelTap {
+      0%   { transform: scale(1) rotate(0deg); }
+      35%  { transform: scale(1.28) rotate(-12deg); }
+      65%  { transform: scale(0.93) rotate(6deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    .heel-dots { display: flex; justify-content: center; gap: 10px; margin: 10px 0; }
+
+    .dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      border: 2px solid #8A470F;
+      background: transparent;
+      transition: background 0.3s;
+    }
+
+    .dot.filled { background: #8A470F; }
+
+    .heel-result {
+      text-align: center;
+      font-size: 0.92rem;
+      color: #5f624e;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      min-height: 2.4em;
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+
+    /* Recipe game */
+    .recipe-input-row { display: flex; gap: 8px; margin-bottom: 10px; }
+
+    .recipe-input-row input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #e8e4de;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-family: sans-serif;
+      background: #EAEAE6;
+      outline: none;
+    }
+
+    .recipe-input-row input:focus { border-color: #5f624e; }
+
+    .recipe-input-row button, .recipe-search-btn {
+      padding: 8px 14px;
+      background: #5f624e;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-family: sans-serif;
+      cursor: pointer;
+    }
+
+    .recipe-search-btn {
+      width: 100%;
+      padding: 10px;
+      background: #8A470F;
+      color: #F8EAE1;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-family: 'Lora', serif;
+      margin: 10px 0 14px;
+    }
+
+    .ingredient-tags { display: flex; flex-wrap: wrap; gap: 6px; min-height: 28px; margin-bottom: 4px; }
+
+    .ing-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      background: #B1BBBA;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-family: sans-serif;
+      color: #3a3a38;
+    }
+
+    .ing-tag button { background: none; border: none; font-size: 0.7rem; cursor: pointer; color: #5f624e; padding: 0; line-height: 1; }
+
+    .recipe-results { display: flex; flex-direction: column; gap: 8px; }
+
+    .recipe-item {
+      padding: 10px 12px;
+      background: #f0ede8;
+      border-radius: 8px;
+      border-left: 3px solid #8A470F;
+    }
+
+    .recipe-item-name { font-size: 0.88rem; font-weight: 700; color: #2c2c2c; font-family: sans-serif; }
+    .recipe-item-desc { font-size: 0.75rem; color: #5f624e; font-family: sans-serif; margin-top: 3px; }
+    .recipe-item-ing { font-size: 0.65rem; color: #9da6a3; font-family: sans-serif; margin-top: 3px; }
+    .no-result { text-align: center; font-size: 0.82rem; color: #9da6a3; font-family: sans-serif; padding: 14px 0; }
+
     /* Footer */
     .footer {
       margin-top: 8px;
@@ -877,6 +1070,46 @@
     </div>
   </div>
 
+  <!-- Side game buttons -->
+  <div class="side-btns">
+    <button class="side-btn" onclick="openGame('heel')" title="敲鞋跟許願">👠</button>
+    <button class="side-btn" onclick="openGame('recipe')" title="食材配菜">🥣</button>
+  </div>
+
+  <!-- Heel game modal -->
+  <div class="game-modal" id="modal-heel">
+    <div class="game-card">
+      <button class="modal-close" onclick="closeGame('heel')">✕</button>
+      <h3 class="game-title">敲鞋跟許願</h3>
+      <p class="game-desc">敲三下，看看今天適不適合買</p>
+      <div class="heel-wrap">
+        <button class="heel-btn" id="heelBtn" onclick="tapHeel()">👠</button>
+      </div>
+      <div class="heel-dots">
+        <span class="dot" id="dot1"></span>
+        <span class="dot" id="dot2"></span>
+        <span class="dot" id="dot3"></span>
+      </div>
+      <p class="heel-result" id="heelResult"></p>
+    </div>
+  </div>
+
+  <!-- Recipe modal -->
+  <div class="game-modal" id="modal-recipe">
+    <div class="game-card">
+      <button class="modal-close" onclick="closeGame('recipe')">✕</button>
+      <h3 class="game-title">食材配菜</h3>
+      <p class="game-desc">告訴我你有什麼，我幫你配</p>
+      <div class="recipe-input-row">
+        <input type="text" id="ingredientInput" placeholder="輸入食材，如：雞蛋" onkeydown="if(event.key==='Enter')addIngredient()" />
+        <button onclick="addIngredient()">加入</button>
+      </div>
+      <div class="ingredient-tags" id="ingredientTags"></div>
+      <button class="recipe-search-btn" onclick="searchRecipes()">幫我配菜 →</button>
+      <div class="recipe-results" id="recipeResults"></div>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
 
   <script>
@@ -913,6 +1146,152 @@
 
     updateCountdowns();
     setInterval(updateCountdowns, 1000);
+
+    // ── Heel Game ──
+    const heelFortunes = [
+      '今天手氣超旺，適合出手！',
+      '算了啦，荷包先休息一下。',
+      '猶豫就是失去！直接買！',
+      '再比較三家，理性消費。',
+      '微絜推薦的，閉眼入就對了 ♡',
+      '存錢是美德，但生活需要品質。',
+      '今天不買，明天後悔。',
+      '深呼吸，等折扣！',
+      '你值得最好的，去買吧！',
+      '月底了，手先放開。',
+      '信微絜，得永生 ✨',
+      '買！反正遲早都要買。',
+    ];
+
+    let heelCount = 0;
+    let heelLocked = false;
+
+    function tapHeel() {
+      if (heelLocked) return;
+      heelCount++;
+      const btn = document.getElementById('heelBtn');
+      btn.classList.remove('tap');
+      void btn.offsetWidth;
+      btn.classList.add('tap');
+      setTimeout(() => btn.classList.remove('tap'), 300);
+      document.getElementById('dot' + heelCount).classList.add('filled');
+      if (heelCount === 3) {
+        heelLocked = true;
+        const f = heelFortunes[Math.floor(Math.random() * heelFortunes.length)];
+        document.getElementById('heelResult').textContent = '✨ ' + f;
+        setTimeout(() => {
+          heelCount = 0;
+          heelLocked = false;
+          document.querySelectorAll('.dot').forEach(d => d.classList.remove('filled'));
+          document.getElementById('heelResult').textContent = '';
+        }, 4000);
+      }
+    }
+
+    // ── Recipe Game ──
+    const recipes = [
+      { name: '番茄炒蛋',     icon: '🍳', desc: '經典家常，酸甜下飯',     keys: ['番茄','雞蛋'] },
+      { name: '蒸蛋',         icon: '🥚', desc: '滑嫩如豆腐，鮮甜無比',   keys: ['雞蛋'] },
+      { name: '炒飯',         icon: '🍚', desc: '隔夜飯的最佳歸宿',       keys: ['雞蛋','白飯'] },
+      { name: '蔥花蛋',       icon: '🍳', desc: '香氣十足，五分鐘搞定',   keys: ['雞蛋','蔥'] },
+      { name: '皮蛋豆腐',     icon: '🫘', desc: '涼拌清爽，開胃小菜',     keys: ['豆腐','皮蛋'] },
+      { name: '麻婆豆腐',     icon: '🫘', desc: '麻辣鮮香，超級下飯',     keys: ['豆腐','豬肉'] },
+      { name: '三杯雞',       icon: '🍗', desc: '九層塔香氣四溢',         keys: ['雞肉','九層塔','薑'] },
+      { name: '雞湯',         icon: '🍲', desc: '暖胃補身，最療癒',       keys: ['雞肉','薑'] },
+      { name: '香菇雞湯',     icon: '🍲', desc: '鮮甜濃郁，秋冬必備',     keys: ['雞肉','香菇'] },
+      { name: '蒜炒空心菜',   icon: '🥬', desc: '清脆爽口，最快速',       keys: ['空心菜','大蒜'] },
+      { name: '涼拌小黃瓜',   icon: '🥒', desc: '酸辣爽口，解膩必備',     keys: ['小黃瓜','大蒜'] },
+      { name: '滷肉飯',       icon: '🍖', desc: '台式靈魂美食',           keys: ['豬肉','醬油'] },
+      { name: '紅燒肉',       icon: '🥩', desc: '軟爛入味，老少咸宜',     keys: ['豬肉','薑','醬油'] },
+      { name: '韓式泡菜炒肉', icon: '🥓', desc: '酸辣下飯，超過癮',       keys: ['豬肉','泡菜'] },
+      { name: '清蒸魚',       icon: '🐟', desc: '保留鮮味，最健康',       keys: ['魚','薑','蔥'] },
+      { name: '蛤蜊絲瓜湯',   icon: '🍵', desc: '清甜鮮美，夏天最愛',     keys: ['蛤蜊','絲瓜'] },
+      { name: '玉米排骨湯',   icon: '🌽', desc: '甜甜的，小孩最愛',       keys: ['排骨','玉米'] },
+      { name: '洋蔥炒牛肉',   icon: '🥩', desc: '嫩滑多汁，越嚼越香',     keys: ['牛肉','洋蔥'] },
+      { name: '苦瓜炒蛋',     icon: '🥚', desc: '微苦回甘，清熱降火',     keys: ['苦瓜','雞蛋'] },
+      { name: '韭菜炒豆干',   icon: '🟫', desc: '香氣撲鼻，下飯神器',     keys: ['韭菜','豆干'] },
+      { name: '滑蛋蝦仁',     icon: '🍤', desc: '嫩滑鮮甜，宴客也適合',   keys: ['蝦仁','雞蛋'] },
+      { name: '地瓜湯',       icon: '🍠', desc: '簡單甜蜜，最溫暖',       keys: ['地瓜'] },
+      { name: '酸辣湯',       icon: '🍜', desc: '開胃暖身，一碗不夠',     keys: ['豆腐','雞蛋','木耳'] },
+      { name: '花椰菜炒蛋',   icon: '🥦', desc: '清脆爽口又健康',         keys: ['花椰菜','雞蛋'] },
+      { name: '蒜泥白肉',     icon: '🥩', desc: '涼拌解膩，夏天首選',     keys: ['豬肉','大蒜','小黃瓜'] },
+      { name: '滷蛋',         icon: '🥚', desc: '百搭小菜，滷一鍋吃一週', keys: ['雞蛋','醬油'] },
+      { name: '牛肉番茄湯',   icon: '🍅', desc: '酸甜鮮美，暖胃一整天',   keys: ['牛肉','番茄'] },
+      { name: '炒青菜',       icon: '🥬', desc: '新鮮時蔬，最簡單的幸福', keys: ['青菜','大蒜'] },
+      { name: '蔥爆牛肉',     icon: '🥩', desc: '大火快炒，鮮嫩噴香',     keys: ['牛肉','蔥'] },
+      { name: '薑絲炒大腸',   icon: '🍽️', desc: '彈牙酸辣，道地台味',     keys: ['豬大腸','薑'] },
+    ];
+
+    let userIngredients = [];
+
+    function addIngredient() {
+      const input = document.getElementById('ingredientInput');
+      const val = input.value.trim();
+      if (!val || userIngredients.includes(val)) { input.value = ''; return; }
+      userIngredients.push(val);
+      renderTags();
+      input.value = '';
+      document.getElementById('recipeResults').innerHTML = '';
+    }
+
+    function removeIngredient(ing) {
+      userIngredients = userIngredients.filter(i => i !== ing);
+      renderTags();
+      document.getElementById('recipeResults').innerHTML = '';
+    }
+
+    function renderTags() {
+      document.getElementById('ingredientTags').innerHTML = userIngredients.map(ing =>
+        `<span class="ing-tag">${ing}<button onclick="removeIngredient('${ing}')">✕</button></span>`
+      ).join('');
+    }
+
+    function searchRecipes() {
+      if (!userIngredients.length) {
+        document.getElementById('recipeResults').innerHTML = '<p class="no-result">先加入一些食材吧！</p>';
+        return;
+      }
+      const scored = recipes.map(r => {
+        const hits = r.keys.filter(k => userIngredients.some(u => u.includes(k) || k.includes(u)));
+        return { ...r, score: hits.length };
+      }).filter(r => r.score > 0).sort((a,b) => b.score - a.score).slice(0, 6);
+
+      const el = document.getElementById('recipeResults');
+      if (!scored.length) {
+        el.innerHTML = '<p class="no-result">找不到符合的料理，換個食材試試？</p>';
+        return;
+      }
+      el.innerHTML = scored.map(r =>
+        `<div class="recipe-item">
+          <div class="recipe-item-name">${r.icon} ${r.name}</div>
+          <div class="recipe-item-desc">${r.desc}</div>
+          <div class="recipe-item-ing">需要：${r.keys.join('、')}</div>
+        </div>`
+      ).join('');
+    }
+
+    function openGame(type) {
+      document.getElementById('modal-' + type).classList.add('open');
+    }
+
+    function closeGame(type) {
+      document.getElementById('modal-' + type).classList.remove('open');
+      if (type === 'heel') {
+        heelCount = 0; heelLocked = false;
+        document.querySelectorAll('.dot').forEach(d => d.classList.remove('filled'));
+        document.getElementById('heelResult').textContent = '';
+      }
+      if (type === 'recipe') {
+        userIngredients = [];
+        document.getElementById('ingredientTags').innerHTML = '';
+        document.getElementById('recipeResults').innerHTML = '';
+        document.getElementById('ingredientInput').value = '';
+      }
+    }
+
+    document.querySelectorAll('.game-modal').forEach(m =>
+      m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); })
+    );
 
     function showToast(msg) {
       const t = document.getElementById('toast');
