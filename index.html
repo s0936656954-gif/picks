@@ -495,6 +495,61 @@
     .divider { color: #8a907e; }
     .divider-text { color: #5f624e; font-weight: 600; }
 
+    /* ── Group Buy Rows (no image) ── */
+    .group-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: #fefefd;
+      border: 1px solid #e8e4de;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.15s, box-shadow 0.18s;
+    }
+
+    .group-row:hover {
+      background: #f0ede8;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(95,98,78,0.10);
+    }
+
+    .group-row-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .group-row-promo {
+      display: block;
+      font-size: 0.6rem;
+      color: #9da6a3;
+      font-family: sans-serif;
+      margin-bottom: 2px;
+      letter-spacing: 0.3px;
+    }
+
+    .group-row-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #2c2c2c;
+      font-family: sans-serif;
+      line-height: 1.3;
+    }
+
+    .group-row .card-countdown {
+      flex-shrink: 0;
+      gap: 3px;
+    }
+
+    .group-row .cd-block {
+      flex: none;
+      width: 30px;
+      padding: 4px 2px 3px;
+    }
+
+    .group-row .cd-num { font-size: 0.78rem; }
+    .group-row .cd-label { font-size: 0.48rem; }
+
     /* ── Upcoming Grid ── */
     .upcoming-grid {
       display: grid;
@@ -622,133 +677,108 @@
 
       <div class="divider"><span class="divider-text">開團中</span></div>
 
-      <div class="group-grid">
-
-        <!-- Card 2: HARU -->
-        <div class="group-card">
-          <a href="https://p4.groupbuyforms.tw/i2iri" target="_blank" rel="noopener" class="card-image">
-            <div class="card-img-bg" style="background-image: url('https://cdn.groupbuyforms.com/upload/images/v8/04/ori/043fc3043bd4486cb919f1c3f5cc7f49.jpg');"></div>
-            <span class="card-promo">延長至 5/31</span>
-            <span class="card-buy-btn">前往購買 →</span>
-          </a>
-          <div class="card-body">
-            <p class="card-name">HARU 寶可樂收袋</p>
-            <div class="card-countdown" id="badge2">
-              <div class="cd-block"><span class="cd-num" id="cd2_d">--</span><span class="cd-label">天</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd2_h">--</span><span class="cd-label">時</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd2_m">--</span><span class="cd-label">分</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd2_s">--</span><span class="cd-label">秒</span></div>
-            </div>
-          </div>
+      <!-- Card 2: HARU -->
+      <a href="https://p4.groupbuyforms.tw/i2iri" target="_blank" rel="noopener" class="group-row">
+        <div class="group-row-info">
+          <span class="group-row-promo">延長至 5/31</span>
+          <p class="group-row-name">HARU 寶可樂收袋</p>
         </div>
-
-        <!-- Card 3: 麗克特 -->
-        <div class="group-card">
-          <a href="https://gbf.tw/w1cnu" target="_blank" rel="noopener" class="card-image">
-            <div class="card-img-bg" style="background-image: url('https://cdn.groupbuyforms.com/upload/images/vcf/84/ori/84e1c5953cf64ee69df2eaef94d99f97.jpg');"></div>
-            <span class="card-promo">母親節限定大賞</span>
-            <span class="card-buy-btn">前往購買 →</span>
-          </a>
-          <div class="card-body">
-            <p class="card-name">麗克特調理機/給皂機</p>
-            <div class="card-countdown" id="badge3">
-              <div class="cd-block"><span class="cd-num" id="cd3_d">--</span><span class="cd-label">天</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd3_h">--</span><span class="cd-label">時</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd3_m">--</span><span class="cd-label">分</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd3_s">--</span><span class="cd-label">秒</span></div>
-            </div>
-          </div>
+        <div class="card-countdown" id="badge2">
+          <div class="cd-block"><span class="cd-num" id="cd2_d">--</span><span class="cd-label">天</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd2_h">--</span><span class="cd-label">時</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd2_m">--</span><span class="cd-label">分</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd2_s">--</span><span class="cd-label">秒</span></div>
         </div>
+        <span class="btn-arrow">→</span>
+      </a>
 
-        <!-- Card 4: Sansui -->
-        <div class="group-card">
-          <a href="https://p3.groupbuyforms.tw/8r8wk" target="_blank" rel="noopener" class="card-image">
-            <div class="card-img-bg" style="background-image: url('https://cdn.groupbuyforms.com/upload/images/vcf/a7/ori/a77b474033914a06a7e0b5a627e7b7dd.jpg');"></div>
-            <span class="card-promo">旅箱 · 雨傘 · 美髮工具</span>
-            <span class="card-buy-btn">前往購買 →</span>
-          </a>
-          <div class="card-body">
-            <p class="card-name">Sansui 家電</p>
-            <div class="card-countdown" id="badge4">
-              <div class="cd-block"><span class="cd-num" id="cd4_d">--</span><span class="cd-label">天</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd4_h">--</span><span class="cd-label">時</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd4_m">--</span><span class="cd-label">分</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd4_s">--</span><span class="cd-label">秒</span></div>
-            </div>
-          </div>
+      <!-- Card 3: 麗克特 -->
+      <a href="https://gbf.tw/w1cnu" target="_blank" rel="noopener" class="group-row">
+        <div class="group-row-info">
+          <span class="group-row-promo">母親節限定大賞</span>
+          <p class="group-row-name">麗克特調理機/給皂機</p>
         </div>
-
-        <!-- Card 5: MNTL -->
-        <div class="group-card">
-          <a href="https://www.mntltw.com/pages/promote-page-888/?sl-ref=mntl888" target="_blank" rel="noopener" class="card-image">
-            <div class="card-img-bg" style="background-image: url('https://shoplineimg.com/6492b7304fef930081aa37d3/6a067d6b689015000a60c733/750x.jpg');"></div>
-            <span class="card-promo">2026 最新球道</span>
-            <span class="card-buy-btn">前往購買 →</span>
-          </a>
-          <div class="card-body">
-            <p class="card-name">MNTL 磁力片</p>
-            <div class="card-countdown" id="badge5">
-              <div class="cd-block"><span class="cd-num" id="cd5_d">--</span><span class="cd-label">天</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd5_h">--</span><span class="cd-label">時</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd5_m">--</span><span class="cd-label">分</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd5_s">--</span><span class="cd-label">秒</span></div>
-            </div>
-          </div>
+        <div class="card-countdown" id="badge3">
+          <div class="cd-block"><span class="cd-num" id="cd3_d">--</span><span class="cd-label">天</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd3_h">--</span><span class="cd-label">時</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd3_m">--</span><span class="cd-label">分</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd3_s">--</span><span class="cd-label">秒</span></div>
         </div>
+        <span class="btn-arrow">→</span>
+      </a>
 
-        <!-- Card 7: SNOW FACTORY -->
-        <div class="group-card">
-          <a href="https://gbf.tw/rltvh" target="_blank" rel="noopener" class="card-image">
-            <div class="card-img-bg" style="background-image: url('https://cdn.groupbuyforms.com/upload/images/vg/75/ori/755cb1266b2b41c9908e302b33706f91.jpg');"></div>
-            <span class="card-promo">5/27 - 6/3</span>
-            <span class="card-buy-btn">前往購買 →</span>
-          </a>
-          <div class="card-body">
-            <p class="card-name">SNOW FACTORY 雪坊優格</p>
-            <div class="card-countdown" id="badge7">
-              <div class="cd-block"><span class="cd-num" id="cd7_d">--</span><span class="cd-label">天</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd7_h">--</span><span class="cd-label">時</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd7_m">--</span><span class="cd-label">分</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd7_s">--</span><span class="cd-label">秒</span></div>
-            </div>
-          </div>
+      <!-- Card 4: Sansui -->
+      <a href="https://p3.groupbuyforms.tw/8r8wk" target="_blank" rel="noopener" class="group-row">
+        <div class="group-row-info">
+          <span class="group-row-promo">旅箱 · 雨傘 · 美髮工具</span>
+          <p class="group-row-name">Sansui 家電</p>
         </div>
-
-        <!-- Card 8: amashop A (待補) -->
-        <div class="group-card">
-          <a href="https://amashop.asia/kol/a01353z64260529lf" target="_blank" rel="noopener" class="card-image">
-            <div class="card-img-bg" style="background: linear-gradient(135deg, #b8c4b4, #ccdac8);"></div>
-            <span class="card-buy-btn">前往購買 →</span>
-          </a>
-          <div class="card-body">
-            <p class="card-name">奶灰無線吸塵器</p>
-            <div class="card-countdown" id="badge8">
-              <div class="cd-block"><span class="cd-num" id="cd8_d">--</span><span class="cd-label">天</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd8_h">--</span><span class="cd-label">時</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd8_m">--</span><span class="cd-label">分</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd8_s">--</span><span class="cd-label">秒</span></div>
-            </div>
-          </div>
+        <div class="card-countdown" id="badge4">
+          <div class="cd-block"><span class="cd-num" id="cd4_d">--</span><span class="cd-label">天</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd4_h">--</span><span class="cd-label">時</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd4_m">--</span><span class="cd-label">分</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd4_s">--</span><span class="cd-label">秒</span></div>
         </div>
+        <span class="btn-arrow">→</span>
+      </a>
 
-        <!-- Card 9: amashop B (待補) -->
-        <div class="group-card">
-          <a href="https://amashop.asia/kol/a01353d21260529lf" target="_blank" rel="noopener" class="card-image">
-            <div class="card-img-bg" style="background: linear-gradient(135deg, #c4b8b0, #d8ccc4);"></div>
-            <span class="card-buy-btn">前往購買 →</span>
-          </a>
-          <div class="card-body">
-            <p class="card-name">MIGRATORY 涼感抱冰被</p>
-            <div class="card-countdown" id="badge9">
-              <div class="cd-block"><span class="cd-num" id="cd9_d">--</span><span class="cd-label">天</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd9_h">--</span><span class="cd-label">時</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd9_m">--</span><span class="cd-label">分</span></div>
-              <div class="cd-block"><span class="cd-num" id="cd9_s">--</span><span class="cd-label">秒</span></div>
-            </div>
-          </div>
+      <!-- Card 5: MNTL -->
+      <a href="https://www.mntltw.com/pages/promote-page-888/?sl-ref=mntl888" target="_blank" rel="noopener" class="group-row">
+        <div class="group-row-info">
+          <span class="group-row-promo">2026 最新球道</span>
+          <p class="group-row-name">MNTL 磁力片</p>
         </div>
+        <div class="card-countdown" id="badge5">
+          <div class="cd-block"><span class="cd-num" id="cd5_d">--</span><span class="cd-label">天</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd5_h">--</span><span class="cd-label">時</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd5_m">--</span><span class="cd-label">分</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd5_s">--</span><span class="cd-label">秒</span></div>
+        </div>
+        <span class="btn-arrow">→</span>
+      </a>
 
-      </div><!-- /group-grid -->
+      <!-- Card 7: SNOW FACTORY -->
+      <a href="https://gbf.tw/rltvh" target="_blank" rel="noopener" class="group-row">
+        <div class="group-row-info">
+          <span class="group-row-promo">5/27 - 6/3</span>
+          <p class="group-row-name">SNOW FACTORY 雪坊優格</p>
+        </div>
+        <div class="card-countdown" id="badge7">
+          <div class="cd-block"><span class="cd-num" id="cd7_d">--</span><span class="cd-label">天</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd7_h">--</span><span class="cd-label">時</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd7_m">--</span><span class="cd-label">分</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd7_s">--</span><span class="cd-label">秒</span></div>
+        </div>
+        <span class="btn-arrow">→</span>
+      </a>
+
+      <!-- Card 8: 奶灰無線吸塵器 -->
+      <a href="https://amashop.asia/kol/a01353z64260529lf" target="_blank" rel="noopener" class="group-row">
+        <div class="group-row-info">
+          <p class="group-row-name">奶灰無線吸塵器</p>
+        </div>
+        <div class="card-countdown" id="badge8">
+          <div class="cd-block"><span class="cd-num" id="cd8_d">--</span><span class="cd-label">天</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd8_h">--</span><span class="cd-label">時</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd8_m">--</span><span class="cd-label">分</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd8_s">--</span><span class="cd-label">秒</span></div>
+        </div>
+        <span class="btn-arrow">→</span>
+      </a>
+
+      <!-- Card 9: MIGRATORY -->
+      <a href="https://amashop.asia/kol/a01353d21260529lf" target="_blank" rel="noopener" class="group-row">
+        <div class="group-row-info">
+          <p class="group-row-name">MIGRATORY 涼感抱冰被</p>
+        </div>
+        <div class="card-countdown" id="badge9">
+          <div class="cd-block"><span class="cd-num" id="cd9_d">--</span><span class="cd-label">天</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd9_h">--</span><span class="cd-label">時</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd9_m">--</span><span class="cd-label">分</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd9_s">--</span><span class="cd-label">秒</span></div>
+        </div>
+        <span class="btn-arrow">→</span>
+      </a>
 
       <div class="divider"><span class="divider-text">常駐團購</span></div>
 
