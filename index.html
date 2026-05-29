@@ -814,6 +814,64 @@
     .slice-name { flex: 1; }
     .slice-pts { font-weight: 700; color: #ffd93d; }
 
+    /* ── 小遊戲 Hub ── */
+    .games-hub {
+      display: flex; flex-direction: column; gap: 14px;
+      padding: 30px 20px 24px; align-items: center;
+    }
+    .hub-title-main {
+      font-family: 'ZCOOL QingKe HuangYou', cursive;
+      font-size: 1.55rem; color: #2d2d2d; margin-bottom: 3px; text-align: center;
+    }
+    .hub-subtitle {
+      font-size: 0.72rem; color: #9da6a3; font-family: sans-serif;
+      margin-bottom: 6px; text-align: center;
+    }
+    .hub-card {
+      display: flex; align-items: center; gap: 16px;
+      width: 100%; background: #f9f5f0; border-radius: 16px;
+      padding: 18px 20px; cursor: pointer; border: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: background 0.15s, transform 0.12s; text-align: left;
+    }
+    .hub-card:hover { background: #f0e8df; transform: translateY(-2px); }
+    .hub-emoji { font-size: 2.3rem; }
+    .hub-info { display: flex; flex-direction: column; gap: 3px; }
+    .hub-name { font-family: 'ZCOOL QingKe HuangYou', cursive; font-size: 1.1rem; color: #2d2d2d; }
+    .hub-desc { font-family: sans-serif; font-size: 0.7rem; color: #9da6a3; }
+
+    /* ── 刀工大神 Game ── */
+    #modal-knife .game-card.knife-card {
+      padding: 0; overflow: hidden; height: 74vh;
+      display: flex; flex-direction: column;
+    }
+    .knife-close { color: #fff !important; z-index: 30; }
+    .knife-container {
+      position: relative; flex: 1;
+      background: #c8a96e; overflow: hidden; border-radius: 16px;
+    }
+    #knifeCanvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      touch-action: none; cursor: pointer;
+    }
+    .knife-hud {
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 14px 6px; z-index: 10; pointer-events: none;
+      background: linear-gradient(rgba(0,0,0,0.35), transparent);
+      font-family: sans-serif;
+    }
+    .knife-timer-el { font-size: 1.4rem; font-weight: 700; color: #ffd93d; }
+    .knife-score-label { font-size: 0.9rem; font-weight: 700; color: #fff; }
+    .knife-screen {
+      display: none; position: absolute; inset: 0;
+      background: rgba(40,25,10,0.88);
+      flex-direction: column; align-items: center; justify-content: center;
+      z-index: 20; padding: 20px; border-radius: 16px;
+    }
+    .knife-screen.active { display: flex; }
+
     .dinner-tip {
       text-align: center;
       font-size: 0.7rem;
@@ -1404,9 +1462,9 @@
           <span class="side-icon">🎯</span>
           <span class="side-label">料理猜猜</span>
         </button>
-        <button class="side-btn" onclick="openGame('slice')">
-          <span class="side-icon">🔪</span>
-          <span class="side-label">切菜大師</span>
+        <button class="side-btn" onclick="openGame('games')">
+          <span class="side-icon">🎮</span>
+          <span class="side-label">小遊戲</span>
         </button>
       </div>
 
@@ -1826,6 +1884,69 @@
           </div>
           <div id="sliceLeaderboardOver" style="width:100%;max-width:260px;margin-bottom:14px;"></div>
           <button class="cook-action-btn" onclick="startSliceGame()" style="background:#5f624e;width:160px;margin:0;">再玩一次</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 小遊戲 hub modal -->
+  <div class="game-modal" id="modal-games">
+    <div class="game-card" style="position:relative;">
+      <button class="modal-close" onclick="closeGame('games')">✕</button>
+      <div class="games-hub">
+        <div>
+          <div class="hub-title-main">🎮 小遊戲</div>
+          <div class="hub-subtitle">選一個來挑戰！</div>
+        </div>
+        <button class="hub-card" onclick="closeGame('games');openGame('slice')">
+          <span class="hub-emoji">🔪</span>
+          <div class="hub-info">
+            <span class="hub-name">切菜大師</span>
+            <span class="hub-desc">滑動切蔬菜，30秒倒計時，小心炸彈！</span>
+          </div>
+        </button>
+        <button class="hub-card" onclick="closeGame('games');openGame('knife')">
+          <span class="hub-emoji">🥒</span>
+          <div class="hub-info">
+            <span class="hub-name">刀工大神</span>
+            <span class="hub-desc">看準刀子位置按下，看你能切幾刀！</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 刀工大神 modal -->
+  <div class="game-modal" id="modal-knife">
+    <div class="game-card knife-card">
+      <button class="modal-close knife-close" onclick="closeGame('knife')">✕</button>
+      <div class="knife-container" id="knifeContainer">
+        <canvas id="knifeCanvas"></canvas>
+        <div class="knife-hud">
+          <span class="knife-score-label">🔪 <span id="knifeScoreEl">0</span> 刀</span>
+          <span id="knifeTimerEl" class="knife-timer-el">30</span>
+          <span style="font-size:0.75rem;color:#ffffffcc;font-family:sans-serif;">刀工大神</span>
+        </div>
+        <!-- Start screen -->
+        <div class="knife-screen active" id="knife-start">
+          <div style="font-size:3rem;margin-bottom:6px;">🥒</div>
+          <h3 style="color:#fff;font-family:'ZCOOL QingKe HuangYou',cursive;font-size:1.55rem;margin-bottom:5px;">刀工大神</h3>
+          <p style="color:#ccd;font-family:sans-serif;font-size:0.78rem;text-align:center;margin-bottom:18px;">看準刀子位置按下切割小黃瓜，30秒切最多刀！</p>
+          <button class="cook-action-btn" onclick="startKnifeGame()" style="background:#8A470F;width:170px;margin:0;">開始挑戰</button>
+          <div id="knifeLeaderboard" style="margin-top:14px;width:100%;max-width:260px;"></div>
+        </div>
+        <!-- Game over screen -->
+        <div class="knife-screen" id="knife-over">
+          <h3 style="color:#fff;font-family:'ZCOOL QingKe HuangYou',cursive;font-size:1.4rem;margin-bottom:4px;">時間到！</h3>
+          <p style="color:#ffd93d;font-family:sans-serif;font-size:2.2rem;font-weight:700;margin-bottom:14px;">🔪 <span id="knifeFinalScore">0</span> 刀</p>
+          <div style="display:flex;gap:6px;margin-bottom:10px;width:240px;">
+            <input type="text" id="knifeNameInput" placeholder="輸入名字上榜" maxlength="8"
+              style="flex:1;padding:8px 10px;border-radius:8px;border:none;font-size:0.85rem;font-family:sans-serif;outline:none;" />
+            <button id="knifeSaveBtn" onclick="saveKnifeScore()"
+              style="padding:8px 12px;background:#8A470F;color:#fff;border:none;border-radius:8px;font-family:sans-serif;cursor:pointer;white-space:nowrap;">上榜</button>
+          </div>
+          <div id="knifeLeaderboardOver" style="width:100%;max-width:260px;margin-bottom:14px;"></div>
+          <button class="cook-action-btn" onclick="startKnifeGame()" style="background:#5f624e;width:160px;margin:0;">再玩一次</button>
         </div>
       </div>
     </div>
@@ -2484,6 +2605,274 @@
       if (sMusicCtx) { try { sMusicCtx.close(); } catch(e) {} sMusicCtx = null; }
     }
 
+    // ── 刀工大神 Game ──
+    let kCanvas, kCtx, kScore = 0, kTime = 30;
+    let kRunning = false, kAnimId = null, kTickId = null, kLastTS = 0;
+    let kPhase = 0, kElapsed = 0, kCuts = [];
+    let kMusicCtx = null, kMusicNodes = [];
+    let kCucBounds = { x: 0, y: 0, w: 1, h: 1 };
+
+    function getKnifeBoard() {
+      try { return JSON.parse(localStorage.getItem('knifeBoard') || '[]'); } catch(e) { return []; }
+    }
+    function saveKnifeBoard(b) { localStorage.setItem('knifeBoard', JSON.stringify(b)); }
+
+    function computeKCucBounds() {
+      const cw = kCanvas.width, ch = kCanvas.height;
+      const w = Math.min(cw * 0.72, 260), h = 62;
+      kCucBounds = { x: (cw - w) / 2, y: ch * 0.44, w, h };
+    }
+
+    function initKnifeGame() {
+      kCanvas = document.getElementById('knifeCanvas');
+      kCtx = kCanvas.getContext('2d');
+      const cont = document.getElementById('knifeContainer');
+      kCanvas.width = cont.clientWidth; kCanvas.height = cont.clientHeight;
+      if (kRunning) { kRunning = false; cancelAnimationFrame(kAnimId); clearInterval(kTickId); stopKnifeMusic(); }
+      kScore = 0; kTime = 30; kPhase = 0; kElapsed = 0; kCuts = [];
+      computeKCucBounds();
+      updateKnifeHUD();
+      showKnifeScreen('start');
+      renderKnifeBoard('knifeLeaderboard');
+      drawKnifeFrame();
+      if (!kCanvas._kev) {
+        kCanvas._kev = true;
+        kCanvas.addEventListener('click', onKnifeClick);
+        kCanvas.addEventListener('touchstart', e => { e.preventDefault(); onKnifeClick(); }, { passive: false });
+      }
+    }
+
+    function knifeKnifePosX() {
+      return kCucBounds.x + kCucBounds.w / 2 + Math.sin(kPhase) * (kCucBounds.w / 2 - 14);
+    }
+
+    function onKnifeClick() {
+      if (!kRunning) return;
+      const kx = knifeKnifePosX();
+      const { x: cx, w: cw } = kCucBounds;
+      if (kx >= cx + 6 && kx <= cx + cw - 6) {
+        const tooClose = kCuts.some(c => Math.abs(c - kx) < 6);
+        if (!tooClose) {
+          kCuts.push(kx);
+          kScore++; updateKnifeHUD();
+          playKnifeSliceSound();
+        }
+      } else {
+        playKnifeMissSound();
+      }
+    }
+
+    function updateKnifeHUD() {
+      document.getElementById('knifeScoreEl').textContent = kScore;
+      document.getElementById('knifeTimerEl').textContent = kTime;
+    }
+
+    function showKnifeScreen(name) {
+      document.querySelectorAll('#modal-knife .knife-screen').forEach(s => s.classList.remove('active'));
+      if (name) document.getElementById('knife-' + name).classList.add('active');
+    }
+
+    function startKnifeGame() {
+      const cont = document.getElementById('knifeContainer');
+      kCanvas.width = cont.clientWidth; kCanvas.height = cont.clientHeight;
+      kScore = 0; kTime = 30; kPhase = 0; kElapsed = 0; kCuts = [];
+      computeKCucBounds();
+      updateKnifeHUD();
+      showKnifeScreen(null);
+      kRunning = true; kLastTS = performance.now();
+      startKnifeMusic();
+      clearInterval(kTickId);
+      kTickId = setInterval(() => {
+        kTime = Math.max(0, kTime - 1); updateKnifeHUD();
+        if (kTime <= 0 && kRunning) endKnifeGame();
+      }, 1000);
+      requestAnimationFrame(knifeLoop);
+    }
+
+    function endKnifeGame() {
+      if (!kRunning) return;
+      kRunning = false; clearInterval(kTickId); kTickId = null;
+      if (kAnimId) { cancelAnimationFrame(kAnimId); kAnimId = null; }
+      stopKnifeMusic();
+      document.getElementById('knifeFinalScore').textContent = kScore;
+      document.getElementById('knifeSaveBtn').disabled = false;
+      document.getElementById('knifeNameInput').value = '';
+      showKnifeScreen('over');
+      renderKnifeBoard('knifeLeaderboardOver');
+    }
+
+    function knifeLoop(ts) {
+      if (!kRunning) return;
+      const dt = Math.min((ts - kLastTS) / 1000, 0.05);
+      kLastTS = ts; kElapsed += dt;
+      kPhase += (1.5 + kElapsed * 0.055) * dt;
+      drawKnifeFrame();
+      kAnimId = requestAnimationFrame(knifeLoop);
+    }
+
+    function drawKnifeFrame() {
+      const ctx = kCtx, cw = kCanvas.width, ch = kCanvas.height;
+      // Cutting board background
+      const bg = ctx.createLinearGradient(0, 0, 0, ch);
+      bg.addColorStop(0, '#d4a96a'); bg.addColorStop(1, '#b07a32');
+      ctx.fillStyle = bg; ctx.fillRect(0, 0, cw, ch);
+      // Wood grain
+      ctx.save(); ctx.strokeStyle = 'rgba(0,0,0,0.06)'; ctx.lineWidth = 1;
+      for (let y = 8; y < ch; y += 15) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(cw, y + Math.sin(y * 0.18) * 4); ctx.stroke();
+      }
+      ctx.restore();
+      // Board edge shadow
+      ctx.save();
+      ctx.shadowColor = 'rgba(0,0,0,0.22)'; ctx.shadowBlur = 18;
+      ctx.strokeStyle = 'rgba(80,50,10,0.25)'; ctx.lineWidth = 8;
+      ctx.strokeRect(4, 4, cw - 8, ch - 8);
+      ctx.restore();
+
+      const { x: cx, y: cy, w: cucW, h: cucH } = kCucBounds;
+
+      // Cucumber shadow
+      ctx.save(); ctx.fillStyle = 'rgba(0,0,0,0.18)';
+      kDrawRR(ctx, cx + 4, cy + 6, cucW, cucH, cucH / 2); ctx.fill(); ctx.restore();
+
+      // Cucumber body
+      const cg = ctx.createLinearGradient(cx, cy, cx, cy + cucH);
+      cg.addColorStop(0, '#6bc940'); cg.addColorStop(0.45, '#82e04e'); cg.addColorStop(1, '#3d8c1e');
+      ctx.save(); ctx.fillStyle = cg;
+      kDrawRR(ctx, cx, cy, cucW, cucH, cucH / 2); ctx.fill(); ctx.restore();
+
+      // Highlight stripe
+      ctx.save(); ctx.fillStyle = 'rgba(255,255,255,0.18)';
+      kDrawRR(ctx, cx + 6, cy + 7, cucW - 12, cucH * 0.38, 6); ctx.fill(); ctx.restore();
+
+      // Bumps
+      ctx.save(); ctx.fillStyle = 'rgba(255,255,255,0.2)';
+      for (let bx = cx + 28; bx < cx + cucW - 22; bx += 22) {
+        ctx.beginPath(); ctx.ellipse(bx, cy + cucH * 0.38, 3.5, 2.5, 0, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.restore();
+
+      // Cut lines (wedge gaps)
+      for (const cutX of kCuts) {
+        ctx.save();
+        ctx.strokeStyle = 'rgba(0,0,0,0.55)'; ctx.lineWidth = 2.5;
+        ctx.beginPath(); ctx.moveTo(cutX, cy + 4); ctx.lineTo(cutX, cy + cucH - 4); ctx.stroke();
+        ctx.strokeStyle = 'rgba(255,255,255,0.25)'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(cutX + 1.5, cy + 4); ctx.lineTo(cutX + 1.5, cy + cucH - 4); ctx.stroke();
+        ctx.restore();
+      }
+
+      // Knife
+      const kx = knifeKnifePosX();
+      const ky = cy - 32;
+      ctx.save();
+      ctx.font = '38px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      const dir = Math.cos(kPhase);
+      ctx.translate(kx, ky);
+      ctx.rotate(Math.PI / 2 + (dir > 0 ? 0.22 : -0.22));
+      ctx.fillText('🔪', 0, 0);
+      ctx.restore();
+
+      // Vertical aim line
+      ctx.save();
+      ctx.setLineDash([4, 4]); ctx.strokeStyle = 'rgba(255,220,80,0.55)'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(kx, cy - 14); ctx.lineTo(kx, cy + cucH + 10); ctx.stroke();
+      ctx.restore();
+    }
+
+    function kDrawRR(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      ctx.lineTo(x + r, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+    }
+
+    function playKnifeSliceSound() {
+      try {
+        const ac = kMusicCtx || new (window.AudioContext || window.webkitAudioContext)();
+        const buf = ac.createBuffer(1, ac.sampleRate * 0.09, ac.sampleRate);
+        const d = buf.getChannelData(0);
+        for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / d.length);
+        const src = ac.createBufferSource(); src.buffer = buf;
+        const hp = ac.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 2800;
+        const g = ac.createGain();
+        g.gain.setValueAtTime(0.45, ac.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.09);
+        src.connect(hp); hp.connect(g); g.connect(ac.destination);
+        src.start();
+      } catch(e) {}
+    }
+
+    function playKnifeMissSound() {
+      try {
+        const ac = kMusicCtx || new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ac.createOscillator(), g = ac.createGain();
+        osc.type = 'sine'; osc.frequency.value = 110;
+        g.gain.setValueAtTime(0.18, ac.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.2);
+        osc.connect(g); g.connect(ac.destination);
+        osc.start(); osc.stop(ac.currentTime + 0.2);
+      } catch(e) {}
+    }
+
+    function saveKnifeScore() {
+      const name = (document.getElementById('knifeNameInput').value.trim() || '匿名').slice(0, 8);
+      const board = getKnifeBoard();
+      board.push({ name, score: parseInt(document.getElementById('knifeFinalScore').textContent) || 0 });
+      board.sort((a, b) => b.score - a.score); board.splice(5);
+      saveKnifeBoard(board);
+      document.getElementById('knifeSaveBtn').disabled = true;
+      renderKnifeBoard('knifeLeaderboardOver');
+    }
+
+    function renderKnifeBoard(elId) {
+      const board = getKnifeBoard(), el = document.getElementById(elId);
+      if (!el) return;
+      if (!board.length) { el.innerHTML = '<p style="text-align:center;color:#aaa;font-size:0.72rem;font-family:sans-serif;margin-top:6px;">還沒有紀錄，快來挑戰！</p>'; return; }
+      const m = ['🥇','🥈','🥉','4.','5.'];
+      el.innerHTML = '<div class="slice-board">' + board.map((e, i) =>
+        `<div class="slice-board-row"><span class="slice-rank">${m[i]}</span><span class="slice-name">${e.name}</span><span class="slice-pts">${e.score}</span></div>`).join('') + '</div>';
+    }
+
+    function startKnifeMusic() {
+      try {
+        kMusicCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const mel = [523,659,784,659, 523,659,523,0, 784,880,1047,880, 784,880,784,0,
+                     659,784,880,784, 659,784,659,0, 523,784,1047,784, 523,784,523,0];
+        const tempo = 0.115;
+        let t = kMusicCtx.currentTime + 0.05;
+        function sched() {
+          for (const f of mel) {
+            if (f > 0) {
+              const osc = kMusicCtx.createOscillator(), g = kMusicCtx.createGain();
+              osc.connect(g); g.connect(kMusicCtx.destination);
+              osc.type = 'triangle'; osc.frequency.value = f;
+              g.gain.setValueAtTime(0.07, t);
+              g.gain.exponentialRampToValueAtTime(0.001, t + tempo * 0.82);
+              osc.start(t); osc.stop(t + tempo);
+              kMusicNodes.push(osc);
+            }
+            t += tempo;
+          }
+          if (kMusicCtx) setTimeout(sched, (mel.length * tempo - 0.25) * 1000);
+        }
+        sched();
+      } catch(e) {}
+    }
+
+    function stopKnifeMusic() {
+      kMusicNodes.forEach(n => { try { n.stop(); } catch(e) {} });
+      kMusicNodes = [];
+      if (kMusicCtx) { try { kMusicCtx.close(); } catch(e) {} kMusicCtx = null; }
+    }
+
     // ── Recipe Game ──
     const recipes = [
       { name: '糖醋豆包', icon: '🥘', desc: '炸豆包+肉片+洋蔥，家常好味道', keys: ['炸豆包','肉片','洋蔥','番茄醬','醬油','白醋','蔥段'], url: 'https://www.instagram.com/p/DYEJxNpMs91/' },
@@ -2730,6 +3119,7 @@
       if (type === 'cook') initDinnerGame();
       if (type === 'quiz') showQuizScreen('start');
       if (type === 'slice') initSliceGame();
+      if (type === 'knife') initKnifeGame();
     }
 
     function closeGame(type) {
@@ -2747,6 +3137,10 @@
       if (type === 'slice') {
         if (sRunning) { sRunning = false; cancelAnimationFrame(sAnimId); clearInterval(sTickId); }
         stopSliceMusic();
+      }
+      if (type === 'knife') {
+        if (kRunning) { kRunning = false; cancelAnimationFrame(kAnimId); clearInterval(kTickId); }
+        stopKnifeMusic();
       }
     }
 
