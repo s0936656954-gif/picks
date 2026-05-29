@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>微絜</title>
+  <title>微絜｜@jay1102</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Playfair+Display:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=ZCOOL+QingKe+HuangYou&family=Noto+Serif+TC:wght@300;400&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
@@ -577,51 +577,55 @@
     /* ── Upcoming Grid ── */
     .upcoming-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
       width: 100%;
     }
 
     .upcoming-chip {
-      background: #B1BBBA;
-      border-radius: 8px;
-      padding: 8px 4px 9px;
+      background: rgba(248, 234, 225, 0.5);
+      border: 1px solid rgba(138, 71, 15, 0.18);
+      border-radius: 12px;
+      padding: 12px 14px 10px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 3px;
-    }
-
-    .upcoming-chip-name {
-      font-size: 0.6rem;
-      font-weight: 600;
-      color: #3a3a38;
-      font-family: sans-serif;
-      line-height: 1.35;
-      word-break: break-all;
+      align-items: flex-start;
+      gap: 4px;
     }
 
     .upcoming-chip-date {
-      font-size: 0.55rem;
-      color: #5f624e;
+      font-size: 0.6rem;
+      color: #8A470F;
       font-family: sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      order: -1;
+    }
+
+    .upcoming-chip-name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #3a3a38;
+      font-family: sans-serif;
+      line-height: 1.35;
     }
 
     .upcoming-chip-btn {
-      margin-top: 3px;
-      padding: 3px 7px;
-      border-radius: 10px;
-      border: 1px solid #8A470F;
-      background: rgba(138,71,15,0.08);
-      color: #8A470F;
-      font-size: 0.58rem;
+      margin-top: 5px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(95, 98, 78, 0.35);
+      background: transparent;
+      color: #5f624e;
+      font-size: 0.6rem;
       font-family: sans-serif;
       cursor: pointer;
       line-height: 1.4;
+      transition: background 0.15s, border-color 0.15s;
     }
 
-    .upcoming-chip-btn:active { background: rgba(138,71,15,0.22); }
+    .upcoming-chip-btn:hover { background: rgba(95,98,78,0.08); border-color: rgba(95,98,78,0.6); }
+    .upcoming-chip-btn:active { background: rgba(95,98,78,0.16); }
 
     /* Toast */
     .toast {
@@ -1040,7 +1044,7 @@
 
       </div>
 
-      <div class="divider"><span class="divider-text">開團預備</span></div>
+      <div class="divider"><span class="divider-text">開團預備備</span></div>
 
       <div class="upcoming-grid">
         <div class="upcoming-chip">
