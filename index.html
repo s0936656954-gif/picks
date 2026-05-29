@@ -2361,7 +2361,7 @@
 
       sSpawnIn -= dt;
       if (sSpawnIn <= 0) {
-        const bomb = Math.random() < 0.14;
+        const bomb = Math.random() < 0.26;
         const emoji = bomb ? '💣' : SVEG[Math.floor(Math.random() * SVEG.length)];
         sItems.push({ emoji, x: 28 + Math.random() * (cw - 56), y: ch + 20,
           vx: (Math.random() - 0.5) * 130, vy: -(ch * 0.82 + Math.random() * ch * 0.3),
@@ -2382,7 +2382,7 @@
 
       const ctx = sCtx;
       ctx.clearRect(0, 0, cw, ch);
-      ctx.font = '36px serif';
+      ctx.font = '52px serif';
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       for (const it of sItems) {
         ctx.save(); ctx.globalAlpha = it.alpha;
@@ -2413,7 +2413,7 @@
         const dx = b.x - a.x, dy = b.y - a.y, lenSq = dx*dx + dy*dy;
         if (!lenSq) continue;
         const t = Math.max(0, Math.min(1, ((it.x - a.x)*dx + (it.y - a.y)*dy) / lenSq));
-        if (Math.hypot(it.x - a.x - t*dx, it.y - a.y - t*dy) < 26) {
+        if (Math.hypot(it.x - a.x - t*dx, it.y - a.y - t*dy) < 34) {
           it.sliced = true;
           if (it.bomb) {
             sLives--; updateSliceHUD();
