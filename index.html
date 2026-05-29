@@ -2011,13 +2011,42 @@
       const scored = dinnerRecipes.map(r => {
         const hit = r.needs.filter(n => names.includes(n)).length;
         const bon = r.bonus.filter(n => names.includes(n)).length;
-        return { ...r, score: hit * 10 + bon * 3 + Math.random() * 5 };
+        return { ...r, score: hit * 10 + bon * 3 + Math.random() * 6 };
       }).filter(r => r.score >= 10).sort((a, b) => b.score - a.score);
 
       if (!scored.length) {
         return [{ name: '泡麵將就一下', emoji: '🍜' }, { name: '白飯配醬油', emoji: '🍚' }, { name: '外送吧', emoji: '🛵' }];
       }
-      return scored.slice(0, Math.min(targetDishCount, scored.length));
+
+      // 多樣化：每種主食材最多出現一道，避免全是蛋料理
+      const proteinTag = {
+        '雞蛋':'egg','豬肉':'pork','絞肉':'pork','培根':'pork',
+        '雞腿':'chicken','蝦子':'shrimp','蛤蜊':'clam','鮭魚':'fish','豆腐':'tofu'
+      };
+      const getTag = r => {
+        for (const n of r.needs) if (proteinTag[n]) return proteinTag[n];
+        return r.needs[0] || 'other';
+      };
+      const result = [];
+      const usedTag = {};
+      for (const dish of scored) {
+        const tag = getTag(dish);
+        if (!usedTag[tag]) {
+          result.push(dish);
+          usedTag[tag] = true;
+          if (result.length >= targetDishCount) break;
+        }
+      }
+      // 補不夠的名額
+      if (result.length < targetDishCount) {
+        for (const dish of scored) {
+          if (!result.includes(dish)) {
+            result.push(dish);
+            if (result.length >= targetDishCount) break;
+          }
+        }
+      }
+      return result;
     }
 
     function showDinnerResult() {
