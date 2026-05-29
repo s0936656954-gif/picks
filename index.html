@@ -755,8 +755,64 @@
     /* ── 今天晚餐生存戰 Game ── */
     .dinner-screen { display: none; }
     .dinner-screen.active { display: block; }
-    .ptest-screen { display: none; }
-    .ptest-screen.active { display: block; }
+    /* ── 切菜大師 Game ── */
+    #modal-slice .game-card.slice-card {
+      padding: 0;
+      overflow: hidden;
+      height: 74vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .slice-close { color: #fff !important; z-index: 30; }
+    .slice-container {
+      position: relative;
+      flex: 1;
+      background: linear-gradient(180deg, #12082a 0%, #1a1042 50%, #0e2a50 100%);
+      overflow: hidden;
+      border-radius: 16px;
+    }
+    #sliceCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      touch-action: none;
+      cursor: crosshair;
+    }
+    #sliceFlash {
+      position: absolute; inset: 0;
+      background: #ff2222;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.14s;
+      z-index: 15; border-radius: 16px;
+    }
+    .slice-hud {
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 14px 6px;
+      z-index: 10; pointer-events: none;
+      background: linear-gradient(rgba(0,0,0,0.45), transparent);
+      font-family: sans-serif;
+    }
+    .slice-timer-el { font-size: 1.4rem; font-weight: 700; color: #ffd93d; }
+    .slice-score-label { font-size: 0.9rem; font-weight: 700; color: #fff; }
+    #sliceLivesEl { font-size: 0.85rem; }
+    .slice-screen {
+      display: none; position: absolute; inset: 0;
+      background: rgba(8,4,22,0.83);
+      flex-direction: column; align-items: center; justify-content: center;
+      z-index: 20; padding: 20px; border-radius: 16px;
+    }
+    .slice-screen.active { display: flex; }
+    .slice-board { width: 100%; }
+    .slice-board-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 5px 10px; border-radius: 6px;
+      background: rgba(255,255,255,0.08); margin-bottom: 4px;
+      font-family: sans-serif; font-size: 0.78rem; color: #fff;
+    }
+    .slice-rank { font-size: 0.95rem; min-width: 22px; }
+    .slice-name { flex: 1; }
+    .slice-pts { font-weight: 700; color: #ffd93d; }
 
     .dinner-tip {
       text-align: center;
@@ -1348,9 +1404,9 @@
           <span class="side-icon">🎯</span>
           <span class="side-label">料理猜猜</span>
         </button>
-        <button class="side-btn" onclick="openGame('personality')">
-          <span class="side-icon">🔮</span>
-          <span class="side-label">煮飯人格</span>
+        <button class="side-btn" onclick="openGame('slice')">
+          <span class="side-icon">🔪</span>
+          <span class="side-label">切菜大師</span>
         </button>
       </div>
 
@@ -1736,38 +1792,40 @@
     </div>
   </div>
 
-  <!-- 煮飯人格 modal -->
-  <div class="game-modal" id="modal-personality">
-    <div class="game-card">
-      <button class="modal-close" onclick="closeGame('personality')">✕</button>
-
-      <!-- 選食材 -->
-      <div class="ptest-screen active" id="ptest-pick">
-        <h3 class="game-title">🔮 煮飯人格測驗</h3>
-        <p class="game-desc">選出你常用的食材，揭開你的廚房本性</p>
-        <p class="dinner-tip">至少選 3 樣</p>
-        <div class="fridge-grid" id="ptestGrid"></div>
-        <div class="basket-area" style="margin-top:8px;">
-          <div class="basket-label">已選：<span id="ptestCount">0</span> 樣</div>
-          <div class="basket-chips" id="ptestChips"></div>
+  <!-- 切菜大師 modal -->
+  <div class="game-modal" id="modal-slice">
+    <div class="game-card slice-card">
+      <button class="modal-close slice-close" onclick="closeGame('slice')">✕</button>
+      <div class="slice-container" id="sliceContainer">
+        <canvas id="sliceCanvas"></canvas>
+        <div id="sliceFlash"></div>
+        <!-- HUD -->
+        <div class="slice-hud">
+          <span id="sliceLivesEl">❤️❤️❤️</span>
+          <span id="sliceTimerEl" class="slice-timer-el">30</span>
+          <span class="slice-score-label">⭐ <span id="sliceScoreEl">0</span></span>
         </div>
-        <button class="cook-action-btn" id="ptestStartBtn" onclick="runPersonalityTest()" disabled style="background:#8A470F;">
-          🔮 分析我的煮飯人格
-        </button>
-      </div>
-
-      <!-- 結果 -->
-      <div class="ptest-screen" id="ptest-result">
-        <h3 class="game-title">🔮 你的煮飯人格</h3>
-        <div class="personality-card">
-          <div class="personality-emoji" id="pt-emoji"></div>
-          <div class="personality-title" id="pt-title"></div>
-          <span class="personality-tag" id="pt-tag"></span>
-          <p class="personality-desc" id="pt-desc"></p>
+        <!-- Start screen -->
+        <div class="slice-screen active" id="slice-start">
+          <div style="font-size:3rem;margin-bottom:6px;">🔪</div>
+          <h3 style="color:#fff;font-family:'ZCOOL QingKe HuangYou',cursive;font-size:1.55rem;margin-bottom:5px;">切菜大師</h3>
+          <p style="color:#ccd;font-family:sans-serif;font-size:0.78rem;text-align:center;margin-bottom:2px;">滑動切蔬菜得分，30秒倒計時</p>
+          <p style="color:#ff8a80;font-family:sans-serif;font-size:0.75rem;margin-bottom:18px;">💣 切到炸彈扣一條命！</p>
+          <button class="cook-action-btn" onclick="startSliceGame()" style="background:#8A470F;width:170px;margin:0;">開始挑戰</button>
+          <div id="sliceLeaderboard" style="margin-top:14px;width:100%;max-width:260px;"></div>
         </div>
-        <div style="display:flex;gap:8px;margin-top:12px;">
-          <button class="cook-action-btn" onclick="initPersonalityGame()" style="flex:1;margin:0;">再測一次</button>
-          <button class="cook-action-btn" onclick="closeGame('personality')" style="flex:1;margin:0;background:#8A470F;">關閉</button>
+        <!-- Game over screen -->
+        <div class="slice-screen" id="slice-over">
+          <h3 style="color:#fff;font-family:'ZCOOL QingKe HuangYou',cursive;font-size:1.4rem;margin-bottom:4px;">時間到！</h3>
+          <p style="color:#ffd93d;font-family:sans-serif;font-size:2.2rem;font-weight:700;margin-bottom:14px;">⭐ <span id="sliceFinalScore">0</span></p>
+          <div style="display:flex;gap:6px;margin-bottom:10px;width:240px;">
+            <input type="text" id="sliceNameInput" placeholder="輸入名字上榜" maxlength="8"
+              style="flex:1;padding:8px 10px;border-radius:8px;border:none;font-size:0.85rem;font-family:sans-serif;outline:none;" />
+            <button id="sliceSaveBtn" onclick="saveSliceScore()"
+              style="padding:8px 12px;background:#8A470F;color:#fff;border:none;border-radius:8px;font-family:sans-serif;cursor:pointer;white-space:nowrap;">上榜</button>
+          </div>
+          <div id="sliceLeaderboardOver" style="width:100%;max-width:260px;margin-bottom:14px;"></div>
+          <button class="cook-action-btn" onclick="startSliceGame()" style="background:#5f624e;width:160px;margin:0;">再玩一次</button>
         </div>
       </div>
     </div>
@@ -2214,55 +2272,216 @@
       showDinnerScreen('stage4');
     }
 
-    // ── Standalone 煮飯人格 Game ──
-    let ptestSelected = [];
+    // ── 切菜大師 Game ──
+    const SVEG = ['🥬','🥕','🍅','🥦','🍆','🌽','🧅','🥔','🍄','🥚','🦐','🐟','🧄','🫑','🌶️','🍳'];
+    let sCanvas, sCtx, sItems = [], sScore = 0, sLives = 3, sTime = 30;
+    let sRunning = false, sAnimId = null, sTickId = null, sLastTS = 0, sSpawnIn = 0;
+    let sSlash = [], sSlashing = false, sMusicCtx = null, sMusicNodes = [];
 
-    function initPersonalityGame() {
-      ptestSelected = [];
-      renderPtestGrid();
-      document.getElementById('ptestCount').textContent = '0';
-      document.getElementById('ptestChips').innerHTML = '';
-      document.getElementById('ptestStartBtn').disabled = true;
-      document.querySelectorAll('.ptest-screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('ptest-pick').classList.add('active');
+    function getSliceBoard() {
+      try { return JSON.parse(localStorage.getItem('sliceBoard') || '[]'); } catch(e) { return []; }
     }
+    function saveSliceBoard(b) { localStorage.setItem('sliceBoard', JSON.stringify(b)); }
 
-    function renderPtestGrid() {
-      document.getElementById('ptestGrid').innerHTML = fridgeIngredients.map(item => {
-        const sel = ptestSelected.some(i => i.id === item.id);
-        return `<button class="fridge-item${sel ? ' selected' : ''}" id="pt_${item.id}" onclick="togglePtestIng('${item.id}')">${item.emoji}<span>${item.name}</span></button>`;
-      }).join('');
-    }
-
-    function togglePtestIng(id) {
-      const item = fridgeIngredients.find(i => i.id === id);
-      if (!item) return;
-      const btn = document.getElementById('pt_' + id);
-      const idx = ptestSelected.findIndex(i => i.id === id);
-      if (idx === -1) {
-        ptestSelected.push(item);
-        btn.classList.add('selected', 'pop');
-        setTimeout(() => btn.classList.remove('pop'), 200);
-        playBop();
-      } else {
-        ptestSelected.splice(idx, 1);
-        btn.classList.remove('selected');
+    function initSliceGame() {
+      sCanvas = document.getElementById('sliceCanvas');
+      sCtx = sCanvas.getContext('2d');
+      const cont = document.getElementById('sliceContainer');
+      sCanvas.width = cont.clientWidth;
+      sCanvas.height = cont.clientHeight;
+      if (sRunning) { sRunning = false; cancelAnimationFrame(sAnimId); clearInterval(sTickId); stopSliceMusic(); }
+      sItems = []; sScore = 0; sLives = 3; sTime = 30; sSpawnIn = 0; sSlash = []; sSlashing = false;
+      updateSliceHUD();
+      showSliceScreen('start');
+      renderSliceBoard('sliceLeaderboard');
+      if (!sCanvas._ev) {
+        sCanvas._ev = true;
+        sCanvas.addEventListener('mousedown',  e => { if (!sRunning) return; sSlashing = true; sSlash = [getSP(e)]; });
+        sCanvas.addEventListener('mousemove',  e => { if (!sRunning || !sSlashing) return; sSlash.push(getSP(e)); if (sSlash.length > 10) sSlash.shift(); checkSlash(); });
+        sCanvas.addEventListener('mouseup',    () => { sSlashing = false; sSlash = []; });
+        sCanvas.addEventListener('touchstart', e => { if (!sRunning) return; sSlashing = true; sSlash = [getSP(e)]; }, { passive: true });
+        sCanvas.addEventListener('touchmove',  e => { if (!sRunning || !sSlashing) return; e.preventDefault(); sSlash.push(getSP(e)); if (sSlash.length > 10) sSlash.shift(); checkSlash(); }, { passive: false });
+        sCanvas.addEventListener('touchend',   () => { sSlashing = false; sSlash = []; });
       }
-      document.getElementById('ptestCount').textContent = ptestSelected.length;
-      document.getElementById('ptestChips').innerHTML = ptestSelected.map(i =>
-        `<span class="basket-chip">${i.emoji} ${i.name}</span>`).join('');
-      document.getElementById('ptestStartBtn').disabled = ptestSelected.length < 3;
     }
 
-    function runPersonalityTest() {
-      const names = ptestSelected.map(i => i.name);
-      const p = analyzePersonality(names);
-      document.getElementById('pt-emoji').textContent = p.emoji;
-      document.getElementById('pt-title').textContent = p.title;
-      document.getElementById('pt-tag').textContent = p.tag;
-      document.getElementById('pt-desc').textContent = p.desc;
-      document.querySelectorAll('.ptest-screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('ptest-result').classList.add('active');
+    function getSP(e) {
+      const r = sCanvas.getBoundingClientRect();
+      const s = e.touches ? e.touches[0] : e;
+      return { x: (s.clientX - r.left) * sCanvas.width / r.width,
+               y: (s.clientY - r.top)  * sCanvas.height / r.height };
+    }
+
+    function showSliceScreen(name) {
+      document.querySelectorAll('#modal-slice .slice-screen').forEach(s => s.classList.remove('active'));
+      if (name) document.getElementById('slice-' + name).classList.add('active');
+    }
+
+    function updateSliceHUD() {
+      document.getElementById('sliceScoreEl').textContent = sScore;
+      document.getElementById('sliceTimerEl').textContent = sTime;
+      document.getElementById('sliceLivesEl').textContent = sLives > 0 ? '❤️'.repeat(sLives) : '💀';
+    }
+
+    function startSliceGame() {
+      const cont = document.getElementById('sliceContainer');
+      sCanvas.width = cont.clientWidth; sCanvas.height = cont.clientHeight;
+      sItems = []; sScore = 0; sLives = 3; sTime = 30; sSpawnIn = 0; sSlash = []; sSlashing = false;
+      updateSliceHUD();
+      showSliceScreen(null);
+      sRunning = true; sLastTS = performance.now();
+      startSliceMusic();
+      clearInterval(sTickId);
+      sTickId = setInterval(() => {
+        sTime = Math.max(0, sTime - 1);
+        updateSliceHUD();
+        if (sTime <= 0 && sRunning) endSliceGame();
+      }, 1000);
+      requestAnimationFrame(sliceLoop);
+    }
+
+    function endSliceGame() {
+      if (!sRunning) return;
+      sRunning = false;
+      clearInterval(sTickId); sTickId = null;
+      if (sAnimId) { cancelAnimationFrame(sAnimId); sAnimId = null; }
+      stopSliceMusic();
+      document.getElementById('sliceFinalScore').textContent = sScore;
+      document.getElementById('sliceSaveBtn').disabled = false;
+      document.getElementById('sliceNameInput').value = '';
+      showSliceScreen('over');
+      renderSliceBoard('sliceLeaderboardOver');
+    }
+
+    function sliceLoop(ts) {
+      if (!sRunning) return;
+      const dt = Math.min((ts - sLastTS) / 1000, 0.05);
+      sLastTS = ts;
+      const G = 680, cw = sCanvas.width, ch = sCanvas.height;
+
+      sSpawnIn -= dt;
+      if (sSpawnIn <= 0) {
+        const bomb = Math.random() < 0.14;
+        const emoji = bomb ? '💣' : SVEG[Math.floor(Math.random() * SVEG.length)];
+        sItems.push({ emoji, x: 28 + Math.random() * (cw - 56), y: ch + 20,
+          vx: (Math.random() - 0.5) * 130, vy: -(ch * 0.82 + Math.random() * ch * 0.3),
+          bomb, sliced: false, alpha: 1, pts: [] });
+        sSpawnIn = 0.5 + Math.random() * 0.7;
+      }
+
+      for (const it of sItems) {
+        if (!it.sliced) { it.vy += G * dt; it.x += it.vx * dt; it.y += it.vy * dt; }
+        else { it.alpha = Math.max(0, it.alpha - dt * 3); }
+        for (const p of it.pts) {
+          p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 500 * dt;
+          p.a = Math.max(0, p.a - dt * 2.5);
+        }
+        it.pts = it.pts.filter(p => p.a > 0);
+      }
+      sItems = sItems.filter(it => it.sliced ? it.alpha > 0 : it.y < ch + 60);
+
+      const ctx = sCtx;
+      ctx.clearRect(0, 0, cw, ch);
+      ctx.font = '36px serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      for (const it of sItems) {
+        ctx.save(); ctx.globalAlpha = it.alpha;
+        ctx.fillText(it.emoji, it.x, it.y);
+        for (const p of it.pts) {
+          ctx.globalAlpha = p.a; ctx.fillStyle = p.c;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+        }
+        ctx.restore();
+      }
+      if (sSlash.length > 1) {
+        ctx.save();
+        ctx.strokeStyle = 'rgba(180,230,255,0.92)'; ctx.lineWidth = 2.5;
+        ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        ctx.shadowColor = '#9fe'; ctx.shadowBlur = 10;
+        ctx.beginPath(); ctx.moveTo(sSlash[0].x, sSlash[0].y);
+        for (let i = 1; i < sSlash.length; i++) ctx.lineTo(sSlash[i].x, sSlash[i].y);
+        ctx.stroke(); ctx.restore();
+      }
+      sAnimId = requestAnimationFrame(sliceLoop);
+    }
+
+    function checkSlash() {
+      if (sSlash.length < 2) return;
+      const a = sSlash[sSlash.length - 2], b = sSlash[sSlash.length - 1];
+      for (const it of sItems) {
+        if (it.sliced) continue;
+        const dx = b.x - a.x, dy = b.y - a.y, lenSq = dx*dx + dy*dy;
+        if (!lenSq) continue;
+        const t = Math.max(0, Math.min(1, ((it.x - a.x)*dx + (it.y - a.y)*dy) / lenSq));
+        if (Math.hypot(it.x - a.x - t*dx, it.y - a.y - t*dy) < 26) {
+          it.sliced = true;
+          if (it.bomb) {
+            sLives--; updateSliceHUD();
+            const fl = document.getElementById('sliceFlash');
+            fl.style.opacity = '0.6'; setTimeout(() => fl.style.opacity = '0', 180);
+            if (sLives <= 0) setTimeout(endSliceGame, 350);
+          } else {
+            sScore++; updateSliceHUD();
+            const cols = ['#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#ff922b'];
+            for (let i = 0; i < 7; i++) {
+              const ang = Math.random() * Math.PI * 2, spd = 80 + Math.random() * 110;
+              it.pts.push({ x: it.x, y: it.y, vx: Math.cos(ang)*spd, vy: Math.sin(ang)*spd,
+                c: cols[i % cols.length], r: 2.5 + Math.random() * 3, a: 1 });
+            }
+          }
+        }
+      }
+    }
+
+    function saveSliceScore() {
+      const name = (document.getElementById('sliceNameInput').value.trim() || '匿名').slice(0, 8);
+      const board = getSliceBoard();
+      board.push({ name, score: parseInt(document.getElementById('sliceFinalScore').textContent) || 0 });
+      board.sort((a, b) => b.score - a.score); board.splice(5);
+      saveSliceBoard(board);
+      document.getElementById('sliceSaveBtn').disabled = true;
+      renderSliceBoard('sliceLeaderboardOver');
+    }
+
+    function renderSliceBoard(elId) {
+      const board = getSliceBoard(), el = document.getElementById(elId);
+      if (!el) return;
+      if (!board.length) { el.innerHTML = '<p style="text-align:center;color:#aaa;font-size:0.72rem;font-family:sans-serif;margin-top:6px;">還沒有紀錄，快來挑戰！</p>'; return; }
+      const m = ['🥇','🥈','🥉','4.','5.'];
+      el.innerHTML = '<div class="slice-board">' + board.map((e, i) =>
+        `<div class="slice-board-row"><span class="slice-rank">${m[i]}</span><span class="slice-name">${e.name}</span><span class="slice-pts">${e.score}</span></div>`).join('') + '</div>';
+    }
+
+    function startSliceMusic() {
+      try {
+        sMusicCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const mel = [784,784,880,784,659,698,784,0, 784,784,880,784,1047,988,0,0,
+                     784,784,880,784,659,698,523,0, 587,659,698,784,659,587,523,0];
+        const tempo = 0.13;
+        let t = sMusicCtx.currentTime + 0.05;
+        function sched() {
+          for (const f of mel) {
+            if (f > 0) {
+              const osc = sMusicCtx.createOscillator(), g = sMusicCtx.createGain();
+              osc.connect(g); g.connect(sMusicCtx.destination);
+              osc.type = 'square'; osc.frequency.value = f;
+              g.gain.setValueAtTime(0.055, t);
+              g.gain.exponentialRampToValueAtTime(0.001, t + tempo * 0.88);
+              osc.start(t); osc.stop(t + tempo);
+              sMusicNodes.push(osc);
+            }
+            t += tempo;
+          }
+          if (sMusicCtx) setTimeout(sched, (mel.length * tempo - 0.25) * 1000);
+        }
+        sched();
+      } catch(e) {}
+    }
+
+    function stopSliceMusic() {
+      sMusicNodes.forEach(n => { try { n.stop(); } catch(e) {} });
+      sMusicNodes = [];
+      if (sMusicCtx) { try { sMusicCtx.close(); } catch(e) {} sMusicCtx = null; }
     }
 
     // ── Recipe Game ──
@@ -2510,19 +2729,24 @@
       document.getElementById('modal-' + type).classList.add('open');
       if (type === 'cook') initDinnerGame();
       if (type === 'quiz') showQuizScreen('start');
-      if (type === 'personality') initPersonalityGame();
+      if (type === 'slice') initSliceGame();
     }
 
     function closeGame(type) {
       document.getElementById('modal-' + type).classList.remove('open');
       if (type === 'cook') {
         if (dinnerCookTimer) { clearInterval(dinnerCookTimer); dinnerCookTimer = null; }
+        stopCookingSounds();
       }
       if (type === 'recipe') {
         userIngredients = [];
         document.getElementById('ingredientTags').innerHTML = '';
         document.getElementById('recipeResults').innerHTML = '';
         document.getElementById('ingredientInput').value = '';
+      }
+      if (type === 'slice') {
+        if (sRunning) { sRunning = false; cancelAnimationFrame(sAnimId); clearInterval(sTickId); }
+        stopSliceMusic();
       }
     }
 
