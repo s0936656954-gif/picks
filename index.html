@@ -695,6 +695,29 @@
 
     .side-btn:hover { background: #8A470F; transform: translateX(4px); }
 
+    /* ── Floating Background Bubbles ── */
+    .bg-bubbles {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      overflow: hidden; z-index: 0;
+      pointer-events: none;
+    }
+    .bg-bubble {
+      position: absolute;
+      opacity: 0;
+      user-select: none;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0)   translateX(0)    rotate(0deg);   opacity: 0; }
+      8%   { opacity: 0.09; }
+      25%  { transform: translateY(-25vh) translateX(16px)  rotate(90deg); }
+      50%  { transform: translateY(-55vh) translateX(-12px) rotate(180deg); }
+      75%  { transform: translateY(-80vh) translateX(20px)  rotate(270deg); }
+      90%  { opacity: 0.09; }
+      100% { transform: translateY(-110vh) translateX(0)  rotate(360deg); opacity: 0; }
+    }
+
     /* ── Game Modal ── */
     .game-modal {
       display: none;
@@ -1248,6 +1271,9 @@
   </style>
 </head>
 <body>
+
+  <!-- Floating background cooking icons -->
+  <div class="bg-bubbles" id="bgBubbles"></div>
 
   <!-- IG Bar (固定頂部) -->
   <div class="ig-bar">
@@ -2304,6 +2330,30 @@
       URL.revokeObjectURL(a.href);
       showToast('📅 已加入行事曆提醒！');
     }
+
+    // ── Floating background bubbles ──
+    (function() {
+      const icons = ['🍳','🥄','🍴','🔪','🫕','🥘','🧂','🫙','🍲','🥢','🧁','🎂','🥞','🥗','🧆','🫗'];
+      const container = document.getElementById('bgBubbles');
+      const count = 18;
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('span');
+        el.className = 'bg-bubble';
+        el.textContent = icons[i % icons.length];
+        const size = 1.1 + Math.random() * 1.6;
+        const left = 3 + Math.random() * 94;
+        const dur = 18 + Math.random() * 22;
+        const delay = -(Math.random() * dur);
+        el.style.cssText = `
+          left:${left}%;
+          bottom:-80px;
+          font-size:${size}rem;
+          animation-duration:${dur}s;
+          animation-delay:${delay}s;
+        `;
+        container.appendChild(el);
+      }
+    })();
   </script>
 </body>
 </html>
