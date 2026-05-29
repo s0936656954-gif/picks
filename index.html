@@ -755,6 +755,8 @@
     /* ── 今天晚餐生存戰 Game ── */
     .dinner-screen { display: none; }
     .dinner-screen.active { display: block; }
+    .ptest-screen { display: none; }
+    .ptest-screen.active { display: block; }
 
     .dinner-tip {
       text-align: center;
@@ -1346,6 +1348,10 @@
           <span class="side-icon">🎯</span>
           <span class="side-label">料理猜猜</span>
         </button>
+        <button class="side-btn" onclick="openGame('personality')">
+          <span class="side-icon">🔮</span>
+          <span class="side-label">煮飯人格</span>
+        </button>
       </div>
 
       <div class="divider"><span class="divider-text">限時團購</span></div>
@@ -1725,6 +1731,43 @@
         <div class="quiz-result-btns">
           <button class="cook-action-btn" onclick="startQuiz(quizTotal)" style="background:#8A470F;">再挑戰一次</button>
           <button class="cook-action-btn" onclick="showQuizScreen('start')">換題數</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 煮飯人格 modal -->
+  <div class="game-modal" id="modal-personality">
+    <div class="game-card">
+      <button class="modal-close" onclick="closeGame('personality')">✕</button>
+
+      <!-- 選食材 -->
+      <div class="ptest-screen active" id="ptest-pick">
+        <h3 class="game-title">🔮 煮飯人格測驗</h3>
+        <p class="game-desc">選出你常用的食材，揭開你的廚房本性</p>
+        <p class="dinner-tip">至少選 3 樣</p>
+        <div class="fridge-grid" id="ptestGrid"></div>
+        <div class="basket-area" style="margin-top:8px;">
+          <div class="basket-label">已選：<span id="ptestCount">0</span> 樣</div>
+          <div class="basket-chips" id="ptestChips"></div>
+        </div>
+        <button class="cook-action-btn" id="ptestStartBtn" onclick="runPersonalityTest()" disabled style="background:#8A470F;">
+          🔮 分析我的煮飯人格
+        </button>
+      </div>
+
+      <!-- 結果 -->
+      <div class="ptest-screen" id="ptest-result">
+        <h3 class="game-title">🔮 你的煮飯人格</h3>
+        <div class="personality-card">
+          <div class="personality-emoji" id="pt-emoji"></div>
+          <div class="personality-title" id="pt-title"></div>
+          <span class="personality-tag" id="pt-tag"></span>
+          <p class="personality-desc" id="pt-desc"></p>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button class="cook-action-btn" onclick="initPersonalityGame()" style="flex:1;margin:0;">再測一次</button>
+          <button class="cook-action-btn" onclick="closeGame('personality')" style="flex:1;margin:0;background:#8A470F;">關閉</button>
         </div>
       </div>
     </div>
@@ -2156,18 +2199,70 @@
       },
     ];
 
-    function analyzePersonality() {
-      const names = selectedIngredients.map(i => i.name);
+    function analyzePersonality(names) {
       return cookPersonalities.find(p => p.match(names)) || cookPersonalities[6];
     }
 
+    // Called from dinner stage 3 → stage 4
     function showPersonality() {
-      const p = analyzePersonality();
+      const names = selectedIngredients.map(i => i.name);
+      const p = analyzePersonality(names);
       document.getElementById('pEmoji').textContent = p.emoji;
       document.getElementById('pTitle').textContent = p.title;
       document.getElementById('pTag').textContent = p.tag;
       document.getElementById('pDesc').textContent = p.desc;
       showDinnerScreen('stage4');
+    }
+
+    // ── Standalone 煮飯人格 Game ──
+    let ptestSelected = [];
+
+    function initPersonalityGame() {
+      ptestSelected = [];
+      renderPtestGrid();
+      document.getElementById('ptestCount').textContent = '0';
+      document.getElementById('ptestChips').innerHTML = '';
+      document.getElementById('ptestStartBtn').disabled = true;
+      document.querySelectorAll('.ptest-screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('ptest-pick').classList.add('active');
+    }
+
+    function renderPtestGrid() {
+      document.getElementById('ptestGrid').innerHTML = fridgeIngredients.map(item => {
+        const sel = ptestSelected.some(i => i.id === item.id);
+        return `<button class="fridge-item${sel ? ' selected' : ''}" id="pt_${item.id}" onclick="togglePtestIng('${item.id}')">${item.emoji}<span>${item.name}</span></button>`;
+      }).join('');
+    }
+
+    function togglePtestIng(id) {
+      const item = fridgeIngredients.find(i => i.id === id);
+      if (!item) return;
+      const btn = document.getElementById('pt_' + id);
+      const idx = ptestSelected.findIndex(i => i.id === id);
+      if (idx === -1) {
+        ptestSelected.push(item);
+        btn.classList.add('selected', 'pop');
+        setTimeout(() => btn.classList.remove('pop'), 200);
+        playBop();
+      } else {
+        ptestSelected.splice(idx, 1);
+        btn.classList.remove('selected');
+      }
+      document.getElementById('ptestCount').textContent = ptestSelected.length;
+      document.getElementById('ptestChips').innerHTML = ptestSelected.map(i =>
+        `<span class="basket-chip">${i.emoji} ${i.name}</span>`).join('');
+      document.getElementById('ptestStartBtn').disabled = ptestSelected.length < 3;
+    }
+
+    function runPersonalityTest() {
+      const names = ptestSelected.map(i => i.name);
+      const p = analyzePersonality(names);
+      document.getElementById('pt-emoji').textContent = p.emoji;
+      document.getElementById('pt-title').textContent = p.title;
+      document.getElementById('pt-tag').textContent = p.tag;
+      document.getElementById('pt-desc').textContent = p.desc;
+      document.querySelectorAll('.ptest-screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('ptest-result').classList.add('active');
     }
 
     // ── Recipe Game ──
@@ -2415,6 +2510,7 @@
       document.getElementById('modal-' + type).classList.add('open');
       if (type === 'cook') initDinnerGame();
       if (type === 'quiz') showQuizScreen('start');
+      if (type === 'personality') initPersonalityGame();
     }
 
     function closeGame(type) {
