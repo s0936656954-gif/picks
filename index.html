@@ -914,50 +914,81 @@
       color: #3a3a38;
     }
 
-    .family-ratings {
-      background: rgba(248,234,225,0.4);
-      border: 1px solid rgba(138,71,15,0.1);
+    .cook-action-btn {
+      width: 100%;
+      padding: 12px;
+      background: #5f624e;
+      color: #F8EAE1;
+      border: none;
       border-radius: 10px;
-      padding: 10px 12px;
-      margin-bottom: 8px;
+      font-size: 0.9rem;
+      font-family: sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
       display: flex;
-      flex-direction: column;
-      gap: 9px;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    .cook-action-btn:hover { background: #4a4d3c; }
+    .cook-action-btn:disabled { opacity: 0.42; cursor: not-allowed; }
+
+    .custom-ing-row {
+      display: flex;
+      gap: 6px;
+      margin: 4px 0 8px;
+    }
+    .custom-ing-row input {
+      flex: 1;
+      padding: 7px 10px;
+      border: 1px solid #e8e4de;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-family: sans-serif;
+      background: #EAEAE6;
+      outline: none;
+    }
+    .custom-ing-row input:focus { border-color: #5f624e; }
+    .custom-ing-row button {
+      padding: 7px 14px;
+      background: #5f624e;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-family: sans-serif;
+      cursor: pointer;
     }
 
-    .rating-row {
+    .dish-count-row {
       display: flex;
       align-items: center;
       gap: 8px;
+      margin: 4px 0 10px;
+    }
+    .dish-count-label {
       font-size: 0.72rem;
       font-family: sans-serif;
+      color: #5f624e;
+      white-space: nowrap;
     }
-
-    .rating-label { width: 76px; color: #5f624e; flex-shrink: 0; }
-
-    .rating-bar-wrap {
-      flex: 1;
-      height: 7px;
-      background: #e8e4de;
-      border-radius: 4px;
-      overflow: hidden;
+    .dish-count-btns { display: flex; gap: 5px; }
+    .dish-count-btn {
+      padding: 5px 11px;
+      border: 1.5px solid #e8e4de;
+      border-radius: 20px;
+      background: #fff;
+      color: #5f624e;
+      font-size: 0.73rem;
+      font-family: sans-serif;
+      cursor: pointer;
     }
-
-    .rating-bar-fill {
-      height: 100%;
-      border-radius: 4px;
-      transition: width 0.9s ease;
-    }
-
-    .rating-val { font-size: 0.68rem; color: #9da6a3; min-width: 28px; text-align: right; flex-shrink: 0; }
-
-    .hell-footer {
-      text-align: center;
-      font-size: 0.7rem;
-      color: #b7b397;
-      font-family: 'Lora', serif;
-      font-style: italic;
-      padding: 4px 0 2px;
+    .dish-count-btn.active {
+      background: #8A470F;
+      border-color: #8A470F;
+      color: #fff;
+      font-weight: 700;
     }
 
     /* Recipe game */
@@ -1430,42 +1461,42 @@
         <div class="upcoming-chip">
           <span class="upcoming-chip-name">美姬饅頭</span>
           <span class="upcoming-chip-date">6/1</span>
-          <button class="upcoming-chip-btn" onclick="addReminder('美姬饅頭', '20260601', 'https://picks-rho.vercel.app')">🔔 提醒</button>
+          <button class="upcoming-chip-btn" onclick="addReminder('美姬饅頭', '20260601', 'https://picks-rho.vercel.app')">🔔 按提醒免得錯過嘿</button>
         </div>
         <div class="upcoming-chip">
           <span class="upcoming-chip-name">伯尼寢具</span>
           <span class="upcoming-chip-date">6/3</span>
-          <button class="upcoming-chip-btn" onclick="addReminder('伯尼寢具', '20260603', 'https://picks-rho.vercel.app')">🔔 提醒</button>
+          <button class="upcoming-chip-btn" onclick="addReminder('伯尼寢具', '20260603', 'https://picks-rho.vercel.app')">🔔 按提醒免得錯過嘿</button>
         </div>
         <div class="upcoming-chip">
           <span class="upcoming-chip-name">上誼桌遊</span>
           <span class="upcoming-chip-date">6/5</span>
-          <button class="upcoming-chip-btn" onclick="addReminder('上誼桌遊', '20260605', 'https://picks-rho.vercel.app')">🔔 提醒</button>
+          <button class="upcoming-chip-btn" onclick="addReminder('上誼桌遊', '20260605', 'https://picks-rho.vercel.app')">🔔 按提醒免得錯過嘿</button>
         </div>
         <div class="upcoming-chip">
           <span class="upcoming-chip-name">防爆行動電源</span>
           <span class="upcoming-chip-date">6/10</span>
-          <button class="upcoming-chip-btn" onclick="addReminder('防爆行動電源', '20260610', 'https://picks-rho.vercel.app')">🔔 提醒</button>
+          <button class="upcoming-chip-btn" onclick="addReminder('防爆行動電源', '20260610', 'https://picks-rho.vercel.app')">🔔 按提醒免得錯過嘿</button>
         </div>
         <div class="upcoming-chip">
           <span class="upcoming-chip-name">QA BOTTLE</span>
           <span class="upcoming-chip-date">6/11</span>
-          <button class="upcoming-chip-btn" onclick="addReminder('QA BOTTLE', '20260611', 'https://picks-rho.vercel.app')">🔔 提醒</button>
+          <button class="upcoming-chip-btn" onclick="addReminder('QA BOTTLE', '20260611', 'https://picks-rho.vercel.app')">🔔 按提醒免得錯過嘿</button>
         </div>
         <div class="upcoming-chip">
           <span class="upcoming-chip-name">專注力訓練機</span>
           <span class="upcoming-chip-date">6/15</span>
-          <button class="upcoming-chip-btn" onclick="addReminder('專注力訓練機', '20260615', 'https://picks-rho.vercel.app')">🔔 提醒</button>
+          <button class="upcoming-chip-btn" onclick="addReminder('專注力訓練機', '20260615', 'https://picks-rho.vercel.app')">🔔 按提醒免得錯過嘿</button>
         </div>
         <div class="upcoming-chip">
           <span class="upcoming-chip-name">KOM 三色碗</span>
           <span class="upcoming-chip-date">6/18</span>
-          <button class="upcoming-chip-btn" onclick="addReminder('KOM 三色碗', '20260618', 'https://picks-rho.vercel.app')">🔔 提醒</button>
+          <button class="upcoming-chip-btn" onclick="addReminder('KOM 三色碗', '20260618', 'https://picks-rho.vercel.app')">🔔 按提醒免得錯過嘿</button>
         </div>
         <div class="upcoming-chip">
           <span class="upcoming-chip-name">蘋果洋蔥水</span>
           <span class="upcoming-chip-date">6/29</span>
-          <button class="upcoming-chip-btn" onclick="addReminder('蘋果洋蔥水', '20260629', 'https://picks-rho.vercel.app')">🔔 提醒</button>
+          <button class="upcoming-chip-btn" onclick="addReminder('蘋果洋蔥水', '20260629', 'https://picks-rho.vercel.app')">🔔 按提醒免得錯過嘿</button>
         </div>
       </div>
 
@@ -1502,11 +1533,27 @@
         <p class="game-desc">六大四小今晚吃什麼？</p>
         <p class="dinner-tip">點選今天冰箱裡有的食材（至少 2 樣）</p>
         <div class="fridge-grid" id="fridgeGrid"></div>
+        <div class="custom-ing-row">
+          <input type="text" id="customIngInput" placeholder="自行輸入食材⋯" maxlength="8" onkeydown="if(event.key==='Enter')addCustomIngredient()" />
+          <button onclick="addCustomIngredient()">加入</button>
+        </div>
         <div class="basket-area">
           <div class="basket-label">🧺 已選：<span id="basketCount">0</span> 樣</div>
           <div class="basket-chips" id="basketChips"></div>
         </div>
-        <button class="cook-action-btn" id="startCookBtn" onclick="startDinnerCooking()" disabled>開火啦 🔥</button>
+        <div class="dish-count-row">
+          <span class="dish-count-label">要煮幾道？</span>
+          <div class="dish-count-btns">
+            <button class="dish-count-btn" data-count="2" onclick="setDishCount(2)">2 道</button>
+            <button class="dish-count-btn active" data-count="3" onclick="setDishCount(3)">3 道</button>
+            <button class="dish-count-btn" data-count="4" onclick="setDishCount(4)">4 道</button>
+            <button class="dish-count-btn" data-count="5" onclick="setDishCount(5)">5 道</button>
+          </div>
+        </div>
+        <button class="cook-action-btn" id="startCookBtn" onclick="startDinnerCooking()" disabled>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="margin-right:5px;flex-shrink:0"><path d="M12 2C10 6 7 9 7 13a5 5 0 0 0 10 0c0-4-3-7-5-11z" fill="#ff8c42"/><path d="M12 8C11 10 9.5 12.5 9.5 14a2.5 2.5 0 0 0 5 0C14.5 12.5 13 10 12 8z" fill="#ffd166"/></svg>
+          開火啦
+        </button>
       </div>
 
       <!-- 第二階段：煮飯 loading -->
@@ -1526,8 +1573,6 @@
       <div class="dinner-screen" id="dinner-stage3">
         <h3 class="game-title">🍽️ 今晚菜單</h3>
         <div class="dinner-menu" id="dinnerMenu"></div>
-        <div class="family-ratings" id="familyRatings"></div>
-        <p class="hell-footer">「歡迎體驗六大四小家庭的地獄日常。」</p>
         <div style="display:flex;gap:8px;margin-top:12px;">
           <button class="cook-action-btn" onclick="initDinnerGame()" style="flex:1;margin:0;">再來一次</button>
           <button class="cook-action-btn" onclick="initDinnerGame(true)" style="flex:1;margin:0;background:#8A470F;">換食材</button>
@@ -1645,16 +1690,36 @@
 
     // ── 今天晚餐生存戰 Game ──
     const fridgeIngredients = [
-      { id: 'cabbage',  name: '高麗菜', emoji: '🥬' },
-      { id: 'egg',      name: '雞蛋',   emoji: '🥚' },
-      { id: 'shrimp',   name: '蝦子',   emoji: '🦐' },
-      { id: 'pork',     name: '豬肉',   emoji: '🥩' },
-      { id: 'tofu',     name: '豆腐',   emoji: '🫘' },
-      { id: 'mushroom', name: '香菇',   emoji: '🍄' },
-      { id: 'tomato',   name: '番茄',   emoji: '🍅' },
-      { id: 'noodle',   name: '麵條',   emoji: '🍜' },
-      { id: 'pakchoi',  name: '青江菜', emoji: '🥦' },
-      { id: 'garlic',   name: '蒜頭',   emoji: '🧄' },
+      { id: 'cabbage',      name: '高麗菜', emoji: '🥬' },
+      { id: 'egg',          name: '雞蛋',   emoji: '🥚' },
+      { id: 'shrimp',       name: '蝦子',   emoji: '🦐' },
+      { id: 'pork',         name: '豬肉',   emoji: '🥩' },
+      { id: 'tofu',         name: '豆腐',   emoji: '🫘' },
+      { id: 'mushroom',     name: '香菇',   emoji: '🍄' },
+      { id: 'tomato',       name: '番茄',   emoji: '🍅' },
+      { id: 'noodle',       name: '麵條',   emoji: '🍜' },
+      { id: 'pakchoi',      name: '青江菜', emoji: '🥦' },
+      { id: 'garlic',       name: '蒜頭',   emoji: '🧄' },
+      { id: 'onion',        name: '洋蔥',   emoji: '🧅' },
+      { id: 'scallion',     name: '青蔥',   emoji: '🌿' },
+      { id: 'chicken',      name: '雞腿',   emoji: '🍗' },
+      { id: 'corn',         name: '玉米',   emoji: '🌽' },
+      { id: 'carrot',       name: '紅蘿蔔', emoji: '🥕' },
+      { id: 'potato',       name: '馬鈴薯', emoji: '🥔' },
+      { id: 'bellpepper',   name: '青椒',   emoji: '🫑' },
+      { id: 'chili',        name: '辣椒',   emoji: '🌶️' },
+      { id: 'bacon',        name: '培根',   emoji: '🥓' },
+      { id: 'broccoli',     name: '花椰菜', emoji: '🥦' },
+      { id: 'eggplant',     name: '茄子',   emoji: '🍆' },
+      { id: 'clam',         name: '蛤蜊',   emoji: '🦪' },
+      { id: 'salmon',       name: '鮭魚',   emoji: '🐟' },
+      { id: 'waterspinach', name: '空心菜', emoji: '🌱' },
+      { id: 'driedtofu',    name: '豆乾',   emoji: '🧆' },
+      { id: 'cheese',       name: '起司',   emoji: '🧀' },
+      { id: 'sweetpotato',  name: '地瓜',   emoji: '🍠' },
+      { id: 'beansprout',   name: '豆芽菜', emoji: '🫛' },
+      { id: 'groundpork',   name: '絞肉',   emoji: '🍖' },
+      { id: 'chive',        name: '韭菜',   emoji: '🌾' },
     ];
 
     const dinnerRecipes = [
@@ -1678,41 +1743,50 @@
       { name: '香菇雞蛋湯',   emoji: '🍲', needs: ['香菇', '雞蛋'],     bonus: [] },
       { name: '番茄豬肉湯',   emoji: '🍲', needs: ['番茄', '豬肉'],     bonus: ['豆腐'] },
       { name: '蒜香時蔬麵',   emoji: '🍜', needs: ['麵條', '青江菜'],   bonus: ['蒜頭', '香菇'] },
+      { name: '洋蔥炒蛋',     emoji: '🧅', needs: ['洋蔥', '雞蛋'],     bonus: ['培根'] },
+      { name: '培根炒蛋',     emoji: '🥓', needs: ['培根', '雞蛋'],     bonus: ['洋蔥'] },
+      { name: '蒜炒空心菜',   emoji: '🌱', needs: ['空心菜', '蒜頭'],   bonus: [] },
+      { name: '薑絲炒蛤蜊',   emoji: '🦪', needs: ['蛤蜊'],             bonus: ['青蔥', '辣椒'] },
+      { name: '辣炒蛤蜊',     emoji: '🦪', needs: ['蛤蜊', '辣椒'],     bonus: ['蒜頭', '青蔥'] },
+      { name: '馬鈴薯燉肉',   emoji: '🥔', needs: ['馬鈴薯', '豬肉'],   bonus: ['洋蔥', '紅蘿蔔'] },
+      { name: '紅蘿蔔炒蛋',   emoji: '🥕', needs: ['紅蘿蔔', '雞蛋'],   bonus: [] },
+      { name: '韭菜炒蛋',     emoji: '🌾', needs: ['韭菜', '雞蛋'],     bonus: [] },
+      { name: '青椒炒肉絲',   emoji: '🫑', needs: ['青椒', '豬肉'],     bonus: ['蒜頭'] },
+      { name: '辣炒豆乾',     emoji: '🧆', needs: ['豆乾'],             bonus: ['辣椒', '韭菜', '蒜頭'] },
+      { name: '茄子燒蒜',     emoji: '🍆', needs: ['茄子', '蒜頭'],     bonus: ['辣椒'] },
+      { name: '玉米炒蛋',     emoji: '🌽', needs: ['玉米', '雞蛋'],     bonus: [] },
+      { name: '花椰菜炒培根', emoji: '🥦', needs: ['花椰菜', '培根'],   bonus: ['蒜頭'] },
+      { name: '豆芽菜炒肉',   emoji: '🫛', needs: ['豆芽菜', '豬肉'],   bonus: ['韭菜'] },
+      { name: '起司烘蛋',     emoji: '🧀', needs: ['起司', '雞蛋'],     bonus: ['培根', '洋蔥'] },
+      { name: '絞肉豆腐煮',   emoji: '🍲', needs: ['絞肉', '豆腐'],     bonus: ['蒜頭'] },
+      { name: '雞腿燒蔬菜',   emoji: '🍗', needs: ['雞腿'],             bonus: ['洋蔥', '紅蘿蔔', '馬鈴薯'] },
+      { name: '蔥炒蛋',       emoji: '🌿', needs: ['青蔥', '雞蛋'],     bonus: [] },
+      { name: '地瓜稀飯',     emoji: '🍠', needs: ['地瓜'],             bonus: [] },
+      { name: '鮭魚炒飯',     emoji: '🐟', needs: ['鮭魚'],             bonus: ['雞蛋', '青蔥'] },
     ];
 
     const chaosMessages = [
-      '媽媽已失去耐心',
       '有人又說不要吃綠色',
-      '肉忘記退冰',
-      '煮到一半有人哭了',
-      '電話又響了',
-      '有人進廚房問什麼時候好',
-      '鍋鏟不見了',
-      '油噴出來了',
-      '某人說要吃麥當勞',
-      '兩個孩子在廚房外打架',
-      '青菜放到快爛了才拿出來',
-      '忘記加鹽',
-      '有人說「臭臭」',
-    ];
-
-    const dadModes = [
-      '異常（已吃3碗）',
-      '消失了',
-      '加了白飯×3',
-      '只吃肉的那種',
-      '邊看手機邊吃',
-      '說不夠鹹又加醬油',
-      '中途接電話',
-      '說要吃滷肉飯',
-      '很給面子（超稀有）',
-      '說「差不多啦」',
-      '加了大量辣椒',
-      '問有沒有湯',
+      '肉忘記退冰了',
+      '飯還沒煮',
+      '才剛開始煮就有人喊餓',
+      '廚房溫度持續上升中',
+      '切菜切到一半有人哭了',
+      '剛開火就有人吵架',
+      '青菜放到快不行了',
+      '原本想簡單煮，結果越煮越多',
+      '煮到一半發現調味料沒了',
+      '備料10分鐘，處理突發狀況40分鐘',
+      '剛開始煮就覺得累了',
+      '有人一直問：好了沒？',
     ];
 
     let selectedIngredients = [];
+    let customIngredients = [];
+    let targetDishCount = 3;
     let dinnerCookTimer = null;
+    let cookingAudioCtx = null;
+    let clankTimer = null;
 
     function showDinnerScreen(name) {
       document.querySelectorAll('.dinner-screen').forEach(s => s.classList.remove('active'));
@@ -1721,7 +1795,15 @@
 
     function initDinnerGame(keepSelection) {
       if (dinnerCookTimer) { clearInterval(dinnerCookTimer); dinnerCookTimer = null; }
-      if (!keepSelection) selectedIngredients = [];
+      stopCookingSounds();
+      if (!keepSelection) {
+        selectedIngredients = [];
+        customIngredients = [];
+        targetDishCount = 3;
+        document.querySelectorAll('.dish-count-btn').forEach(b => {
+          b.classList.toggle('active', b.dataset.count === '3');
+        });
+      }
       renderFridgeGrid();
       renderBasket();
       document.getElementById('startCookBtn').disabled = selectedIngredients.length < 2;
@@ -1729,7 +1811,8 @@
     }
 
     function renderFridgeGrid() {
-      document.getElementById('fridgeGrid').innerHTML = fridgeIngredients.map(item => {
+      const allItems = [...fridgeIngredients, ...customIngredients];
+      document.getElementById('fridgeGrid').innerHTML = allItems.map(item => {
         const sel = selectedIngredients.some(i => i.id === item.id);
         return `<button class="fridge-item${sel ? ' selected' : ''}" id="fi_${item.id}" onclick="toggleIngredient('${item.id}')">${item.emoji}<span>${item.name}</span></button>`;
       }).join('');
@@ -1749,8 +1832,56 @@
       } catch(e) {}
     }
 
+    function startCookingSounds() {
+      try {
+        cookingAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const sr = cookingAudioCtx.sampleRate;
+        const buf = cookingAudioCtx.createBuffer(1, sr * 2, sr);
+        const data = buf.getChannelData(0);
+        for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+        const noise = cookingAudioCtx.createBufferSource();
+        noise.buffer = buf;
+        noise.loop = true;
+        const bpf = cookingAudioCtx.createBiquadFilter();
+        bpf.type = 'bandpass';
+        bpf.frequency.value = 2800;
+        bpf.Q.value = 0.5;
+        const sizzleGain = cookingAudioCtx.createGain();
+        sizzleGain.gain.value = 0.055;
+        noise.connect(bpf); bpf.connect(sizzleGain); sizzleGain.connect(cookingAudioCtx.destination);
+        noise.start();
+        clankTimer = setInterval(playCookClank, 1400);
+      } catch(e) {}
+    }
+
+    function playCookClank() {
+      if (!cookingAudioCtx) return;
+      try {
+        const osc = cookingAudioCtx.createOscillator();
+        const gain = cookingAudioCtx.createGain();
+        osc.connect(gain); gain.connect(cookingAudioCtx.destination);
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(650 + Math.random() * 350, cookingAudioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(140, cookingAudioCtx.currentTime + 0.18);
+        gain.gain.setValueAtTime(0.28, cookingAudioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, cookingAudioCtx.currentTime + 0.22);
+        osc.start(cookingAudioCtx.currentTime);
+        osc.stop(cookingAudioCtx.currentTime + 0.22);
+      } catch(e) {}
+    }
+
+    function stopCookingSounds() {
+      if (clankTimer) { clearInterval(clankTimer); clankTimer = null; }
+      if (cookingAudioCtx) {
+        try { cookingAudioCtx.close(); } catch(e) {}
+        cookingAudioCtx = null;
+      }
+    }
+
     function toggleIngredient(id) {
-      const item = fridgeIngredients.find(i => i.id === id);
+      const allItems = [...fridgeIngredients, ...customIngredients];
+      const item = allItems.find(i => i.id === id);
+      if (!item) return;
       const btn = document.getElementById('fi_' + id);
       const idx = selectedIngredients.findIndex(i => i.id === id);
       if (idx === -1) {
@@ -1766,6 +1897,30 @@
       document.getElementById('startCookBtn').disabled = selectedIngredients.length < 2;
     }
 
+    function addCustomIngredient() {
+      const input = document.getElementById('customIngInput');
+      const name = input.value.trim();
+      if (!name) return;
+      const allItems = [...fridgeIngredients, ...customIngredients];
+      if (allItems.some(i => i.name === name)) { input.value = ''; return; }
+      const id = 'custom_' + Date.now();
+      const item = { id, name, emoji: '🍽️' };
+      customIngredients.push(item);
+      selectedIngredients.push(item);
+      renderFridgeGrid();
+      renderBasket();
+      document.getElementById('startCookBtn').disabled = selectedIngredients.length < 2;
+      input.value = '';
+      playBop();
+    }
+
+    function setDishCount(n) {
+      targetDishCount = n;
+      document.querySelectorAll('.dish-count-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.count === String(n));
+      });
+    }
+
     function renderBasket() {
       document.getElementById('basketCount').textContent = selectedIngredients.length;
       document.getElementById('basketChips').innerHTML = selectedIngredients.map(i =>
@@ -1775,6 +1930,7 @@
 
     function startDinnerCooking() {
       showDinnerScreen('stage2');
+      startCookingSounds();
       const fill = document.getElementById('cookProgressFill');
       const msgEl = document.getElementById('chaosMsgEl');
       const shuffled = [...chaosMessages].sort(() => Math.random() - 0.5);
@@ -1796,6 +1952,7 @@
         if (progress >= 100) {
           clearInterval(dinnerCookTimer);
           dinnerCookTimer = null;
+          stopCookingSounds();
           setTimeout(showDinnerResult, 350);
         }
       }, 100);
@@ -1812,7 +1969,7 @@
       if (!scored.length) {
         return [{ name: '泡麵將就一下', emoji: '🍜' }, { name: '白飯配醬油', emoji: '🍚' }, { name: '外送吧', emoji: '🛵' }];
       }
-      return scored.slice(0, 3 + Math.floor(Math.random() * 2));
+      return scored.slice(0, Math.min(targetDishCount, scored.length));
     }
 
     function showDinnerResult() {
@@ -1820,34 +1977,7 @@
       document.getElementById('dinnerMenu').innerHTML = dishes.map(d =>
         `<div class="dinner-dish"><span style="font-size:1.1rem;">${d.emoji}</span>${d.name}</div>`
       ).join('');
-
-      const bigBro  = 42 + Math.floor(Math.random() * 53);
-      const litBro  = 3  + Math.floor(Math.random() * 28);
-      const dad     = dadModes[Math.floor(Math.random() * dadModes.length)];
-
-      document.getElementById('familyRatings').innerHTML = `
-        <div class="rating-row">
-          <span class="rating-label">👦 哥哥接受度</span>
-          <div class="rating-bar-wrap"><div class="rating-bar-fill" id="rbar1" style="width:0%;background:#8A470F;"></div></div>
-          <span class="rating-val">${bigBro}%</span>
-        </div>
-        <div class="rating-row">
-          <span class="rating-label">👶 弟弟接受度</span>
-          <div class="rating-bar-wrap"><div class="rating-bar-fill" id="rbar2" style="width:0%;background:#B1BBBA;"></div></div>
-          <span class="rating-val">${litBro}%</span>
-        </div>
-        <div class="rating-row">
-          <span class="rating-label">👨 爸爸食量</span>
-          <span style="flex:1;text-align:right;font-size:0.7rem;color:#5f624e;">${dad}</span>
-        </div>`;
-
       showDinnerScreen('stage3');
-      setTimeout(() => {
-        const b1 = document.getElementById('rbar1');
-        const b2 = document.getElementById('rbar2');
-        if (b1) b1.style.width = bigBro + '%';
-        if (b2) b2.style.width = litBro + '%';
-      }, 120);
     }
 
     // ── Recipe Game ──
