@@ -737,85 +737,227 @@
       margin-bottom: 18px;
     }
 
-    /* ── 中式熱炒 Game ── */
-    .stir-screen { display: none; }
-    .stir-screen.active { display: block; }
+    /* ── 今天晚餐生存戰 Game ── */
+    .dinner-screen { display: none; }
+    .dinner-screen.active { display: block; }
 
-    .cook-action-btn {
-      display: block;
-      margin: 12px auto 0;
-      padding: 10px 30px;
-      background: #5f624e;
-      color: #F8EAE1;
-      border: none;
-      border-radius: 20px;
-      font-size: 0.88rem;
-      font-family: sans-serif;
-      font-weight: 600;
-      cursor: pointer;
-      letter-spacing: 0.05em;
-      transition: background 0.2s, transform 0.1s;
-    }
-    .cook-action-btn:hover { background: #4a4d3c; }
-    .cook-action-btn:active { transform: scale(0.96); }
-    .cook-action-btn:disabled { background: #B1BBBA; cursor: default; transform: none; }
-
-    .cook-sub-title {
+    .dinner-tip {
       text-align: center;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: #9da6a3;
       font-family: sans-serif;
-      letter-spacing: 0.05em;
-      margin: 4px 0 10px;
-      min-height: 1.2em;
+      margin-bottom: 10px;
     }
 
-    .stir-wok-area { text-align: center; margin: 14px 0 8px; }
-    .stir-wok {
-      font-size: 5.5rem;
+    .fridge-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 7px;
+      margin-bottom: 10px;
+    }
+
+    .fridge-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 8px 3px 6px;
+      border-radius: 12px;
+      border: 1.5px solid #e8e4de;
+      background: #fefefd;
+      cursor: pointer;
+      font-size: 1.3rem;
+      transition: border-color 0.12s, background 0.12s;
+    }
+
+    .fridge-item span {
+      font-size: 0.54rem;
+      font-family: sans-serif;
+      color: #9da6a3;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .fridge-item:hover { background: #f5f0e8; border-color: #8A470F; }
+
+    .fridge-item.selected {
+      background: rgba(138,71,15,0.09);
+      border-color: #8A470F;
+    }
+
+    @keyframes fridgePop {
+      0%   { transform: scale(1); }
+      45%  { transform: scale(1.22); }
+      100% { transform: scale(1); }
+    }
+
+    .fridge-item.pop { animation: fridgePop 0.18s ease; }
+
+    .basket-area {
+      background: rgba(248,234,225,0.45);
+      border: 1px dashed rgba(138,71,15,0.22);
+      border-radius: 10px;
+      padding: 7px 10px;
+      margin-bottom: 10px;
+      min-height: 44px;
+    }
+
+    .basket-label {
+      font-size: 0.65rem;
+      color: #8A470F;
+      font-family: sans-serif;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .basket-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    .basket-chip {
+      padding: 3px 8px;
+      background: #fff;
+      border: 1px solid rgba(138,71,15,0.18);
+      border-radius: 20px;
+      font-size: 0.68rem;
+      font-family: sans-serif;
+      color: #5f624e;
+    }
+
+    /* Cooking loader */
+    .cooking-scene {
+      text-align: center;
+      margin: 14px 0 6px;
+      height: 88px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .c-wok {
+      font-size: 4rem;
+      animation: wokRock 0.2s ease infinite;
       display: inline-block;
-      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.18));
       line-height: 1;
     }
-    .stir-wok.shaking { animation: stirShake 0.18s ease infinite; }
-    @keyframes stirShake {
-      0%, 100% { transform: rotate(-5deg) translateX(-3px); }
-      50%       { transform: rotate(5deg)  translateX(3px);  }
+
+    @keyframes wokRock {
+      0%, 100% { transform: rotate(-9deg); }
+      50%       { transform: rotate(9deg); }
     }
-    .stir-fire { font-size: 2rem; display: block; text-align: center; min-height: 2rem; letter-spacing: 4px; }
-    .stir-steam {
-      font-size: 1.2rem; display: block; text-align: center; letter-spacing: 8px;
-      animation: stirSteam 1.4s ease infinite; opacity: 0;
+
+    .c-spatula {
+      font-size: 2rem;
+      animation: spatBounce 0.4s ease infinite;
+      display: inline-block;
     }
-    @keyframes stirSteam {
-      0%   { opacity: 0; transform: translateY(0); }
-      40%  { opacity: 0.55; }
-      100% { opacity: 0; transform: translateY(-14px); }
+
+    @keyframes spatBounce {
+      0%, 100% { transform: rotate(25deg) translateY(0); }
+      50%       { transform: rotate(-15deg) translateY(-10px); }
     }
-    .stir-sizzle {
-      text-align: center; font-size: 0.8rem; font-family: sans-serif;
-      color: #8A470F; letter-spacing: 0.1em; min-height: 1.2em; margin-top: 4px;
+
+    .c-fire {
+      font-size: 1.6rem;
+      letter-spacing: -2px;
+      animation: fireFlick 0.28s ease infinite;
+      display: inline-block;
+      align-self: flex-end;
+      margin-bottom: -4px;
     }
-    .stir-ingredients {
-      display: flex; flex-wrap: wrap; justify-content: center;
-      gap: 8px; margin: 12px 0 8px;
+
+    @keyframes fireFlick {
+      0%, 100% { transform: scaleY(1); }
+      50%       { transform: scaleY(0.88); }
     }
-    .stir-ing-card {
-      display: flex; flex-direction: column; align-items: center; gap: 3px;
-      padding: 9px 10px; border-radius: 12px;
-      border: 1.5px solid rgba(95,98,78,0.2);
-      background: rgba(248,234,225,0.6);
-      cursor: pointer; font-size: 1.5rem;
-      transition: background 0.15s, opacity 0.3s, border-color 0.15s;
+
+    .chaos-msg {
+      text-align: center;
+      font-size: 0.82rem;
+      font-family: sans-serif;
+      color: #8A470F;
+      font-weight: 700;
+      min-height: 1.3em;
+      margin: 8px 0 10px;
+      transition: opacity 0.25s;
     }
-    .stir-ing-card span { font-size: 0.6rem; font-family: sans-serif; color: #9da6a3; line-height: 1.3; }
-    .stir-ing-card:hover { background: rgba(138,71,15,0.08); border-color: rgba(138,71,15,0.3); }
-    .stir-ing-card.added { opacity: 0.3; pointer-events: none; }
-    .stir-dish-reveal { text-align: center; padding: 14px 0 8px; }
-    .stir-dish-icon { font-size: 4.5rem; display: block; margin-bottom: 6px; }
-    .stir-dish-name {
-      font-size: 1.15rem; font-weight: 700;
-      font-family: 'Noto Serif TC', sans-serif; color: #3a3a38;
+
+    .cook-progress-bar {
+      width: 100%;
+      height: 5px;
+      background: #e8e4de;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .cook-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #8A470F, #c4a26a);
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.12s linear;
+    }
+
+    /* Dinner result */
+    .dinner-menu { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+
+    .dinner-dish {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      background: #f8f4ef;
+      border-radius: 10px;
+      border-left: 3px solid #8A470F;
+      font-family: sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #3a3a38;
+    }
+
+    .family-ratings {
+      background: rgba(248,234,225,0.4);
+      border: 1px solid rgba(138,71,15,0.1);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .rating-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-family: sans-serif;
+    }
+
+    .rating-label { width: 76px; color: #5f624e; flex-shrink: 0; }
+
+    .rating-bar-wrap {
+      flex: 1;
+      height: 7px;
+      background: #e8e4de;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .rating-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.9s ease;
+    }
+
+    .rating-val { font-size: 0.68rem; color: #9da6a3; min-width: 28px; text-align: right; flex-shrink: 0; }
+
+    .hell-footer {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #b7b397;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      padding: 4px 0 2px;
     }
 
     /* Recipe game */
@@ -1349,39 +1491,47 @@
     <button class="side-btn" onclick="openGame('quiz')" title="料理猜猜樂">🎯</button>
   </div>
 
-  <!-- 中式熱炒 game modal -->
+  <!-- 今天晚餐生存戰 game modal -->
   <div class="game-modal" id="modal-cook">
     <div class="game-card">
       <button class="modal-close" onclick="closeGame('cook')">✕</button>
-      <!-- 介紹 -->
-      <div class="stir-screen active" id="stir-intro">
-        <h3 class="game-title">中式熱炒</h3>
-        <p class="game-desc">讓微絜教你今天做什麼菜！</p>
-        <div class="stir-wok-area"><div class="stir-wok">🍳</div></div>
-        <button class="cook-action-btn" onclick="startStirFry()">抽菜色！</button>
-      </div>
-      <!-- 加食材 -->
-      <div class="stir-screen" id="stir-cook">
-        <h3 class="game-title" id="stirDishName"></h3>
-        <p class="cook-sub-title">把食材通通丟進鍋裡！</p>
-        <div class="stir-wok-area">
-          <div class="stir-steam" id="stirSteam">〰〰〰</div>
-          <div class="stir-wok" id="stirWok">🍳</div>
-          <span class="stir-fire" id="stirFire"></span>
-          <p class="stir-sizzle" id="stirSizzle"></p>
+
+      <!-- 第一階段：選食材 -->
+      <div class="dinner-screen active" id="dinner-stage1">
+        <h3 class="game-title">🍳 今天晚餐生存戰</h3>
+        <p class="game-desc">六大四小今晚吃什麼？</p>
+        <p class="dinner-tip">點選今天冰箱裡有的食材（至少 2 樣）</p>
+        <div class="fridge-grid" id="fridgeGrid"></div>
+        <div class="basket-area">
+          <div class="basket-label">🧺 已選：<span id="basketCount">0</span> 樣</div>
+          <div class="basket-chips" id="basketChips"></div>
         </div>
-        <div class="stir-ingredients" id="stirIngredients"></div>
-        <button class="cook-action-btn" id="stirCookBtn" onclick="doStirFry()" disabled>熱炒！🔥</button>
+        <button class="cook-action-btn" id="startCookBtn" onclick="startDinnerCooking()" disabled>開火啦 🔥</button>
       </div>
-      <!-- 出菜 -->
-      <div class="stir-screen" id="stir-result">
-        <p class="game-desc">出菜！</p>
-        <div class="stir-dish-reveal">
-          <span class="stir-dish-icon" id="stirResultIcon"></span>
-          <div class="stir-dish-name" id="stirResultName"></div>
+
+      <!-- 第二階段：煮飯 loading -->
+      <div class="dinner-screen" id="dinner-stage2">
+        <h3 class="game-title">🍳 煮飯中⋯</h3>
+        <p class="game-desc" style="margin-bottom:0;">請稍等，媽媽正在奮戰</p>
+        <div class="cooking-scene">
+          <span class="c-fire">🔥🔥</span>
+          <span class="c-wok">🍳</span>
+          <span class="c-spatula">🥄</span>
         </div>
-        <a class="reel-btn" id="stirReelBtn" href="#" target="_blank" rel="noopener" style="display:none;margin:12px auto;">🎬 看作法</a>
-        <button class="cook-action-btn" onclick="startStirFry()" style="margin-top:10px;">再來一道</button>
+        <p class="chaos-msg" id="chaosMsgEl"></p>
+        <div class="cook-progress-bar"><div class="cook-progress-fill" id="cookProgressFill"></div></div>
+      </div>
+
+      <!-- 第三階段：晚餐結果 -->
+      <div class="dinner-screen" id="dinner-stage3">
+        <h3 class="game-title">🍽️ 今晚菜單</h3>
+        <div class="dinner-menu" id="dinnerMenu"></div>
+        <div class="family-ratings" id="familyRatings"></div>
+        <p class="hell-footer">「歡迎體驗六大四小家庭的地獄日常。」</p>
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button class="cook-action-btn" onclick="initDinnerGame()" style="flex:1;margin:0;">再來一次</button>
+          <button class="cook-action-btn" onclick="initDinnerGame(true)" style="flex:1;margin:0;background:#8A470F;">換食材</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1493,106 +1643,211 @@
     updateCountdowns();
     setInterval(updateCountdowns, 1000);
 
-    // ── 中式熱炒 Game ──
-    const stirFryDishes = [
-      { name: '蔥爆豬肉', icon: '🐷', url: '',
-        ing: [{ e:'🐷', l:'豬肉片' },{ e:'🥬', l:'青蔥' },{ e:'🧄', l:'蒜頭' },{ e:'🍶', l:'醬油' },{ e:'🍯', l:'糖' }] },
-      { name: '三杯雞', icon: '🐔', url: '',
-        ing: [{ e:'🐔', l:'雞腿肉' },{ e:'🧄', l:'蒜頭' },{ e:'🌿', l:'九層塔' },{ e:'🫙', l:'麻油' },{ e:'🍶', l:'醬油' }] },
-      { name: '番茄炒蛋', icon: '🍳', url: '',
-        ing: [{ e:'🍅', l:'番茄' },{ e:'🥚', l:'雞蛋' },{ e:'🥬', l:'蔥' },{ e:'🍯', l:'糖' }] },
-      { name: '糖醋排骨', icon: '🦴', url: '',
-        ing: [{ e:'🦴', l:'排骨' },{ e:'🧄', l:'蒜頭' },{ e:'🍅', l:'番茄醬' },{ e:'🫙', l:'白醋' },{ e:'🍯', l:'糖' }] },
-      { name: '麻婆豆腐', icon: '🫘', url: '',
-        ing: [{ e:'🫘', l:'豆腐' },{ e:'🐷', l:'豬絞肉' },{ e:'🧄', l:'蒜頭' },{ e:'🌶️', l:'豆瓣醬' },{ e:'🥬', l:'蔥花' }] },
-      { name: '宮保雞丁', icon: '🐔', url: '',
-        ing: [{ e:'🐔', l:'雞胸肉' },{ e:'🥜', l:'花生' },{ e:'🌶️', l:'乾辣椒' },{ e:'🧄', l:'蒜頭' },{ e:'🥬', l:'蔥' }] },
-      { name: '蒜泥白肉', icon: '🥩', url: '',
-        ing: [{ e:'🥩', l:'五花肉' },{ e:'🧄', l:'蒜泥' },{ e:'🌶️', l:'辣椒' },{ e:'🍶', l:'醬油' },{ e:'🥬', l:'蔥絲' }] },
-      { name: '炒空心菜', icon: '🥬', url: '',
-        ing: [{ e:'🥬', l:'空心菜' },{ e:'🧄', l:'蒜頭' },{ e:'🌶️', l:'辣椒' },{ e:'🫙', l:'蝦皮' }] },
-      { name: '紅燒肉', icon: '🍖', url: '',
-        ing: [{ e:'🥩', l:'五花肉' },{ e:'🍶', l:'醬油' },{ e:'🍯', l:'冰糖' },{ e:'⭐', l:'八角' },{ e:'🧄', l:'蒜頭' }] },
-      { name: '韭黃炒蝦', icon: '🦐', url: '',
-        ing: [{ e:'🦐', l:'蝦仁' },{ e:'🥬', l:'韭黃' },{ e:'🧄', l:'蒜頭' },{ e:'🥚', l:'蛋白' }] },
+    // ── 今天晚餐生存戰 Game ──
+    const fridgeIngredients = [
+      { id: 'cabbage',  name: '高麗菜', emoji: '🥬' },
+      { id: 'egg',      name: '雞蛋',   emoji: '🥚' },
+      { id: 'shrimp',   name: '蝦子',   emoji: '🦐' },
+      { id: 'pork',     name: '豬肉',   emoji: '🥩' },
+      { id: 'tofu',     name: '豆腐',   emoji: '🫘' },
+      { id: 'mushroom', name: '香菇',   emoji: '🍄' },
+      { id: 'tomato',   name: '番茄',   emoji: '🍅' },
+      { id: 'noodle',   name: '麵條',   emoji: '🍜' },
+      { id: 'pakchoi',  name: '青江菜', emoji: '🥦' },
+      { id: 'garlic',   name: '蒜頭',   emoji: '🧄' },
     ];
 
-    let stirCurrentDish = null;
-    let stirAddedCount = 0;
-    let stirShakeTimer = null;
+    const dinnerRecipes = [
+      { name: '蒜炒高麗菜',   emoji: '🥬', needs: ['高麗菜', '蒜頭'],   bonus: ['豬肉'] },
+      { name: '番茄炒蛋',     emoji: '🍳', needs: ['番茄', '雞蛋'],     bonus: ['蒜頭'] },
+      { name: '蝦仁炒蛋',     emoji: '🦐', needs: ['蝦子', '雞蛋'],     bonus: [] },
+      { name: '三杯豆腐',     emoji: '🫘', needs: ['豆腐'],             bonus: ['蒜頭', '香菇'] },
+      { name: '香菇炒豬肉',   emoji: '🍄', needs: ['香菇', '豬肉'],     bonus: ['蒜頭'] },
+      { name: '豬肉炒麵',     emoji: '🍜', needs: ['豬肉', '麵條'],     bonus: ['高麗菜', '蒜頭'] },
+      { name: '蒜炒青江菜',   emoji: '🥦', needs: ['青江菜', '蒜頭'],   bonus: [] },
+      { name: '蝦仁豆腐湯',   emoji: '🍲', needs: ['蝦子', '豆腐'],     bonus: ['香菇'] },
+      { name: '番茄蛋花湯',   emoji: '🍲', needs: ['番茄', '雞蛋'],     bonus: [] },
+      { name: '蒜香炒麵',     emoji: '🍜', needs: ['麵條', '蒜頭'],     bonus: ['豬肉', '青江菜'] },
+      { name: '清炒高麗菜',   emoji: '🥬', needs: ['高麗菜'],           bonus: ['蒜頭'] },
+      { name: '蒜炒蝦',       emoji: '🦐', needs: ['蝦子', '蒜頭'],     bonus: [] },
+      { name: '豆腐蛋花湯',   emoji: '🍲', needs: ['豆腐', '雞蛋'],     bonus: [] },
+      { name: '番茄豆腐湯',   emoji: '🍲', needs: ['番茄', '豆腐'],     bonus: [] },
+      { name: '蝦子麵線',     emoji: '🍜', needs: ['蝦子', '麵條'],     bonus: ['蒜頭'] },
+      { name: '香菇豆腐湯',   emoji: '🍲', needs: ['香菇', '豆腐'],     bonus: [] },
+      { name: '豬肉青江菜',   emoji: '🥦', needs: ['豬肉', '青江菜'],   bonus: ['蒜頭'] },
+      { name: '香菇雞蛋湯',   emoji: '🍲', needs: ['香菇', '雞蛋'],     bonus: [] },
+      { name: '番茄豬肉湯',   emoji: '🍲', needs: ['番茄', '豬肉'],     bonus: ['豆腐'] },
+      { name: '蒜香時蔬麵',   emoji: '🍜', needs: ['麵條', '青江菜'],   bonus: ['蒜頭', '香菇'] },
+    ];
 
-    function showStirScreen(name) {
-      document.querySelectorAll('.stir-screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('stir-' + name).classList.add('active');
+    const chaosMessages = [
+      '媽媽已失去耐心',
+      '有人又說不要吃綠色',
+      '肉忘記退冰',
+      '煮到一半有人哭了',
+      '電話又響了',
+      '有人進廚房問什麼時候好',
+      '鍋鏟不見了',
+      '油噴出來了',
+      '某人說要吃麥當勞',
+      '兩個孩子在廚房外打架',
+      '青菜放到快爛了才拿出來',
+      '忘記加鹽',
+      '有人說「臭臭」',
+    ];
+
+    const dadModes = [
+      '異常（已吃3碗）',
+      '消失了',
+      '加了白飯×3',
+      '只吃肉的那種',
+      '邊看手機邊吃',
+      '說不夠鹹又加醬油',
+      '中途接電話',
+      '說要吃滷肉飯',
+      '很給面子（超稀有）',
+      '說「差不多啦」',
+      '加了大量辣椒',
+      '問有沒有湯',
+    ];
+
+    let selectedIngredients = [];
+    let dinnerCookTimer = null;
+
+    function showDinnerScreen(name) {
+      document.querySelectorAll('.dinner-screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('dinner-' + name).classList.add('active');
     }
 
-    function initStirFry() {
-      if (stirShakeTimer) { clearTimeout(stirShakeTimer); stirShakeTimer = null; }
-      showStirScreen('intro');
+    function initDinnerGame(keepSelection) {
+      if (dinnerCookTimer) { clearInterval(dinnerCookTimer); dinnerCookTimer = null; }
+      if (!keepSelection) selectedIngredients = [];
+      renderFridgeGrid();
+      renderBasket();
+      document.getElementById('startCookBtn').disabled = selectedIngredients.length < 2;
+      showDinnerScreen('stage1');
     }
 
-    function startStirFry() {
-      stirCurrentDish = stirFryDishes[Math.floor(Math.random() * stirFryDishes.length)];
-      stirAddedCount = 0;
-      document.getElementById('stirDishName').textContent = stirCurrentDish.name;
-      document.getElementById('stirIngredients').innerHTML = stirCurrentDish.ing.map((ing, i) =>
-        `<div class="stir-ing-card" id="stirIng${i}" onclick="addStirIng(${i})">${ing.e}<span>${ing.l}</span></div>`
-      ).join('');
-      document.getElementById('stirCookBtn').disabled = true;
-      document.getElementById('stirCookBtn').style.display = 'block';
-      const wok = document.getElementById('stirWok');
-      wok.className = 'stir-wok'; wok.textContent = '🍳';
-      document.getElementById('stirFire').textContent = '';
-      document.getElementById('stirSteam').style.opacity = '0';
-      document.getElementById('stirSizzle').textContent = '';
-      showStirScreen('cook');
+    function renderFridgeGrid() {
+      document.getElementById('fridgeGrid').innerHTML = fridgeIngredients.map(item => {
+        const sel = selectedIngredients.some(i => i.id === item.id);
+        return `<button class="fridge-item${sel ? ' selected' : ''}" id="fi_${item.id}" onclick="toggleIngredient('${item.id}')">${item.emoji}<span>${item.name}</span></button>`;
+      }).join('');
     }
 
-    function addStirIng(i) {
-      const card = document.getElementById('stirIng' + i);
-      if (card.classList.contains('added')) return;
-      const rect = card.getBoundingClientRect();
-      const wokEl = document.getElementById('stirWok');
-      const wokRect = wokEl.getBoundingClientRect();
-      const fly = document.createElement('span');
-      fly.textContent = stirCurrentDish.ing[i].e;
-      fly.style.cssText = `position:fixed;left:${rect.left+rect.width/2-16}px;top:${rect.top}px;font-size:1.6rem;z-index:9999;pointer-events:none;transition:all 0.35s ease;`;
-      document.body.appendChild(fly);
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        fly.style.left = (wokRect.left + wokRect.width/2 - 16) + 'px';
-        fly.style.top = (wokRect.top + wokRect.height/2 - 10) + 'px';
-        fly.style.opacity = '0';
-        fly.style.transform = 'scale(0.2)';
-        setTimeout(() => fly.remove(), 380);
-      }));
-      card.classList.add('added');
-      stirAddedCount++;
-      if (stirAddedCount >= stirCurrentDish.ing.length) {
-        document.getElementById('stirCookBtn').disabled = false;
-        document.getElementById('stirSizzle').textContent = '食材都到位了！';
+    function playBop() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.frequency.setValueAtTime(900, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(500, ctx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.22, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+        osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.12);
+      } catch(e) {}
+    }
+
+    function toggleIngredient(id) {
+      const item = fridgeIngredients.find(i => i.id === id);
+      const btn = document.getElementById('fi_' + id);
+      const idx = selectedIngredients.findIndex(i => i.id === id);
+      if (idx === -1) {
+        selectedIngredients.push(item);
+        btn.classList.add('selected', 'pop');
+        setTimeout(() => btn.classList.remove('pop'), 200);
+        playBop();
+      } else {
+        selectedIngredients.splice(idx, 1);
+        btn.classList.remove('selected');
       }
+      renderBasket();
+      document.getElementById('startCookBtn').disabled = selectedIngredients.length < 2;
     }
 
-    function doStirFry() {
-      document.getElementById('stirCookBtn').style.display = 'none';
-      const wok = document.getElementById('stirWok');
-      wok.classList.add('shaking');
-      document.getElementById('stirFire').textContent = '🔥🔥🔥';
-      document.getElementById('stirSizzle').textContent = '滋滋滋～～～';
-      const steam = document.getElementById('stirSteam');
-      steam.style.opacity = '1';
-      stirShakeTimer = setTimeout(() => {
-        wok.classList.remove('shaking');
-        document.getElementById('stirFire').textContent = '';
-        steam.style.opacity = '0';
-        document.getElementById('stirSizzle').textContent = '';
-        document.getElementById('stirResultIcon').textContent = stirCurrentDish.icon;
-        document.getElementById('stirResultName').textContent = stirCurrentDish.name;
-        const reelBtn = document.getElementById('stirReelBtn');
-        if (stirCurrentDish.url) { reelBtn.href = stirCurrentDish.url; reelBtn.style.display = 'block'; }
-        else { reelBtn.style.display = 'none'; }
-        showStirScreen('result');
-      }, 2500);
+    function renderBasket() {
+      document.getElementById('basketCount').textContent = selectedIngredients.length;
+      document.getElementById('basketChips').innerHTML = selectedIngredients.map(i =>
+        `<span class="basket-chip">${i.emoji} ${i.name}</span>`
+      ).join('');
+    }
+
+    function startDinnerCooking() {
+      showDinnerScreen('stage2');
+      const fill = document.getElementById('cookProgressFill');
+      const msgEl = document.getElementById('chaosMsgEl');
+      const shuffled = [...chaosMessages].sort(() => Math.random() - 0.5);
+      let msgIdx = 0;
+      let progress = 0;
+      msgEl.textContent = shuffled[0];
+
+      dinnerCookTimer = setInterval(() => {
+        progress += 3.2;
+        fill.style.width = Math.min(progress, 100) + '%';
+        if (progress % 22 < 3.2) {
+          msgEl.style.opacity = '0';
+          setTimeout(() => {
+            msgIdx = (msgIdx + 1) % shuffled.length;
+            msgEl.textContent = shuffled[msgIdx];
+            msgEl.style.opacity = '1';
+          }, 260);
+        }
+        if (progress >= 100) {
+          clearInterval(dinnerCookTimer);
+          dinnerCookTimer = null;
+          setTimeout(showDinnerResult, 350);
+        }
+      }, 100);
+    }
+
+    function generateDinnerDishes() {
+      const names = selectedIngredients.map(i => i.name);
+      const scored = dinnerRecipes.map(r => {
+        const hit = r.needs.filter(n => names.includes(n)).length;
+        const bon = r.bonus.filter(n => names.includes(n)).length;
+        return { ...r, score: hit * 10 + bon * 3 + Math.random() * 5 };
+      }).filter(r => r.score >= 10).sort((a, b) => b.score - a.score);
+
+      if (!scored.length) {
+        return [{ name: '泡麵將就一下', emoji: '🍜' }, { name: '白飯配醬油', emoji: '🍚' }, { name: '外送吧', emoji: '🛵' }];
+      }
+      return scored.slice(0, 3 + Math.floor(Math.random() * 2));
+    }
+
+    function showDinnerResult() {
+      const dishes = generateDinnerDishes();
+      document.getElementById('dinnerMenu').innerHTML = dishes.map(d =>
+        `<div class="dinner-dish"><span style="font-size:1.1rem;">${d.emoji}</span>${d.name}</div>`
+      ).join('');
+
+      const bigBro  = 42 + Math.floor(Math.random() * 53);
+      const litBro  = 3  + Math.floor(Math.random() * 28);
+      const dad     = dadModes[Math.floor(Math.random() * dadModes.length)];
+
+      document.getElementById('familyRatings').innerHTML = `
+        <div class="rating-row">
+          <span class="rating-label">👦 哥哥接受度</span>
+          <div class="rating-bar-wrap"><div class="rating-bar-fill" id="rbar1" style="width:0%;background:#8A470F;"></div></div>
+          <span class="rating-val">${bigBro}%</span>
+        </div>
+        <div class="rating-row">
+          <span class="rating-label">👶 弟弟接受度</span>
+          <div class="rating-bar-wrap"><div class="rating-bar-fill" id="rbar2" style="width:0%;background:#B1BBBA;"></div></div>
+          <span class="rating-val">${litBro}%</span>
+        </div>
+        <div class="rating-row">
+          <span class="rating-label">👨 爸爸食量</span>
+          <span style="flex:1;text-align:right;font-size:0.7rem;color:#5f624e;">${dad}</span>
+        </div>`;
+
+      showDinnerScreen('stage3');
+      setTimeout(() => {
+        const b1 = document.getElementById('rbar1');
+        const b2 = document.getElementById('rbar2');
+        if (b1) b1.style.width = bigBro + '%';
+        if (b2) b2.style.width = litBro + '%';
+      }, 120);
     }
 
     // ── Recipe Game ──
@@ -1838,14 +2093,14 @@
 
     function openGame(type) {
       document.getElementById('modal-' + type).classList.add('open');
-      if (type === 'cook') initStirFry();
+      if (type === 'cook') initDinnerGame();
       if (type === 'quiz') showQuizScreen('start');
     }
 
     function closeGame(type) {
       document.getElementById('modal-' + type).classList.remove('open');
       if (type === 'cook') {
-        if (stirShakeTimer) { clearTimeout(stirShakeTimer); stirShakeTimer = null; }
+        if (dinnerCookTimer) { clearInterval(dinnerCookTimer); dinnerCookTimer = null; }
       }
       if (type === 'recipe') {
         userIngredients = [];
