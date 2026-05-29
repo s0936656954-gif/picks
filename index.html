@@ -656,35 +656,32 @@
     }
     .toast.show { opacity: 1; }
 
-    /* ── Side Game Buttons ── */
+    /* ── Game Buttons Row ── */
     .side-btns {
-      position: fixed;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
       display: flex;
-      flex-direction: column;
-      gap: 6px;
-      z-index: 150;
+      flex-direction: row;
+      justify-content: center;
+      gap: 12px;
+      margin: 0 0 18px;
     }
 
     .side-btn {
-      width: 58px;
-      padding: 8px 4px;
+      width: 72px;
+      height: 72px;
       background: #5f624e;
       border: none;
-      border-radius: 0 10px 10px 0;
+      border-radius: 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 3px;
+      gap: 4px;
       cursor: pointer;
-      box-shadow: 2px 2px 10px rgba(0,0,0,0.18);
-      transition: background 0.15s, transform 0.15s;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      transition: background 0.15s, transform 0.12s;
       line-height: 1;
     }
-    .side-btn .side-icon { font-size: 1.3rem; }
+    .side-btn .side-icon { font-size: 1.5rem; }
     .side-btn .side-label {
       font-size: 0.6rem;
       color: #F8EAE1;
@@ -693,7 +690,7 @@
       white-space: nowrap;
     }
 
-    .side-btn:hover { background: #8A470F; transform: translateX(4px); }
+    .side-btn:hover { background: #8A470F; transform: translateY(-2px); }
 
 
     /* ── Game Modal ── */
@@ -1294,6 +1291,21 @@
     <!-- Links -->
     <div class="links-section">
 
+      <div class="side-btns">
+        <button class="side-btn" onclick="openGame('cook')">
+          <span class="side-icon">🍳</span>
+          <span class="side-label">今晚吃啥</span>
+        </button>
+        <button class="side-btn" onclick="openGame('recipe')">
+          <span class="side-icon">🥣</span>
+          <span class="side-label">搜尋食譜</span>
+        </button>
+        <button class="side-btn" onclick="openGame('quiz')">
+          <span class="side-icon">🎯</span>
+          <span class="side-label">料理猜猜</span>
+        </button>
+      </div>
+
       <div class="divider"><span class="divider-text">限時團購</span></div>
 
       <!-- 5/31 結團 -->
@@ -1530,20 +1542,6 @@
     </div>
   </div>
 
-  <!-- Side game buttons -->
-  <div class="side-btns">
-    <button class="side-btn" onclick="openGame('cook')">
-      <span class="side-icon">🍳</span>
-      <span class="side-label">今晚吃啥</span>
-    </button>
-    <button class="side-btn" onclick="openGame('recipe')">
-      <span class="side-icon">🥣</span>
-      <span class="side-label">搜尋食譜</span>
-    </button>
-    <button class="side-btn" onclick="openGame('quiz')">
-      <span class="side-icon">🎯</span>
-      <span class="side-label">料理猜猜</span>
-    </button>
   </div>
 
   <!-- 今天晚餐生存戰 game modal -->
