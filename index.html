@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>敺桃?嚚jay1102</title>
+  <title>微絜｜@jay1102</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Playfair+Display:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=ZCOOL+QingKe+HuangYou&family=Noto+Serif+TC:wght@300;400&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
@@ -21,9 +21,9 @@
       cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%238A470F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='21' r='1.5' fill='%238A470F'/%3E%3Ccircle cx='20' cy='21' r='1.5' fill='%238A470F'/%3E%3Cpath d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/%3E%3C/svg%3E") 0 0, pointer;
     }
 
-    /* ??????????????????????????
-       TOP IG BAR嚗摰?
-    ?????????????????????????? */
+    /* ══════════════════════════
+       TOP IG BAR（固定）
+    ══════════════════════════ */
     .ig-bar {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -88,9 +88,9 @@
       flex-shrink: 0;
     }
 
-    /* ??????????????????????????
+    /* ══════════════════════════
        MAIN SCROLL AREA
-    ?????????????????????????? */
+    ══════════════════════════ */
     .page {
       padding-top: 64px; /* ig-bar height */
       display: flex;
@@ -98,9 +98,9 @@
       align-items: center;
     }
 
-    /* ??????????????????????????
+    /* ══════════════════════════
        PROFILE SECTION
-    ?????????????????????????? */
+    ══════════════════════════ */
     .profile-section {
       width: 100%;
       max-width: 480px;
@@ -182,9 +182,9 @@
       color: #8A470F;
     }
 
-    /* ??????????????????????????
+    /* ══════════════════════════
        LINKS SECTION
-    ?????????????????????????? */
+    ══════════════════════════ */
     .links-section {
       width: 100%;
       max-width: 480px;
@@ -285,9 +285,9 @@
       font-family: 'Playfair Display', serif;
     }
 
-    /* ??????????????????????????
+    /* ══════════════════════════
        GROUP CARD GRID
-    ?????????????????????????? */
+    ══════════════════════════ */
     .group-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -397,7 +397,7 @@
     }
 
 
-    /* ?? Card Countdown Blocks ?? */
+    /* ── Card Countdown Blocks ── */
     .card-countdown {
       display: flex;
       gap: 4px;
@@ -435,7 +435,7 @@
       background: #b7b397;
     }
 
-    /* ?? Ended Item Row ?? */
+    /* ── Ended Item Row ── */
     .ended-row {
       display: flex;
       align-items: center;
@@ -496,11 +496,11 @@
       width: fit-content;
     }
 
-    /* ?? Divider color ?? */
+    /* ── Divider color ── */
     .divider { color: #8a907e; }
     .divider-text { color: #5f624e; font-weight: 600; }
 
-    /* ?? Group Buy Rows (no image) ?? */
+    /* ── Group Buy Rows (no image) ── */
     .group-row {
       display: flex;
       align-items: center;
@@ -546,7 +546,7 @@
       gap: 3px;
     }
     .group-row .card-countdown::before {
-      content: '?';
+      content: '倒數';
       font-size: 0.58rem;
       color: #8A470F;
       font-family: sans-serif;
@@ -556,7 +556,7 @@
       letter-spacing: 0.03em;
     }
     .group-row .card-countdown::after {
-      content: '??';
+      content: '關團';
       font-size: 0.58rem;
       color: #8A470F;
       font-family: sans-serif;
@@ -575,7 +575,7 @@
     .group-row .cd-num { font-size: 0.78rem; }
     .group-row .cd-label { font-size: 0.48rem; }
 
-    /* ?? Upcoming Grid ?? */
+    /* ── Upcoming Grid ── */
     .upcoming-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -648,7 +648,7 @@
     }
     .toast.show { opacity: 1; }
 
-    /* ?? Side Game Buttons ?? */
+    /* ── Side Game Buttons ── */
     .side-btns {
       position: fixed;
       left: 0;
@@ -678,7 +678,7 @@
 
     .side-btn:hover { background: #8A470F; transform: translateX(4px); }
 
-    /* ?? Game Modal ?? */
+    /* ── Game Modal ── */
     .game-modal {
       display: none;
       position: fixed;
@@ -729,19 +729,10 @@
       margin-bottom: 18px;
     }
 
-    /* ?? 銝剖??梁? Game ?? */
+    /* ── 中式熱炒 Game ── */
     .stir-screen { display: none; }
     .stir-screen.active { display: block; }
 
-    .cook-sub-title {
-      text-align: center;
-      font-size: 0.72rem;
-      color: #9da6a3;
-      font-family: sans-serif;
-      letter-spacing: 0.05em;
-      margin: 4px 0 10px;
-      min-height: 1.2em;
-    }
     .cook-action-btn {
       display: block;
       margin: 12px auto 0;
@@ -761,10 +752,17 @@
     .cook-action-btn:active { transform: scale(0.96); }
     .cook-action-btn:disabled { background: #B1BBBA; cursor: default; transform: none; }
 
-    .stir-wok-area {
+    .cook-sub-title {
       text-align: center;
-      margin: 14px 0 8px;
+      font-size: 0.72rem;
+      color: #9da6a3;
+      font-family: sans-serif;
+      letter-spacing: 0.05em;
+      margin: 4px 0 10px;
+      min-height: 1.2em;
     }
+
+    .stir-wok-area { text-align: center; margin: 14px 0 8px; }
     .stir-wok {
       font-size: 5.5rem;
       display: inline-block;
@@ -774,72 +772,42 @@
     .stir-wok.shaking { animation: stirShake 0.18s ease infinite; }
     @keyframes stirShake {
       0%, 100% { transform: rotate(-5deg) translateX(-3px); }
-      50% { transform: rotate(5deg) translateX(3px); }
+      50%       { transform: rotate(5deg)  translateX(3px);  }
     }
-    .stir-fire {
-      font-size: 2rem;
-      display: block;
-      text-align: center;
-      min-height: 2rem;
-      letter-spacing: 4px;
-    }
+    .stir-fire { font-size: 2rem; display: block; text-align: center; min-height: 2rem; letter-spacing: 4px; }
     .stir-steam {
-      font-size: 1.2rem;
-      display: block;
-      text-align: center;
-      letter-spacing: 8px;
-      animation: stirSteam 1.4s ease infinite;
-      opacity: 0;
+      font-size: 1.2rem; display: block; text-align: center; letter-spacing: 8px;
+      animation: stirSteam 1.4s ease infinite; opacity: 0;
     }
     @keyframes stirSteam {
-      0% { opacity: 0; transform: translateY(0); }
-      40% { opacity: 0.55; }
+      0%   { opacity: 0; transform: translateY(0); }
+      40%  { opacity: 0.55; }
       100% { opacity: 0; transform: translateY(-14px); }
     }
     .stir-sizzle {
-      text-align: center;
-      font-size: 0.8rem;
-      font-family: sans-serif;
-      color: #8A470F;
-      letter-spacing: 0.1em;
-      min-height: 1.2em;
-      margin-top: 4px;
+      text-align: center; font-size: 0.8rem; font-family: sans-serif;
+      color: #8A470F; letter-spacing: 0.1em; min-height: 1.2em; margin-top: 4px;
     }
     .stir-ingredients {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin: 12px 0 8px;
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 8px; margin: 12px 0 8px;
     }
     .stir-ing-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      padding: 9px 10px;
-      border-radius: 12px;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      padding: 9px 10px; border-radius: 12px;
       border: 1.5px solid rgba(95,98,78,0.2);
       background: rgba(248,234,225,0.6);
-      cursor: pointer;
+      cursor: pointer; font-size: 1.5rem;
       transition: background 0.15s, opacity 0.3s, border-color 0.15s;
-      font-size: 1.5rem;
     }
-    .stir-ing-card span {
-      font-size: 0.6rem;
-      font-family: sans-serif;
-      color: #9da6a3;
-      line-height: 1.3;
-    }
+    .stir-ing-card span { font-size: 0.6rem; font-family: sans-serif; color: #9da6a3; line-height: 1.3; }
     .stir-ing-card:hover { background: rgba(138,71,15,0.08); border-color: rgba(138,71,15,0.3); }
     .stir-ing-card.added { opacity: 0.3; pointer-events: none; }
     .stir-dish-reveal { text-align: center; padding: 14px 0 8px; }
     .stir-dish-icon { font-size: 4.5rem; display: block; margin-bottom: 6px; }
     .stir-dish-name {
-      font-size: 1.15rem;
-      font-weight: 700;
-      font-family: 'Noto Serif TC', sans-serif;
-      color: #3a3a38;
+      font-size: 1.15rem; font-weight: 700;
+      font-family: 'Noto Serif TC', sans-serif; color: #3a3a38;
     }
 
     /* Recipe game */
@@ -925,16 +893,16 @@
 </head>
 <body>
 
-  <!-- IG Bar (?箏??) -->
+  <!-- IG Bar (固定頂部) -->
   <div class="ig-bar">
     <div class="ig-bar-avatar"></div>
     <div class="ig-bar-info">
       <div class="ig-bar-name">@jay1102</div>
-      <div class="ig-bar-sub">?剁??敺桃? 繚 ?券??牧閰?/div>
+      <div class="ig-bar-sub">嗨，我是微絜 · 用過才說話</div>
     </div>
     <a href="https://www.instagram.com/jay1102/" target="_blank" rel="noopener" class="ig-bar-btn">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-      餈質馱 IG
+      追蹤 IG
     </a>
   </div>
 
@@ -946,153 +914,153 @@
         <div class="avatar"></div>
       </div>
 
-      <h1 class="profile-name">?剁??敺?span style="font-family:'Noto Sans TC','Noto Serif TC','PingFang TC','MingLiU','Microsoft JhengHei',serif;">蝯?/span></h1>
+      <h1 class="profile-name">嗨！我是微<span style="font-family:'Noto Sans TC','Noto Serif TC','PingFang TC','MingLiU','Microsoft JhengHei',serif;">絜</span></h1>
       <p class="profile-handle">@jay1102</p>
       <div class="profile-rule"></div>
 
       <div class="profile-bio">
-        <p>銝??鈭酋摮???憪?撱?慦賢直<br>?脫??拙?嚗?憭拚敺?梢洹嚗?嚗?/p>
+        <p>一個生了孩子後才開始下廚的媽媽<br>育有兩子，每天都很⋯熱鬧（笑）</p>
 
         <p class="tagline">
-          敺????暑?貊<br>
-          ?Ｘ?摮??撌勗?甇∠?璅??
+          從育兒、料理到生活選物<br>
+          慢慢把日子過成自己喜歡的樣子
         </p>
 
-        <p>?券???甇∴??迤?脩?瘣餉ㄐ<br>???喳葆雿?韏瑁眺</p>
+        <p>用過、喜歡，真正融進生活裡<br>才會想帶你們一起買</p>
 
-        <p>憟賣镼踹澆?蝑?br>銋澆?鋡怠末憟賣???/p>
+        <p>好東西值得等<br>也值得被好好挑選</p>
 
-        <p class="closing">銝?憸剁??芾?撖衣?釭??/p>
+        <p class="closing">不跟風，只跟實用與質感</p>
       </div>
     </div>
 
     <!-- Links -->
     <div class="links-section">
 
-      <div class="divider"><span class="divider-text">??銝?/span></div>
+      <div class="divider"><span class="divider-text">開團中</span></div>
 
-      <!-- 5/31 蝯? -->
+      <!-- 5/31 結團 -->
       <!-- Card 2: HARU -->
       <a id="row2" href="https://p4.groupbuyforms.tw/i2iri" target="_blank" rel="noopener" class="group-row">
         <div class="group-row-info">
-          <span class="group-row-promo">憭??摰嗚?摮豢蝝末??/span>
-          <p class="group-row-name">HARU 撖嗅璅鋡?/p>
+          <span class="group-row-promo">外出、居家、開學收納好物</span>
+          <p class="group-row-name">HARU 寶可樂收袋</p>
         </div>
         <div class="card-countdown" id="badge2">
-          <div class="cd-block"><span class="cd-num" id="cd2_d">--</span><span class="cd-label">憭?/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd2_h">--</span><span class="cd-label">??/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd2_m">--</span><span class="cd-label">??/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd2_s">--</span><span class="cd-label">蝘?/span></div>
+          <div class="cd-block"><span class="cd-num" id="cd2_d">--</span><span class="cd-label">天</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd2_h">--</span><span class="cd-label">時</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd2_m">--</span><span class="cd-label">分</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd2_s">--</span><span class="cd-label">秒</span></div>
         </div>
-        <span class="btn-arrow">??/span>
+        <span class="btn-arrow">→</span>
       </a>
 
       <!-- Card 4: Sansui -->
       <a id="row4" href="https://p3.groupbuyforms.tw/8r8wk" target="_blank" rel="noopener" class="group-row">
         <div class="group-row-info">
-          <span class="group-row-promo">蝜皜?璈??銵?蝞?/span>
-          <p class="group-row-name">Sansui 摰園</p>
+          <span class="group-row-promo">織物清洗機x前開行李箱</span>
+          <p class="group-row-name">Sansui 家電</p>
         </div>
         <div class="card-countdown" id="badge4">
-          <div class="cd-block"><span class="cd-num" id="cd4_d">--</span><span class="cd-label">憭?/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd4_h">--</span><span class="cd-label">??/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd4_m">--</span><span class="cd-label">??/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd4_s">--</span><span class="cd-label">蝘?/span></div>
+          <div class="cd-block"><span class="cd-num" id="cd4_d">--</span><span class="cd-label">天</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd4_h">--</span><span class="cd-label">時</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd4_m">--</span><span class="cd-label">分</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd4_s">--</span><span class="cd-label">秒</span></div>
         </div>
-        <span class="btn-arrow">??/span>
+        <span class="btn-arrow">→</span>
       </a>
 
       <!-- Card 5: MNTL -->
       <a id="row5" href="https://www.mntltw.com/pages/promote-page-888/?sl-ref=mntl888" target="_blank" rel="noopener" class="group-row">
         <div class="group-row-info">
-          <span class="group-row-promo">2026??啁???瑚葉</span>
-          <p class="group-row-name">MNTL 蝤???/p>
+          <span class="group-row-promo">2026最新球道熱銷中</span>
+          <p class="group-row-name">MNTL 磁力片</p>
         </div>
         <div class="card-countdown" id="badge5">
-          <div class="cd-block"><span class="cd-num" id="cd5_d">--</span><span class="cd-label">憭?/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd5_h">--</span><span class="cd-label">??/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd5_m">--</span><span class="cd-label">??/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd5_s">--</span><span class="cd-label">蝘?/span></div>
+          <div class="cd-block"><span class="cd-num" id="cd5_d">--</span><span class="cd-label">天</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd5_h">--</span><span class="cd-label">時</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd5_m">--</span><span class="cd-label">分</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd5_s">--</span><span class="cd-label">秒</span></div>
         </div>
-        <span class="btn-arrow">??/span>
+        <span class="btn-arrow">→</span>
       </a>
 
-      <!-- 6/3 蝯? -->
-      <!-- Card 3: 暻???-->
+      <!-- 6/3 結團 -->
+      <!-- Card 3: 麗克特 -->
       <a id="row3" href="https://gbf.tw/w1cnu" target="_blank" rel="noopener" class="group-row">
         <div class="group-row-info">
-          <span class="group-row-promo">瘥扛蝭??憭扯?</span>
-          <p class="group-row-name">暻??寡矽??/蝯衣?璈?/p>
+          <span class="group-row-promo">母親節限定大賞</span>
+          <p class="group-row-name">麗克特調理機/給皂機</p>
         </div>
         <div class="card-countdown" id="badge3">
-          <div class="cd-block"><span class="cd-num" id="cd3_d">--</span><span class="cd-label">憭?/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd3_h">--</span><span class="cd-label">??/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd3_m">--</span><span class="cd-label">??/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd3_s">--</span><span class="cd-label">蝘?/span></div>
+          <div class="cd-block"><span class="cd-num" id="cd3_d">--</span><span class="cd-label">天</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd3_h">--</span><span class="cd-label">時</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd3_m">--</span><span class="cd-label">分</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd3_s">--</span><span class="cd-label">秒</span></div>
         </div>
-        <span class="btn-arrow">??/span>
+        <span class="btn-arrow">→</span>
       </a>
 
       <!-- Card 7: SNOW FACTORY -->
       <a id="row7" href="https://gbf.tw/rltvh" target="_blank" rel="noopener" class="group-row">
         <div class="group-row-info">
-          <span class="group-row-promo">憭瘨?敹眺?芣??/span>
-          <p class="group-row-name">SNOW FACTORY ?芸??芣</p>
+          <span class="group-row-promo">夏日消暑必買優格冰</span>
+          <p class="group-row-name">SNOW FACTORY 雪坊優格</p>
         </div>
         <div class="card-countdown" id="badge7">
-          <div class="cd-block"><span class="cd-num" id="cd7_d">--</span><span class="cd-label">憭?/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd7_h">--</span><span class="cd-label">??/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd7_m">--</span><span class="cd-label">??/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd7_s">--</span><span class="cd-label">蝘?/span></div>
+          <div class="cd-block"><span class="cd-num" id="cd7_d">--</span><span class="cd-label">天</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd7_h">--</span><span class="cd-label">時</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd7_m">--</span><span class="cd-label">分</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd7_s">--</span><span class="cd-label">秒</span></div>
         </div>
-        <span class="btn-arrow">??/span>
+        <span class="btn-arrow">→</span>
       </a>
 
-      <!-- Card 8: 憟嗥?∠??詨△??-->
+      <!-- Card 8: 奶灰無線吸塵器 -->
       <a id="row8" href="https://amashop.asia/kol/a01353z64260529lf" target="_blank" rel="noopener" class="group-row">
         <div class="group-row-info">
-          <span class="group-row-promo">擃??澆?頛概</span>
-          <p class="group-row-name">憟嗥?∠??詨△??/p>
+          <span class="group-row-promo">高顏值又輕巧</span>
+          <p class="group-row-name">奶灰無線吸塵器</p>
         </div>
         <div class="card-countdown" id="badge8">
-          <div class="cd-block"><span class="cd-num" id="cd8_d">--</span><span class="cd-label">憭?/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd8_h">--</span><span class="cd-label">??/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd8_m">--</span><span class="cd-label">??/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd8_s">--</span><span class="cd-label">蝘?/span></div>
+          <div class="cd-block"><span class="cd-num" id="cd8_d">--</span><span class="cd-label">天</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd8_h">--</span><span class="cd-label">時</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd8_m">--</span><span class="cd-label">分</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd8_s">--</span><span class="cd-label">秒</span></div>
         </div>
-        <span class="btn-arrow">??/span>
+        <span class="btn-arrow">→</span>
       </a>
 
       <!-- Card 9: MIGRATORY -->
       <a id="row9" href="https://amashop.asia/kol/a01353d21260529lf" target="_blank" rel="noopener" class="group-row">
         <div class="group-row-info">
-          <span class="group-row-promo">?咱甈暹?780嚗???</span>
-          <p class="group-row-name">MIGRATORY 瘨潭??勗鋡?/p>
+          <span class="group-row-promo">兒童款才780，還免運</span>
+          <p class="group-row-name">MIGRATORY 涼感抱冰被</p>
         </div>
         <div class="card-countdown" id="badge9">
-          <div class="cd-block"><span class="cd-num" id="cd9_d">--</span><span class="cd-label">憭?/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd9_h">--</span><span class="cd-label">??/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd9_m">--</span><span class="cd-label">??/span></div>
-          <div class="cd-block"><span class="cd-num" id="cd9_s">--</span><span class="cd-label">蝘?/span></div>
+          <div class="cd-block"><span class="cd-num" id="cd9_d">--</span><span class="cd-label">天</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd9_h">--</span><span class="cd-label">時</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd9_m">--</span><span class="cd-label">分</span></div>
+          <div class="cd-block"><span class="cd-num" id="cd9_s">--</span><span class="cd-label">秒</span></div>
         </div>
-        <span class="btn-arrow">??/span>
+        <span class="btn-arrow">→</span>
       </a>
 
-      <div class="divider"><span class="divider-text">撣賊??頃</span></div>
+      <div class="divider"><span class="divider-text">常駐團購</span></div>
 
       <div class="group-grid">
 
         <div class="group-card">
           <a href="https://pickmebuy.com.tw/one/%E5%B0%8F%E7%A2%A9%E5%AA%BD%E5%92%AA%E5%A5%B6%E7%93%B6%E6%B8%85%E6%B4%97%E6%A9%9Fx%E9%9B%BB%E7%86%B1%E6%B0%B4%E7%93%B6x%E8%AA%BF%E7%90%86%E6%A9%9Fx%E6%B4%97%E5%8A%91" target="_blank" rel="noopener" class="card-image">
             <div class="card-img-bg" style="background: linear-gradient(135deg, #c4a8a0, #d8bcb4);"></div>
-            <span class="card-promo">閫???鈭斤策璈瘣?/span>
-            <span class="card-buy-btn">??鞈潸眺 ??/span>
+            <span class="card-promo">解放雙手交給機器洗</span>
+            <span class="card-buy-btn">前往購買 →</span>
           </a>
           <div class="card-body">
-            <p class="card-name">?芸?瘣扒?嗆?</p>
+            <p class="card-name">自動洗奶瓶機</p>
             <span class="perm-badge">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              撣賊??芣?
+              常駐優惠
             </span>
           </div>
         </div>
@@ -1100,146 +1068,140 @@
         <div class="group-card">
           <a href="https://p4.groupbuyforms.tw/2tmvs" target="_blank" rel="noopener" class="card-image">
             <div class="card-img-bg" style="background-image: url('https://cdn.groupbuyforms.com/upload/images/vh/6b/ori/6b9c7a97bdca4f71b5bc80b9382c8fb2.jpg');"></div>
-            <span class="card-promo">?拙???嗥???征??/span>
-            <span class="card-buy-btn">??鞈潸眺 ??/span>
+            <span class="card-promo">玩具堆疊收納最省空間</span>
+            <span class="card-buy-btn">前往購買 →</span>
           </a>
           <div class="card-body">
-            <p class="card-name">?? PLAFARM ?拙?嗥???/p>
+            <p class="card-name">韓國 PLAFARM 玩具收納盒</p>
             <span class="perm-badge">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              撣賊??芣?
+              常駐優惠
             </span>
           </div>
         </div>
 
       </div>
 
-      <div class="divider"><span class="divider-text">??????/span></div>
+      <div class="divider"><span class="divider-text">開團預備備</span></div>
 
       <div class="upcoming-grid">
         <div class="upcoming-chip">
-          <span class="upcoming-chip-name">?舐銵?璉?/span>
+          <span class="upcoming-chip-name">良爽衛生棉</span>
           <span class="upcoming-chip-date">6/1</span>
-          <button class="upcoming-chip-btn" onclick="addReminder('?舐銵?璉?, '20260601', 'https://picks-rho.vercel.app')">?? ??</button>
+          <button class="upcoming-chip-btn" onclick="addReminder('良爽衛生棉', '20260601', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
         <div class="upcoming-chip">
-          <span class="upcoming-chip-name">蝢妞擖</span>
+          <span class="upcoming-chip-name">美姬饅頭</span>
           <span class="upcoming-chip-date">6/1</span>
-          <button class="upcoming-chip-btn" onclick="addReminder('蝢妞擖', '20260601', 'https://picks-rho.vercel.app')">?? ??</button>
+          <button class="upcoming-chip-btn" onclick="addReminder('美姬饅頭', '20260601', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
         <div class="upcoming-chip">
-          <span class="upcoming-chip-name">隡臬側撖Ｗ</span>
+          <span class="upcoming-chip-name">伯尼寢具</span>
           <span class="upcoming-chip-date">6/3</span>
-          <button class="upcoming-chip-btn" onclick="addReminder('隡臬側撖Ｗ', '20260603', 'https://picks-rho.vercel.app')">?? ??</button>
+          <button class="upcoming-chip-btn" onclick="addReminder('伯尼寢具', '20260603', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
         <div class="upcoming-chip">
-          <span class="upcoming-chip-name">銝盲獢?</span>
+          <span class="upcoming-chip-name">上誼桌遊</span>
           <span class="upcoming-chip-date">6/5</span>
-          <button class="upcoming-chip-btn" onclick="addReminder('銝盲獢?', '20260605', 'https://picks-rho.vercel.app')">?? ??</button>
+          <button class="upcoming-chip-btn" onclick="addReminder('上誼桌遊', '20260605', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
         <div class="upcoming-chip">
-          <span class="upcoming-chip-name">?脩?銵??餅?</span>
+          <span class="upcoming-chip-name">防爆行動電源</span>
           <span class="upcoming-chip-date">6/10</span>
-          <button class="upcoming-chip-btn" onclick="addReminder('?脩?銵??餅?', '20260610', 'https://picks-rho.vercel.app')">?? ??</button>
+          <button class="upcoming-chip-btn" onclick="addReminder('防爆行動電源', '20260610', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
         <div class="upcoming-chip">
           <span class="upcoming-chip-name">QA BOTTLE</span>
           <span class="upcoming-chip-date">6/11</span>
-          <button class="upcoming-chip-btn" onclick="addReminder('QA BOTTLE', '20260611', 'https://picks-rho.vercel.app')">?? ??</button>
+          <button class="upcoming-chip-btn" onclick="addReminder('QA BOTTLE', '20260611', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
         <div class="upcoming-chip">
-          <span class="upcoming-chip-name">撠釣??蝺湔?</span>
+          <span class="upcoming-chip-name">專注力訓練機</span>
           <span class="upcoming-chip-date">6/15</span>
-          <button class="upcoming-chip-btn" onclick="addReminder('撠釣??蝺湔?', '20260615', 'https://picks-rho.vercel.app')">?? ??</button>
+          <button class="upcoming-chip-btn" onclick="addReminder('專注力訓練機', '20260615', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
         <div class="upcoming-chip">
-          <span class="upcoming-chip-name">KOM 銝蝣?/span>
+          <span class="upcoming-chip-name">KOM 三色碗</span>
           <span class="upcoming-chip-date">6/18</span>
-          <button class="upcoming-chip-btn" onclick="addReminder('KOM 銝蝣?, '20260618', 'https://picks-rho.vercel.app')">?? ??</button>
+          <button class="upcoming-chip-btn" onclick="addReminder('KOM 三色碗', '20260618', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
         <div class="upcoming-chip">
-          <span class="upcoming-chip-name">??瘣瘞?/span>
+          <span class="upcoming-chip-name">蘋果洋蔥水</span>
           <span class="upcoming-chip-date">6/29</span>
-          <button class="upcoming-chip-btn" onclick="addReminder('??瘣瘞?, '20260629', 'https://picks-rho.vercel.app')">?? ??</button>
+          <button class="upcoming-chip-btn" onclick="addReminder('蘋果洋蔥水', '20260629', 'https://picks-rho.vercel.app')">🔔 提醒</button>
         </div>
       </div>
 
-      <div class="divider"><span class="divider-text">?衣憟賜</span></div>
+      <div class="divider"><span class="divider-text">蝦皮好物</span></div>
 
       <a href="https://shopee.tw/" target="_blank" rel="noopener" class="link-btn" style="background:#8A470F; border-color:#8A470F;">
         <div class="btn-text">
-          <span class="btn-title" style="color:#F8EAE1;">?衣憟賜</span>
-          <span class="btn-sub" style="color:rgba(248,234,225,0.75);">鞎琿??券?嚗??刻</span>
+          <span class="btn-title" style="color:#F8EAE1;">蝦皮好物</span>
+          <span class="btn-sub" style="color:rgba(248,234,225,0.75);">買過用過，才推薦</span>
         </div>
-        <span class="btn-arrow" style="color:#F8EAE1;">??/span>
+        <span class="btn-arrow" style="color:#F8EAE1;">→</span>
       </a>
 
-      <p class="footer">穢 2025 &nbsp;繚&nbsp; 敺桃?</p>
+      <p class="footer">© 2025 &nbsp;·&nbsp; 微絜</p>
 
     </div>
   </div>
 
   <!-- Side game buttons -->
   <div class="side-btns">
-    <button class="side-btn" onclick="openGame('cook')" title="隞予??暻?>?</button>
-    <button class="side-btn" onclick="openGame('recipe')" title="憌???">?奴</button>
+    <button class="side-btn" onclick="openGame('cook')" title="今天吃什麼">🍳</button>
+    <button class="side-btn" onclick="openGame('recipe')" title="食材配菜">🥣</button>
   </div>
 
-  <!-- 銝剖??梁? game modal -->
+  <!-- 中式熱炒 game modal -->
   <div class="game-modal" id="modal-cook">
     <div class="game-card">
-      <button class="modal-close" onclick="closeGame('cook')">??/button>
-
-      <!-- 隞晶 -->
+      <button class="modal-close" onclick="closeGame('cook')">✕</button>
+      <!-- 介紹 -->
       <div class="stir-screen active" id="stir-intro">
-        <h3 class="game-title">銝剖??梁?</h3>
-        <p class="game-desc">霈凝蝯?雿?憭拙?隞暻潸?嚗?/p>
-        <div class="stir-wok-area">
-          <div class="stir-wok">?</div>
-        </div>
-        <button class="cook-action-btn" onclick="startStirFry()">?質??莎?</button>
+        <h3 class="game-title">中式熱炒</h3>
+        <p class="game-desc">讓微絜教你今天做什麼菜！</p>
+        <div class="stir-wok-area"><div class="stir-wok">🍳</div></div>
+        <button class="cook-action-btn" onclick="startStirFry()">抽菜色！</button>
       </div>
-
-      <!-- ????-->
+      <!-- 加食材 -->
       <div class="stir-screen" id="stir-cook">
         <h3 class="game-title" id="stirDishName"></h3>
-        <p class="cook-sub-title">?????脤?鋆∴?</p>
+        <p class="cook-sub-title">把食材通通丟進鍋裡！</p>
         <div class="stir-wok-area">
-          <div class="stir-steam" id="stirSteam">?啜啜?/div>
-          <div class="stir-wok" id="stirWok">?</div>
+          <div class="stir-steam" id="stirSteam">〰〰〰</div>
+          <div class="stir-wok" id="stirWok">🍳</div>
           <span class="stir-fire" id="stirFire"></span>
           <p class="stir-sizzle" id="stirSizzle"></p>
         </div>
         <div class="stir-ingredients" id="stirIngredients"></div>
-        <button class="cook-action-btn" id="stirCookBtn" onclick="doStirFry()" disabled>?梁?嚗??/button>
+        <button class="cook-action-btn" id="stirCookBtn" onclick="doStirFry()" disabled>熱炒！🔥</button>
       </div>
-
-      <!-- ?箄? -->
+      <!-- 出菜 -->
       <div class="stir-screen" id="stir-result">
-        <p class="game-desc">?箄?嚗?/p>
+        <p class="game-desc">出菜！</p>
         <div class="stir-dish-reveal">
           <span class="stir-dish-icon" id="stirResultIcon"></span>
           <div class="stir-dish-name" id="stirResultName"></div>
         </div>
-        <a class="reel-btn" id="stirReelBtn" href="#" target="_blank" rel="noopener" style="display:none;margin:12px auto;">? ??瘜?/a>
-        <button class="cook-action-btn" onclick="startStirFry()" style="margin-top:10px;">??銝??/button>
+        <a class="reel-btn" id="stirReelBtn" href="#" target="_blank" rel="noopener" style="display:none;margin:12px auto;">🎬 看作法</a>
+        <button class="cook-action-btn" onclick="startStirFry()" style="margin-top:10px;">再來一道</button>
       </div>
-
     </div>
   </div>
 
   <!-- Recipe modal -->
   <div class="game-modal" id="modal-recipe">
     <div class="game-card">
-      <button class="modal-close" onclick="closeGame('recipe')">??/button>
-      <h3 class="game-title">憌???</h3>
-      <p class="game-desc">?迄????暻潘??鼠雿?</p>
+      <button class="modal-close" onclick="closeGame('recipe')">✕</button>
+      <h3 class="game-title">食材配菜</h3>
+      <p class="game-desc">告訴我你有什麼，我幫你配</p>
       <div class="recipe-input-row">
-        <input type="text" id="ingredientInput" placeholder="頛詨憌?嚗?嚗??? onkeydown="if(event.key==='Enter')addIngredient()" />
-        <button onclick="addIngredient()">?</button>
+        <input type="text" id="ingredientInput" placeholder="輸入食材，如：雞蛋" onkeydown="if(event.key==='Enter')addIngredient()" />
+        <button onclick="addIngredient()">加入</button>
       </div>
       <div class="ingredient-tags" id="ingredientTags"></div>
-      <button class="recipe-search-btn" onclick="searchRecipes()">撟急??? ??/button>
+      <button class="recipe-search-btn" onclick="searchRecipes()">幫我配菜 →</button>
       <div class="recipe-results" id="recipeResults"></div>
     </div>
   </div>
@@ -1247,15 +1209,15 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    // ?芣迫?交?閮剖?嚗撘?撟? ??1, ?? ?? ?????遢? -1嚗?憒??‵5
+    // 截止日期設定（格式：年, 月-1, 日, 時, 分）← 月份需 -1，例如6月填5
     const groups = [
       { n:2, rowId:'row2', end: new Date(2026, 4, 31, 23, 59) },  // HARU
-      { n:3, rowId:'row3', end: new Date(2026, 5, 3, 23, 59) },   // 暻???
+      { n:3, rowId:'row3', end: new Date(2026, 5, 3, 23, 59) },   // 麗克特
       { n:4, rowId:'row4', end: new Date(2026, 4, 31, 23, 59) },  // Sansui
       { n:5, rowId:'row5', end: new Date(2026, 4, 31, 23, 59) },  // MNTL
       { n:7, rowId:'row7', end: new Date(2026, 5, 3, 23, 59) },   // SNOW FACTORY
-      { n:8, rowId:'row8', end: new Date(2026, 5, 7, 23, 59) },   // 憟嗥?∠??詨△??
-      { n:9, rowId:'row9', end: new Date(2026, 5, 7, 23, 59) },   // MIGRATORY 瘨潭??勗鋡?
+      { n:8, rowId:'row8', end: new Date(2026, 5, 7, 23, 59) },   // 奶灰無線吸塵器
+      { n:9, rowId:'row9', end: new Date(2026, 5, 7, 23, 59) },   // MIGRATORY 涼感抱冰被
     ];
 
     function pad(n) { return String(n).padStart(2, '0'); }
@@ -1281,28 +1243,28 @@
     updateCountdowns();
     setInterval(updateCountdowns, 1000);
 
-    // ?? 銝剖??梁? Game ??
+    // ── 中式熱炒 Game ──
     const stirFryDishes = [
-      { name: '?亦?鞊祈?', icon: '?', url: '',
-        ing: [{ e:'?', l:'鞊祈??? },{ e:'?布', l:'?' },{ e:'??', l:'?' },{ e:'?', l:'?祆硃' },{ e:'?', l:'蝟? }] },
-      { name: '銝??, icon: '??', url: '',
-        ing: [{ e:'??', l:'??? },{ e:'??', l:'?' },{ e:'?', l:'銋惜憛? },{ e:'??', l:'暻餅硃' },{ e:'?', l:'?祆硃' }] },
-      { name: '?芾???', icon: '?', url: '',
-        ing: [{ e:'??', l:'?芾?' },{ e:'??', l:'??' },{ e:'?布', l:'?? },{ e:'?', l:'蝟? }] },
-      { name: '蝟??爸', icon: '?朽', url: '',
-        ing: [{ e:'?朽', l:'?爸' },{ e:'??', l:'?' },{ e:'??', l:'?芾??? },{ e:'??', l:'?賡?' },{ e:'?', l:'蝟? }] },
-      { name: '暻餃?鞊?', icon: '??', url: '',
-        ing: [{ e:'??', l:'鞊?' },{ e:'?', l:'鞊祉??? },{ e:'??', l:'?' },{ e:'?儭?, l:'鞊?? },{ e:'?布', l:'?亥' }] },
-      { name: '摰桐???', icon: '??', url: '',
-        ing: [{ e:'??', l:'??? },{ e:'??', l:'?梁?' },{ e:'?儭?, l:'銋曇麾璊? },{ e:'??', l:'?' },{ e:'?布', l:'?? }] },
-      { name: '?野?質?', icon: '?巧', url: '',
-        ing: [{ e:'?巧', l:'鈭?? },{ e:'??', l:'?野' },{ e:'?儭?, l:'颲??' },{ e:'?', l:'?祆硃' },{ e:'?布', l:'?亦結' }] },
-      { name: '?征敹?', icon: '?布', url: '',
-        ing: [{ e:'?布', l:'蝛箏??? },{ e:'??', l:'?' },{ e:'?儭?, l:'颲??' },{ e:'??', l:'?衣' }] },
-      { name: '蝝???, icon: '??', url: '',
-        ing: [{ e:'?巧', l:'鈭?? },{ e:'?', l:'?祆硃' },{ e:'?', l:'?啁?' },{ e:'潃?, l:'?怨?' },{ e:'??', l:'?' }] },
-      { name: '?剝??', icon: '??', url: '',
-        ing: [{ e:'??', l:'?虫?' },{ e:'?布', l:'?剝?' },{ e:'??', l:'?' },{ e:'??', l:'?' }] },
+      { name: '蔥爆豬肉', icon: '🐷', url: '',
+        ing: [{ e:'🐷', l:'豬肉片' },{ e:'🥬', l:'青蔥' },{ e:'🧄', l:'蒜頭' },{ e:'🍶', l:'醬油' },{ e:'🍯', l:'糖' }] },
+      { name: '三杯雞', icon: '🐔', url: '',
+        ing: [{ e:'🐔', l:'雞腿肉' },{ e:'🧄', l:'蒜頭' },{ e:'🌿', l:'九層塔' },{ e:'🫙', l:'麻油' },{ e:'🍶', l:'醬油' }] },
+      { name: '番茄炒蛋', icon: '🍳', url: '',
+        ing: [{ e:'🍅', l:'番茄' },{ e:'🥚', l:'雞蛋' },{ e:'🥬', l:'蔥' },{ e:'🍯', l:'糖' }] },
+      { name: '糖醋排骨', icon: '🦴', url: '',
+        ing: [{ e:'🦴', l:'排骨' },{ e:'🧄', l:'蒜頭' },{ e:'🍅', l:'番茄醬' },{ e:'🫙', l:'白醋' },{ e:'🍯', l:'糖' }] },
+      { name: '麻婆豆腐', icon: '🫘', url: '',
+        ing: [{ e:'🫘', l:'豆腐' },{ e:'🐷', l:'豬絞肉' },{ e:'🧄', l:'蒜頭' },{ e:'🌶️', l:'豆瓣醬' },{ e:'🥬', l:'蔥花' }] },
+      { name: '宮保雞丁', icon: '🐔', url: '',
+        ing: [{ e:'🐔', l:'雞胸肉' },{ e:'🥜', l:'花生' },{ e:'🌶️', l:'乾辣椒' },{ e:'🧄', l:'蒜頭' },{ e:'🥬', l:'蔥' }] },
+      { name: '蒜泥白肉', icon: '🥩', url: '',
+        ing: [{ e:'🥩', l:'五花肉' },{ e:'🧄', l:'蒜泥' },{ e:'🌶️', l:'辣椒' },{ e:'🍶', l:'醬油' },{ e:'🥬', l:'蔥絲' }] },
+      { name: '炒空心菜', icon: '🥬', url: '',
+        ing: [{ e:'🥬', l:'空心菜' },{ e:'🧄', l:'蒜頭' },{ e:'🌶️', l:'辣椒' },{ e:'🫙', l:'蝦皮' }] },
+      { name: '紅燒肉', icon: '🍖', url: '',
+        ing: [{ e:'🥩', l:'五花肉' },{ e:'🍶', l:'醬油' },{ e:'🍯', l:'冰糖' },{ e:'⭐', l:'八角' },{ e:'🧄', l:'蒜頭' }] },
+      { name: '韭黃炒蝦', icon: '🦐', url: '',
+        ing: [{ e:'🦐', l:'蝦仁' },{ e:'🥬', l:'韭黃' },{ e:'🧄', l:'蒜頭' },{ e:'🥚', l:'蛋白' }] },
     ];
 
     let stirCurrentDish = null;
@@ -1329,7 +1291,7 @@
       document.getElementById('stirCookBtn').disabled = true;
       document.getElementById('stirCookBtn').style.display = 'block';
       const wok = document.getElementById('stirWok');
-      wok.className = 'stir-wok'; wok.textContent = '?';
+      wok.className = 'stir-wok'; wok.textContent = '🍳';
       document.getElementById('stirFire').textContent = '';
       document.getElementById('stirSteam').style.opacity = '0';
       document.getElementById('stirSizzle').textContent = '';
@@ -1357,7 +1319,7 @@
       stirAddedCount++;
       if (stirAddedCount >= stirCurrentDish.ing.length) {
         document.getElementById('stirCookBtn').disabled = false;
-        document.getElementById('stirSizzle').textContent = '憌??賢雿?嚗?;
+        document.getElementById('stirSizzle').textContent = '食材都到位了！';
       }
     }
 
@@ -1365,8 +1327,8 @@
       document.getElementById('stirCookBtn').style.display = 'none';
       const wok = document.getElementById('stirWok');
       wok.classList.add('shaking');
-      document.getElementById('stirFire').textContent = '???';
-      document.getElementById('stirSizzle').textContent = '皛?皛?嚚?';
+      document.getElementById('stirFire').textContent = '🔥🔥🔥';
+      document.getElementById('stirSizzle').textContent = '滋滋滋～～～';
       const steam = document.getElementById('stirSteam');
       steam.style.opacity = '1';
       stirShakeTimer = setTimeout(() => {
@@ -1383,96 +1345,96 @@
       }, 2500);
     }
 
-    // ?? Recipe Game ??
+    // ── Recipe Game ──
     const recipes = [
-      { name: '蝟?鞊?', icon: '??', desc: '?貉?????+瘣嚗振撣詨末?喲?', keys: ['?貉???,'??','瘣','?芾???,'?祆硃','?賡?','?交挾'], url: 'https://www.instagram.com/p/DYEJxNpMs91/' },
-      { name: '隞?衣?暻?, icon: '??', desc: 'Q敶???擙桅?銝ㄞ', keys: ['暻菜?','??','?亦','?','??','瘣','擃???,'??,'?望?','?祆硃','蝟?,'??], url: 'https://www.instagram.com/p/DXqSMdxDHLL/' },
-      { name: '憟嗆硃?方?ㄞ', icon: '??', desc: '?方?+?賡ㄞ+瘣嚗??游銝蝣?, keys: ['?方?','?賡ㄞ','瘣','????,'?','擃???,'憟嗆硃','擙桀扒','暺璊?], url: 'https://www.instagram.com/p/DXKAII7DOsa/' },
-      { name: '?株?????摮?, icon: '??', desc: '??+??璊??株?嚗振撣詨末?喲?', keys: ['??','??璊?,'?株?','?','颲??','?祆硃','蝟?,'瘞?], url: 'https://www.instagram.com/p/DW1NBQijPDq/' },
-      { name: '蝜賜??祈??憌?, icon: '??', desc: '?+??瘣嚗振撣詨末?喲?', keys: ['?憛?,'??','瘣','擐祇??,'?啁?','蝝??,'????,'?芾?','?掖蝑?,'?望什??], url: 'https://www.instagram.com/p/DWiWIZqDHxg/' },
-      { name: '??????', icon: '??', desc: '璇??+?????嚗振撣詨末?喲?', keys: ['璇??','????,'?','瘣','?交挾','?祆硃','蝟?], url: 'https://www.instagram.com/p/DWWdFgnDNkq/' },
-      { name: '銋曄?璇??暻???, icon: '?布', desc: '璇鞊祆?+擃???摰嗅虜憟賢??, keys: ['璇鞊祆?','擃???,'?','暽賣?撣?], url: 'https://www.instagram.com/p/DWOpKFojIEO/' },
-      { name: '?芾??祈?????, icon: '?', desc: '??潔???鞊?皛輯雲', keys: ['瘣','鞊?','憡???,'?掖蝑?,'暾餌戍??,'?質??,'??','暽賣?撣?], url: 'https://www.instagram.com/p/DV98IJ7jAfY/' },
-      { name: '???鞊?, icon: '??', desc: '?+擐祇??瘥?嚗振撣詨末?喲?', keys: ['?','擐祇??,'瘥?','蝯?','?祆硃'], url: 'https://www.instagram.com/p/DVbQ0kmjzQp/' },
-      { name: '??鞊?撉冽僖', icon: '??', desc: '?爸+??鞊???嚗??悅蝢?, keys: ['?爸','??鞊?,'??','暽賢毀'], url: 'https://www.instagram.com/p/DUikON0j3fq/' },
-      { name: '??瑹?', icon: '?儭?, desc: '瑹?+暽寡?暺?摰嗅虜憟賢??, keys: ['瑹?','暽寡?暺?,'?','?'], url: 'https://www.instagram.com/p/DUXEUJJjzKe/' },
-      { name: '鞊??祇??爸', icon: '??', desc: '?爸+?+鞊?嚗振撣詨末?喲?', keys: ['?爸','?','??','鞊?','?亥','?啁?','?祆硃','瘞?], url: 'https://www.instagram.com/p/DT0SEvjD4kL/' },
-      { name: '?亦?鞊砍?', icon: '??', desc: '鞊砍?+???嚗振撣詨末?喲?', keys: ['鞊砍?','??,'?','?祆硃','蝟?], url: 'https://www.instagram.com/p/DTkwk-ej_Mg/' },
-      { name: '銝???掖銵', icon: '??', desc: '蝐唾?+????銋惜憛?摰嗅虜憟賢??, keys: ['蝐唾?','????,'??','?','銋惜憛?,'暻餅硃','?祆硃','?祆硃??,'蝟?,'瘞?], url: 'https://www.instagram.com/p/DTS0XsMjyw5/' },
-      { name: '蝪⊥??仿厭??, icon: '??', desc: '?祉憟賡嚗?剜???, keys: ['?','?餌??,'暽賢毀','?望硃'], url: 'https://www.instagram.com/p/DTNn5fjD5G7/' },
-      { name: '??擳凳蝎?, icon: '??', desc: '??摰嗅虜嚗?憭祕??, keys: ['??擳?,'????,'暾餌戍??,'?芰??,'擃???,'?祆硃','?質璊?,'暽?,'?賡ㄞ'], url: 'https://www.instagram.com/p/DS6cK5CkVYz/' },
-      { name: '瘚瑕葆?賜??祝蝎?, icon: '??', desc: '????瘚瑕葆??憳抵???摰嗅虜憟賢??, keys: ['????,'撖祉?','瘚瑕葆??,'憳抵???,'瘣','??'], url: 'https://www.instagram.com/p/DS2d4-qjw0X/' },
-      { name: '颲???悅?望什', icon: '?布', desc: '撟脰?+擙株+?質璊堆?摰嗅虜憟賢??, keys: ['撟脰?','擙株','?質璊?,'撟脰??','??暽?], url: 'https://www.instagram.com/p/DSlrZpRj1g9/' },
-      { name: '?啣???暻?, icon: '??', desc: 'Q敶???擙桅?銝ㄞ', keys: ['?','瘣','?','?掖蝑?,'擃???,'蝝??,'暾餌戍??,'鈭??','?熊','?祆硃','蝟?,'??'], url: 'https://www.instagram.com/p/DRSHbJOj5C1/' },
-      { name: '?????, icon: '?儭?, desc: '?+?芰??暾餌戍??摰嗅虜憟賢??, keys: ['?','?芰??,'暾餌戍??,'?掖蝑?,'撠???,'??','?祆硃??,'暽?,'?⊥?'], url: 'https://www.instagram.com/p/DQVemaYgZcS/' },
-      { name: '??擐??', icon: '??', desc: '??+擐+????摰嗅虜憟賢??, keys: ['??','擐','????], url: 'https://www.instagram.com/p/DQBCLF_D9va/' },
-      { name: '擙?擙株?祉???, icon: '??', desc: 'Q敶???擙桅?銝ㄞ', keys: ['?','擙?','擙株','?祉?','?阡','?祆硃','?祆硃??,'蝟?,'?亥'], url: 'https://www.instagram.com/p/DPT6zX5D3xg/' },
-      { name: '瘣?', icon: '??', desc: '?+?結+瘣+?佗?摰嗅虜憟賢??, keys: ['?','?結','??,'瘣','?血?','?祉?','?祆硃','?祆硃??,'瘞?], url: 'https://www.instagram.com/p/DO9_d4Kj_Xw/' },
-      { name: '??????嚗??嚗?, icon: '??', desc: '?+瘣+????摰嗅虜憟賢??, keys: ['?','瘣','????,'??','????,'?質璊?,'?亥'], url: 'https://www.instagram.com/p/DO6F457jz0z/' },
-      { name: '擐??', icon: '??', desc: '?+銋暸???蝯?嚗振撣詨末?喲?', keys: ['?','銋暸???,'蝯?','?亥','?祆硃','蝟?,'?祆硃??], url: 'https://www.instagram.com/p/DOviwUYj9PC/' },
-      { name: '????', icon: '??', desc: '???瘣+??嚗振撣詨末?喲?', keys: ['???,'瘣','??','??瞈僖'], url: 'https://www.instagram.com/p/DN5swHxj84n/' },
-      { name: '?曇??僖', icon: '?', desc: '???????+??嚗??悅蝢?, keys: ['???,'????','??','蝝?','?豢?'], url: 'https://www.instagram.com/p/DNil5raTebd/' },
-      { name: '擐?憟嗆硃?西???, icon: '??', desc: '?虫?+擐祇??????摰嗅虜憟賢??, keys: ['?虫?','擐祇??,'????,'憟嗆硃','?','暽賢毀','?質璊厭'], url: 'https://www.instagram.com/p/DNXDJaWT7WN/' },
-      { name: '蝯脩?暽寧畦', icon: '??', desc: '??摰嗅虜嚗?憭祕??, keys: ['?','蝝??,'擐?','?衣掖','蝯脩?','璇??,'?祆硃','擐?瘞?,'皜偌','?賡ㄞ?蝐?,'暽賢毀','?質璊?], url: 'https://www.instagram.com/p/DLtzZF-z6Ee/' },
-      { name: '蝡寧??暸?方??ㄞ', icon: '??', desc: '?+蝝??蝡寧?嚗??游銝蝣?, keys: ['?','蝝??,'蝡寧?','?方?','?暸??,'?賜掖2??], url: 'https://www.instagram.com/p/DLpREZDTPeR/' },
-      { name: '銝?銝?, icon: '?儭?, desc: '?+暻餅硃+銋惜憛?摰嗅虜憟賢??, keys: ['?瘨?,'暻餅硃','??','?','?祆硃??,'蝟?,'暽?,'銋惜憛?,'颲??'], url: 'https://www.instagram.com/p/DK9u3j9zMu2/' },
-      { name: '?駁??ㄞ', icon: '??', desc: '?芰???掖蝑??駁?嚗??游銝蝣?, keys: ['?芰??,'?掖蝑?,'瘚瑁?','?駁?','蝯?','?賜掖','擃僖','暽賢毀'], url: 'https://www.instagram.com/p/DKv8W40zL1w/' },
-      { name: '?芾?韏瑕??', icon: '??', desc: '鞊砍??輯?+瘣+?芾?嚗振撣詨末?喲?', keys: ['鞊砍??輯?憛?,'瘣','瑹?','蝝??,'?掖蝑?,'暾餌戍??,'?芾?蝟?,'擃僖','????,'?∟?瘙?,'????,'韏瑕','?祆硃'], url: 'https://www.instagram.com/p/DKtD9gUzAgs/' },
-      { name: '瘣??, icon: '??', desc: '瘣+??嚗振撣詨末?喲?', keys: ['瘣','??','暽賢毀','瘝?], url: 'https://www.instagram.com/p/DKqfc6LTID2/' },
-      { name: '??祆硃擙剝?', icon: '??', desc: '擙剝?+?+?伐?摰嗅虜憟賢??, keys: ['擙剝?','?','??,'蝟?,'?祆硃'], url: 'https://www.instagram.com/p/DKex8VmTGdy/' },
-      { name: '蝡寧??方??僖', icon: '??', desc: '?+蝡寧?+???皜?擙桃?', keys: ['?','蝡寧?','???,'?方?','皜偌','暽賢毀'], url: 'https://www.instagram.com/p/DKI9CQzT582/' },
-      { name: '?祉??梁擳?', icon: '??', desc: '?梁擳?+?+?結嚗振撣詨末?喲?', keys: ['?梁擳?','?','?結','?','?祆硃','蝟?], url: 'https://www.instagram.com/p/DJ-jmyVztIO/' },
-      { name: '??蝡寧?皝?, icon: '?', desc: '?+???蝡寧?嚗??悅蝢?, keys: ['?','???,'蝡寧?','擃???,'銝詨?','?方?'], url: 'https://www.instagram.com/p/DI0B7tvTkEB/' },
-      { name: '?????, icon: '??', desc: '?+??+???摰嗅虜憟賢??, keys: ['?','??','???,'?祆硃','?祆硃??,'瘞?], url: 'https://www.instagram.com/p/DIN71LRTJnt/' },
-      { name: '擃??蝎???, icon: '??', desc: 'Q敶???擙桅?銝ㄞ', keys: ['??,'?','蝝??,'??','擃???,'?祉?','?祆硃??,'?祆硃','瘞?], url: 'https://www.instagram.com/p/DH4zwx9T09z/' },
-      { name: '???鞊?', icon: '??', desc: '??鞊?+?+蝯?嚗振撣詨末?喲?', keys: ['??鞊?','?','蝯?','?','?祆硃','?祆硃??,'瘞?], url: 'https://www.instagram.com/p/DHkHP5uz557/' },
-      { name: '??暾刻?蝢?, icon: '??', desc: '瞈?擙格?嚗末????, keys: ['暾刻??,'瘣','?','??,'擃僖','蝑結','????,'?賡?','憭芰蝎偌','蝟?,'暽?,'?質璊?'], url: 'https://www.instagram.com/p/DHC5VGITaHE/' },
-      { name: '?芾???', icon: '?', desc: '?芾?+??+?嚗振撣詨末?喲?', keys: ['?芾?','??','?','?芾???,'蝟?], url: 'https://www.instagram.com/p/DG2Ntl2zIwI/' },
-      { name: '瘝?方??祉?', icon: '??', desc: 'Q敶???擙桅?銝ㄞ', keys: ['瘝','擃???,'??','暾餌戍??,'?祉?','?方?'], url: 'https://www.instagram.com/p/DGhMkSZTOMJ/' },
-      { name: '暺??畦', icon: '??', desc: '??摰嗅虜嚗?憭祕??, keys: ['暺???,'?','蝝??,'擐?','?衣掖','撠?銋?,'鞊砌???,'?賡ㄞ?蝐?,'?祆硃','?質璊?], url: 'https://www.instagram.com/p/DFxnJghTCgl/' },
-      { name: '??方?皝?, icon: '??', desc: '?+瘣+???皜?擙桃?', keys: ['?','瘣','???,'?方?','皜偌'], url: 'https://www.instagram.com/p/DEOb9riz7fn/' },
-      { name: '璇典?瘞?, icon: '??', desc: '璇典?+?豢?+蝝?嚗??膜??, keys: ['璇典?','?豢?','蝝?','瘞?], url: 'https://www.instagram.com/p/DDcapw3zY8y/' },
-      { name: '??', icon: '??', desc: '摨?亥?嚗?丑蝢?, keys: ['?瑕?瘞湧?','暻萇?','瘝?,'瘞?], url: 'https://www.instagram.com/p/DDYy9YsTOPv/' },
-      { name: '?掖?方?頠爸皝?, icon: '??', desc: '?掖+鈭頠爸+?嚗??悅蝢?, keys: ['?掖','鈭頠爸','?','?方?'], url: 'https://www.instagram.com/p/DDVy4-4TNrz/' },
-      { name: '鈭頠爸皛瑁?', icon: '??', desc: '鈭頠爸+?+?伐?摰嗅虜憟賢??, keys: ['鈭頠爸','?','??,'皛瑕?','擐祇??,'???,'?祆硃','瘝?,'瘞?], url: 'https://www.instagram.com/p/DDOZUpGzX3j/' },
-      { name: '????, icon: '??', desc: '?????結+?嚗振撣詨末?喲?', keys: ['????,'?結','?','??','暻餅硃','?祆硃','蝟?,'瘞?], url: 'https://www.instagram.com/p/DC29Ln7z64B/' },
-      { name: '??蝐喟?', icon: '??', desc: 'Q敶???擙桅?銝ㄞ', keys: ['??','??','蝝??,'?','?','擃???,'?方?','蝐喟?','?祆硃','瘞?,'?質璊?], url: 'https://www.instagram.com/p/DCjnZ_wTMG4/' },
-      { name: '憟嗆硃???ㄞ', icon: '??', desc: '?+瘣+??嚗??游銝蝣?, keys: ['?窄憟嗆硃??瞈僖銝蝵?,'?','瘣','蝯?','??','????,'?芰??,'擙桀扒','?⊿厭憟嗆硃','?賡ㄞ','暽賢毀','暺璊?], url: 'https://www.instagram.com/p/DCVYtJUMVDJ/' },
-      { name: '?器', icon: '??', desc: '瞈?擙格?嚗末????, keys: ['?','??','??','擐?','攳?','????,'蝑結','蝝??,'憡???,'?虫?','?寧恣??,'撠僕鞎?,'?祆硃','蝟?,'?⊥?蝎?,'??','?刻蝎?,'暽賢毀','?','??'], url: 'https://www.instagram.com/p/DCA43dRswMo/' },
-      { name: '憟嗆硃????, icon: '??', desc: '?血?+憟嗆硃+?嚗振撣詨末?喲?', keys: ['?血?','憟嗆硃','??,'?','暽賢毀','暺璊?], url: 'https://www.instagram.com/p/DBxf72zMDLy/' },
-      { name: '暽寧畦', icon: '??', desc: '??摰嗅虜嚗?憭祕??, keys: ['蝝??,'?','擐?','?衣掖','蝯?','擃???,'憡???,'????,'暾餌戍??,'撅梯','?','?賡ㄞ','??','?祆硃','暽賢毀','?質璊?'], url: 'https://www.instagram.com/p/DBd1I-cMd9A/' },
-      { name: '?株?鞊嗾??, icon: '?巧', desc: '?+鞊?+?株?+鞊嗾嚗振撣詨末?喲?', keys: ['?','鞊?','?株?','鞊嗾','蝯?','?剛???,'?祆硃','?祆硃??], url: 'https://www.instagram.com/p/DBNs-PnMB-N/' },
-      { name: '?蝯脩??虫???, icon: '??', desc: '?+蝯脩?+?虫?嚗振撣詨末?喲?', keys: ['?','蝯脩?','蝝??,'?芰??,'??','?虫?','??','暽賢毀'], url: 'https://www.instagram.com/p/DAsPJ9ys0vY/' },
-      { name: '?方??嗥???, icon: '??', desc: '?方?+??嚗?憳拚悅??, keys: ['?方?','??','擃僖??,'瘞?], url: 'https://www.instagram.com/p/DAgaaR5MH7d/' },
-      { name: '憡??????祉?皝?, icon: '??', desc: '憡????????祉?嚗??悅蝢?, keys: ['憡???,'????,'?祉?','??','?','?祆硃','?祆硃??,'蝟?], url: 'https://www.instagram.com/p/DAVEnFEMDDT/' },
-      { name: '撅梯?僖', icon: '?', desc: '撅梯+???????皜?擙桃?', keys: ['撅梯','???,'????,'??','蝝?','?豢?','暽?], url: 'https://www.instagram.com/p/DAJLie6Mycr/' },
-      { name: '颲??撟渡?', icon: '?', desc: 'Q敶葆??頞頞?', keys: ['?','瘣','擃???,'??','??颲?','撟渡?','瘜∟?','暾餌戍??,'??擳','?祆硃','蝟?,'?質?暻?,'?交挾'], url: 'https://www.instagram.com/p/DACuta-MpB2/' },
-      { name: '擙剝?鞊????ㄞ', icon: '??', desc: '擙剝?+?輯???暾餌戍??擐?港?蝣?, keys: ['擙剝?','?輯???,'暾餌戍??,'瘣','?祆硃','蝟?,'瘞?,'?亥'], url: 'https://www.instagram.com/p/C_PSFkRvJ8d/' },
-      { name: '銋暹?暻蛛????暻蛛?', icon: '??', desc: '?+??+?車??嚗振撣詨末?喲?', keys: ['?','??','憡???,'?車??','?唳?質麾?','暻菜?','?祆硃'], url: 'https://www.instagram.com/p/C_LRZaPPsXb/' },
-      { name: '蝟?擳?', icon: '??', desc: '?+擳?+?芾??穿?摰嗅虜憟賢??, keys: ['?','?交挾','擳?','?芾???,'蝟?,'?賡?','瘣','瘞?], url: 'https://www.instagram.com/p/C-1s0euPYQr/' },
-      { name: '?方?瘞渲??, icon: '??', desc: '?+?結+?方?嚗振撣詨末?喲?', keys: ['?','?結','?方?','瘞渲','曈單◢?祆?暽賢毀'], url: 'https://www.instagram.com/p/C-ojxWMv_XD/' },
-      { name: '??????', icon: '??', desc: '?+瘣+擃?????嚗振撣詨末?喲?', keys: ['?','瘣','蝝??,'擃???,'?芰??,'??','?祆硃','?祆硃??], url: 'https://www.instagram.com/p/C-l9py8PTD6/' },
-      { name: '瑼豢狀??, icon: '??', desc: '瘜啣???瑼豢狀瘙?皜擙桃?', keys: ['瘜啣???,'瑼豢狀瘙?,'蝟?,'?','?亥'], url: 'https://www.instagram.com/p/C-c0yjQPaV_/' },
-      { name: '鞊??衣?擳?', icon: '??', desc: '?衣?+擳?+鞊?嚗振撣詨末?喲?', keys: ['?衣?','擳?','?祆硃','?','??,'撠?銋?,'鞊?','?啁?','?亥'], url: 'https://www.instagram.com/p/C-ABBKgPnwz/' },
-      { name: '?芾?皛瑚??梯?', icon: '??', desc: '擐祇???芾?+鞊砌??梧?摰嗅虜憟賢??, keys: ['擐祇??,'蝝??,'?芾?','鞊砌???,'?啁?','?','??','?祆硃','?祆硃??,'??], url: 'https://www.instagram.com/p/C9W119rPcko/' },
-      { name: '?芣◢????, icon: '??', desc: '?祉憟賡嚗?剜???, keys: ['?芣◢','?芾?','瘣','暺璊?,'暽賢毀','瑼豢狀瘙?,'擐?'], url: 'https://www.instagram.com/p/C9Q8IcCPrws/' },
-      { name: '?暸鞊祈?', icon: '?', desc: '??潔???鞊?皛輯雲', keys: ['?暸鞊?,'?','瘣','??','蝝??,'瑹?','?祆硃','?祆硃??,'瘞?], url: 'https://www.instagram.com/p/C9Oj91eM5zH/' },
-      { name: '擐祇?舐???, icon: '??', desc: '擐祇???+蝯?嚗振撣詨末?喲?', keys: ['擐祇??,'?','??,'蝯?','蝝??,'?祆硃','蝟?,'瘝?,'?祆硃??,'瘞?], url: 'https://www.instagram.com/p/C83mTfiPvz7/' },
-      { name: '擙剝??ㄞ', icon: '??', desc: '擙剝?+?+瘣嚗??游銝蝣?, keys: ['擙剝?','?','瘣','暾餌戍??,'?祆硃','?亥','??','???賡ㄞ'], url: 'https://www.instagram.com/p/C8bpOXMvANK/' },
-      { name: '憟嗆硃?祆硃??鞊?', icon: '??', desc: '??鞊?+瘣+?嚗振撣詨末?喲?', keys: ['??鞊?','瘣','?','?亥','?祆硃','?⊿厭憟嗆硃'], url: 'https://www.instagram.com/p/C75-9B7vzvM/' },
-      { name: '曈單◢?梁擳僖', icon: '??', desc: '曈單◢+?梁擳?皜?擙桃?', keys: ['曈單◢鞊','?圈悅曈單◢','?梁擳','擳?','擳'], url: 'https://www.instagram.com/p/C71RzlYvAvZ/' },
-      { name: '????, icon: '?巧', desc: '?+蝝??蝯?嚗振撣詨末?喲?', keys: ['?','蝝??,'??,'?','蝯?','?剔?','?祆硃','?祆硃??,'瘞?], url: 'https://www.instagram.com/p/C7dUjmUvWDj/' },
-      { name: '擳琿???箄?皝?, icon: '??', desc: '銋暸風擳??爸+?嚗??悅蝢?, keys: ['銋暸風擳?,'?爸','?','?','??','擐?','?衣掖','?箄?蝵','?寡?','?祆硃','暽賢毀','?質璊?], url: 'https://www.instagram.com/p/C7QXYbnP8XM/' },
-      { name: '?蝐喟?', icon: '??', desc: 'Q敶???擙桅?銝ㄞ', keys: ['?','蝝??,'擐?','?衣掖','?結','?','蝐喟?','?寡?','?祆硃','暽賢毀','?質璊?], url: 'https://www.instagram.com/p/C7ODmwQvTFd/' },
-      { name: '?姘?', icon: '??', desc: '?姘+蝯?+?嚗振撣詨末?喲?', keys: ['?姘','蝯?','?','?亥','?祆硃','?祆硃??,'暺?'], url: 'https://www.instagram.com/p/C7AwFp9vaZ8/' },
-      { name: '?貊?僑蝟???', icon: '?', desc: 'Q敶葆??頞頞?', keys: ['?貊??,'撖扳郭撟渡?','鞊祈???,'?祆硃','?','擃???,'蝝??,'暽?,'?亥'], url: 'https://www.instagram.com/p/C6q67csPrwI/' },
-      { name: '??暻萇?', icon: '??', desc: 'Q敶???擙桅?銝ㄞ', keys: ['鞊祆硃','?','?亥','?祆硃','暻萇?'], url: 'https://www.instagram.com/p/C6NKrghPT-m/' },
-      { name: '?祈???', icon: '?巧', desc: '瘣+瑹?+?掖+蝯?嚗振撣詨末?喲?', keys: ['瘣','瑹?','?掖','蝯?','??'], url: 'https://www.instagram.com/p/C6Xour0PWGf/' },
-      { name: '皛瑁?憌?, icon: '??', desc: '鞊祉+??+蝯?嚗??游銝蝣?, keys: ['鞊祉','??','蝯?','?','蝝??,'??','??,'?祆硃','暺?','鈭?蝎?], url: 'https://www.instagram.com/p/C6JfYrsP-ei/' },
-      { name: '?剔蝑?擙?????, icon: '??', desc: '?+?剔蝑?????摰嗅虜憟賢??, keys: ['?','?剔蝑?,'????,'蝯?','?祆硃','??','?亥','颲??'], url: 'https://www.instagram.com/p/C6Fp82rvS3F/' },
-      { name: '瘣皝?, icon: '??', desc: '撌函?豢??伐?皜?擙桃?', keys: ['瘣'], url: 'https://www.instagram.com/p/C57Wq5_PnYJ/' },
-      { name: '?祉??', icon: '??', desc: '?祉?+蝯?+?嚗振撣詨末?喲?', keys: ['?祉?','蝯?','?','?祆硃','?祆硃??,'??'], url: 'https://www.instagram.com/p/C55G4LEvRPl/' },
-      { name: '?????輯?', icon: '??', desc: '????????嚗振撣詨末?喲?', keys: ['????,'???,'?','?祆硃','?祆硃??,'??','瘞?,'?亥'], url: 'https://www.instagram.com/p/C5pQ_7bvG-U/' },
+      { name: '糖醋豆包', icon: '🥘', desc: '炸豆包+肉片+洋蔥，家常好味道', keys: ['炸豆包','肉片','洋蔥','番茄醬','醬油','白醋','蔥段'], url: 'https://www.instagram.com/p/DYEJxNpMs91/' },
+      { name: '什錦炒麵', icon: '🍜', desc: 'Q彈滑順，鮮香下飯', keys: ['麵條','雞蛋','蔥白','蒜頭','肉片','洋蔥','高麗菜','蝦','花枝','醬油','糖','醋'], url: 'https://www.instagram.com/p/DXqSMdxDHLL/' },
+      { name: '奶油蛤蠣燉飯', icon: '🍚', desc: '蛤蜊+白飯+洋蔥，香噴噴一碗', keys: ['蛤蜊','白飯','洋蔥','金針菇','蒜頭','高麗菜','奶油','鮮奶','黑胡椒'], url: 'https://www.instagram.com/p/DXKAII7DOsa/' },
+      { name: '皮蛋青龍燒茄子', icon: '🍆', desc: '茄子+青龍椒+皮蛋，家常好味道', keys: ['茄子','青龍椒','皮蛋','蒜末','辣椒','醬油','糖','水'], url: 'https://www.instagram.com/p/DW1NBQijPDq/' },
+      { name: '繽紛蔬菜咖喱飯', icon: '🍛', desc: '咖喱+肉+洋蔥，家常好味道', keys: ['咖喱塊','肉類','洋蔥','馬鈴薯','地瓜','紅蘿蔔','金針菇','番茄','玉米筍','花椰菜'], url: 'https://www.instagram.com/p/DWiWIZqDHxg/' },
+      { name: '杏鮑菇炒肉片', icon: '🍄', desc: '梅花肉片+杏鮑菇+蒜頭，家常好味道', keys: ['梅花肉片','杏鮑菇','蒜頭','洋蔥','蔥段','醬油','糖'], url: 'https://www.instagram.com/p/DWWdFgnDNkq/' },
+      { name: '乾煎梅花排高麗菜盤', icon: '🥬', desc: '梅花豬排+高麗菜，家常好味道', keys: ['梅花豬排','高麗菜','蒜醬','鹽昆布'], url: 'https://www.instagram.com/p/DWOpKFojIEO/' },
+      { name: '雪見蔬菜雞肉鍋', icon: '🍲', desc: '暖呼呼一鍋，豐盛滿足', keys: ['洋蔥','豆腐','娃娃菜','玉米筍','鴻禧菇','白蘿蔔','雞肉','鹽昆布'], url: 'https://www.instagram.com/p/DV98IJ7jAfY/' },
+      { name: '肉末炒毛豆', icon: '🍖', desc: '蒜頭+馬鈴薯+毛豆，家常好味道', keys: ['蒜頭','馬鈴薯','毛豆','絞肉','醬油'], url: 'https://www.instagram.com/p/DVbQ0kmjzQp/' },
+      { name: '皇帝豆排骨湯', icon: '🍖', desc: '排骨+皇帝豆+蒜苗，清甜鮮美', keys: ['排骨','皇帝豆','蒜苗','鹽巴'], url: 'https://www.instagram.com/p/DUikON0j3fq/' },
+      { name: '金沙櫛瓜', icon: '🍽️', desc: '櫛瓜+鹹蛋黃，家常好味道', keys: ['櫛瓜','鹹蛋黃','蛋白','蒜頭'], url: 'https://www.instagram.com/p/DUXEUJJjzKe/' },
+      { name: '豆豉醬香排骨', icon: '🍖', desc: '排骨+蒜頭+豆豉，家常好味道', keys: ['排骨','蒜頭','薑片','豆豉','蔥花','冰糖','醬油','水'], url: 'https://www.instagram.com/p/DT0SEvjD4kL/' },
+      { name: '蔥爆豬心', icon: '🫀', desc: '豬心+蔥+蒜頭，家常好味道', keys: ['豬心','蔥','蒜頭','醬油','糖'], url: 'https://www.instagram.com/p/DTkwk-ej_Mg/' },
+      { name: '三杯杏鮑菇米血', icon: '🍄', desc: '米血+杏鮑菇+九層塔，家常好味道', keys: ['米血','杏鮑菇','薑片','蒜頭','九層塔','麻油','醬油','醬油膏','糖','水'], url: 'https://www.instagram.com/p/DTS0XsMjyw5/' },
+      { name: '簡易蔥鹽醬', icon: '🫙', desc: '萬用好醬，百搭提味', keys: ['青蔥','去皮薑','鹽巴','熱油'], url: 'https://www.instagram.com/p/DTNn5fjD5G7/' },
+      { name: '土魠魚鹹粥', icon: '🍚', desc: '暖胃家常，料多實在', keys: ['土魠魚','金針菇','鴻禧菇','雪白菇','高麗菜','醬油','白胡椒','鹽','白飯'], url: 'https://www.instagram.com/p/DS6cK5CkVYz/' },
+      { name: '海帶芽牛肉寬粉', icon: '🍜', desc: '牛肉片+海帶芽+嫩豆腐，家常好味道', keys: ['牛肉片','寬粉','海帶芽','嫩豆腐','洋蔥','雞蛋'], url: 'https://www.instagram.com/p/DS2d4-qjw0X/' },
+      { name: '辣炒雙鮮花椰', icon: '🥬', desc: '干貝+鮮蝦+白花椰，家常好味道', keys: ['干貝','鮮蝦','白花椰','干貝蒜醬','昆布鹽'], url: 'https://www.instagram.com/p/DSlrZpRj1g9/' },
+      { name: '台式炒意麵', icon: '🍜', desc: 'Q彈滑順，鮮香下飯', keys: ['蒜頭','洋蔥','青蔥','玉米筍','高麗菜','紅蘿蔔','鴻禧菇','五花肉片','意麵','醬油','糖','烏醋'], url: 'https://www.instagram.com/p/DRSHbJOj5C1/' },
+      { name: '雜蔬炒肉片', icon: '🍽️', desc: '蒜頭+雪白菇+鴻禧菇，家常好味道', keys: ['蒜頭','雪白菇','鴻禧菇','玉米筍','小黃瓜','肉片','醬油膏','鹽','胡椒'], url: 'https://www.instagram.com/p/DQVemaYgZcS/' },
+      { name: '蒜苗香腸炒菇', icon: '🍄', desc: '蒜苗+香腸+杏鮑菇，家常好味道', keys: ['蒜苗','香腸','杏鮑菇'], url: 'https://www.instagram.com/p/DQBCLF_D9va/' },
+      { name: '鮑魚鮮蝦冬粉煲', icon: '🍜', desc: 'Q彈滑順，鮮香下飯', keys: ['蒜頭','鮑魚','鮮蝦','冬粉','蝦頭','醬油','醬油膏','糖','蔥花'], url: 'https://www.instagram.com/p/DPT6zX5D3xg/' },
+      { name: '洋蔥炒蝦', icon: '🦐', desc: '蒜頭+薑絲+洋蔥+蝦，家常好味道', keys: ['蒜頭','薑絲','蔥','洋蔥','蝦子','冬粉','醬油','醬油膏','水'], url: 'https://www.instagram.com/p/DO9_d4Kj_Xw/' },
+      { name: '杏鮑菇炒肉片（燒肉醬）', icon: '🍄', desc: '蒜頭+洋蔥+杏鮑菇，家常好味道', keys: ['蒜頭','洋蔥','杏鮑菇','肉片','燒肉醬','白胡椒','蔥花'], url: 'https://www.instagram.com/p/DO6F457jz0z/' },
+      { name: '香菇肉燥', icon: '🍖', desc: '蒜頭+乾香菇+絞肉，家常好味道', keys: ['蒜頭','乾香菇','絞肉','蔥花','醬油','糖','醬油膏'], url: 'https://www.instagram.com/p/DOviwUYj9PC/' },
+      { name: '蘑菇燉雞', icon: '🍄', desc: '雞腿肉+洋蔥+蘑菇，家常好味道', keys: ['雞腿肉','洋蔥','蘑菇','蘑菇濃湯'], url: 'https://www.instagram.com/p/DN5swHxj84n/' },
+      { name: '百菇雞湯', icon: '🍲', desc: '雞腿肉+各式菇類+薑片，清甜鮮美', keys: ['雞腿肉','各式菇類','薑片','紅棗','枸杞'], url: 'https://www.instagram.com/p/DNil5raTebd/' },
+      { name: '香煎奶油蝦菇薯', icon: '🦐', desc: '蝦仁+馬鈴薯+杏鮑菇，家常好味道', keys: ['蝦仁','馬鈴薯','杏鮑菇','奶油','蒜頭','鹽巴','白胡椒鹽'], url: 'https://www.instagram.com/p/DNXDJaWT7WN/' },
+      { name: '絲瓜鹹粥', icon: '🍚', desc: '暖胃家常，料多實在', keys: ['蒜頭','紅蔥頭','香菇','蝦米','絲瓜','梅花肉','醬油','香菇水','清水','白飯或白米','鹽巴','白胡椒'], url: 'https://www.instagram.com/p/DLtzZF-z6Ee/' },
+      { name: '竹筍松阪蛤蜊炊飯', icon: '🍚', desc: '蒜頭+紅蔥頭+竹筍，香噴噴一碗', keys: ['蒜頭','紅蔥頭','竹筍','蛤蜊','松阪肉','白米2杯'], url: 'https://www.instagram.com/p/DLpREZDTPeR/' },
+      { name: '三杯蛋白丁', icon: '🍽️', desc: '蛋白+麻油+九層塔，家常好味道', keys: ['蛋白液','麻油','薑片','蒜頭','醬油膏','糖','鹽','九層塔','辣椒'], url: 'https://www.instagram.com/p/DK9u3j9zMu2/' },
+      { name: '吻魚炊飯', icon: '🍚', desc: '雪白菇+玉米筍+吻魚，香噴噴一碗', keys: ['雪白菇','玉米筍','海菜','吻魚','絞肉','白米','高湯','鹽巴'], url: 'https://www.instagram.com/p/DKv8W40zL1w/' },
+      { name: '番茄起司燉肉', icon: '🍅', desc: '豬後腿肉+洋蔥+番茄，家常好味道', keys: ['豬後腿肉塊','洋蔥','櫛瓜','紅蘿蔔','玉米筍','鴻禧菇','番茄糊','高湯','月桂葉','葡萄汁','蘋果醋','起司','醬油'], url: 'https://www.instagram.com/p/DKtD9gUzAgs/' },
+      { name: '洋蔥蛋', icon: '🧅', desc: '洋蔥+雞蛋，家常好味道', keys: ['洋蔥','雞蛋','鹽巴','油'], url: 'https://www.instagram.com/p/DKqfc6LTID2/' },
+      { name: '蒜頭醬油鮭魚', icon: '🐟', desc: '鮭魚+蒜頭+蔥，家常好味道', keys: ['鮭魚','蒜頭','蔥','糖','醬油'], url: 'https://www.instagram.com/p/DKex8VmTGdy/' },
+      { name: '竹筍蛤蜊雞湯', icon: '🐚', desc: '蒜頭+竹筍+雞腿肉，清甜鮮美', keys: ['蒜頭','竹筍','雞腿肉','蛤蜊','清水','鹽巴'], url: 'https://www.instagram.com/p/DKI9CQzT582/' },
+      { name: '醬燒虱目魚肚', icon: '🐟', desc: '虱目魚肚+青蔥+薑絲，家常好味道', keys: ['虱目魚肚','青蔥','薑絲','蒜頭','醬油','糖'], url: 'https://www.instagram.com/p/DJ-jmyVztIO/' },
+      { name: '蒜頭雞腿竹筍湯', icon: '🍲', desc: '蒜頭+雞腿肉+竹筍，清甜鮮美', keys: ['蒜頭','雞腿肉','竹筍','高麗菜','丸子','蛤蜊'], url: 'https://www.instagram.com/p/DI0B7tvTkEB/' },
+      { name: '南瓜雞腿肉', icon: '🎃', desc: '蒜頭+南瓜+雞腿肉，家常好味道', keys: ['蒜頭','南瓜','雞腿肉','醬油','醬油膏','水'], url: 'https://www.instagram.com/p/DIN71LRTJnt/' },
+      { name: '高麗菜冬粉蛋炒', icon: '🍜', desc: 'Q彈滑順，鮮香下飯', keys: ['蔥','蒜頭','紅蘿蔔','雞蛋','高麗菜','冬粉','醬油膏','醬油','水'], url: 'https://www.instagram.com/p/DH4zwx9T09z/' },
+      { name: '蒜香肉末豆腐', icon: '🫘', desc: '雞蛋豆腐+蒜頭+絞肉，家常好味道', keys: ['雞蛋豆腐','蒜頭','絞肉','青蔥','醬油','醬油膏','水'], url: 'https://www.instagram.com/p/DHkHP5uz557/' },
+      { name: '生炒鴨肉羹', icon: '🍜', desc: '濃稠鮮滑，好喝暖胃', keys: ['鴨胸肉','洋蔥','蒜頭','蔥','高湯','筍絲','金針菇','白醋','太白粉水','糖','鹽','白胡椒粉'], url: 'https://www.instagram.com/p/DHC5VGITaHE/' },
+      { name: '番茄炒蛋', icon: '🍳', desc: '番茄+雞蛋+薑末，家常好味道', keys: ['番茄','雞蛋','薑末','番茄醬','糖'], url: 'https://www.instagram.com/p/DG2Ntl2zIwI/' },
+      { name: '沙茶蛤蜊冬粉', icon: '🍜', desc: 'Q彈滑順，鮮香下飯', keys: ['沙茶','高麗菜','肉片','鴻禧菇','冬粉','蛤蜊'], url: 'https://www.instagram.com/p/DGhMkSZTOMJ/' },
+      { name: '黑甜菜粥', icon: '🍚', desc: '暖胃家常，料多實在', keys: ['黑甜菜','蒜頭','紅蔥頭','香菇','蝦米','小魚乾','豬五花','白飯或白米','醬油','白胡椒'], url: 'https://www.instagram.com/p/DFxnJghTCgl/' },
+      { name: '雞腿蛤蜊湯', icon: '🐚', desc: '蒜頭+洋蔥+雞腿肉，清甜鮮美', keys: ['蒜頭','洋蔥','雞腿肉','蛤蜊','清水'], url: 'https://www.instagram.com/p/DEOb9riz7fn/' },
+      { name: '梨子水', icon: '🍐', desc: '梨子+枸杞+紅棗，清甜潤喉', keys: ['梨子','枸杞','紅棗','水'], url: 'https://www.instagram.com/p/DDcapw3zY8y/' },
+      { name: '煎餃', icon: '🥟', desc: '底部酥脆，皮薄餡美', keys: ['冷凍水餃','麵粉','油','水'], url: 'https://www.instagram.com/p/DDYy9YsTOPv/' },
+      { name: '玉米蛤蜊軟骨湯', icon: '🐚', desc: '玉米+五花軟骨+蒜頭，清甜鮮美', keys: ['玉米','五花軟骨','蒜頭','蛤蜊'], url: 'https://www.instagram.com/p/DDVy4-4TNrz/' },
+      { name: '五花軟骨滷肉', icon: '🍖', desc: '五花軟骨+蒜頭+蔥，家常好味道', keys: ['五花軟骨','蒜頭','蔥','滷包','馬鈴薯','牛番茄','醬油','油','水'], url: 'https://www.instagram.com/p/DDOZUpGzX3j/' },
+      { name: '烏魚膘', icon: '🐟', desc: '烏魚膘+薑絲+蒜末，家常好味道', keys: ['烏魚膘','薑絲','蒜末','蒜苗','麻油','醬油','糖','水'], url: 'https://www.instagram.com/p/DC29Ln7z64B/' },
+      { name: '烏魚米粉', icon: '🍜', desc: 'Q彈滑順，鮮香下飯', keys: ['烏魚','蒜苗','紅蔥頭','蒜頭','芋頭','高麗菜','蛤蜊','米粉','醬油','水','白胡椒'], url: 'https://www.instagram.com/p/DCjnZ_wTMG4/' },
+      { name: '奶油蘑菇燉飯', icon: '🍚', desc: '蒜頭+洋蔥+蘑菇，香噴噴一碗', keys: ['金寶奶油蘑菇濃湯一罐','蒜頭','洋蔥','絞肉','蘑菇','杏鮑菇','雪白菇','鮮奶','無鹽奶油','白飯','鹽巴','黑胡椒'], url: 'https://www.instagram.com/p/DCVYtJUMVDJ/' },
+      { name: '肉羹', icon: '🍜', desc: '濃稠鮮滑，好喝暖胃', keys: ['蒜頭','扁魚','肉條','香菇','鯛魚','金針菇','筍絲','紅蘿蔔','娃娃菜','蝦仁','蟹管肉','小干貝','醬油','糖','胡椒粉','雞蛋','木薯粉','鹽巴','蛋白','烏醋'], url: 'https://www.instagram.com/p/DCA43dRswMo/' },
+      { name: '奶油蒜香蝦', icon: '🦐', desc: '蝦子+奶油+蒜頭，家常好味道', keys: ['蝦子','奶油','蔥','蒜頭','鹽巴','黑胡椒'], url: 'https://www.instagram.com/p/DBxf72zMDLy/' },
+      { name: '鹹粥', icon: '🍚', desc: '暖胃家常，料多實在', keys: ['紅蔥頭','蒜末','香菇','蝦米','絞肉','高麗菜','娃娃菜','金針菇','鴻禧菇','山藥','芋頭','白飯','雞蛋','醬油','鹽巴','白胡椒粉'], url: 'https://www.instagram.com/p/DBd1I-cMd9A/' },
+      { name: '皮蛋豆乾炒', icon: '🥩', desc: '蒜頭+豆豉+皮蛋+豆乾，家常好味道', keys: ['蒜頭','豆豉','皮蛋','豆乾','絞肉','韭菜花','醬油','醬油膏'], url: 'https://www.instagram.com/p/DBNs-PnMB-N/' },
+      { name: '蒜頭絲瓜蝦仁蛋', icon: '🦐', desc: '蒜頭+絲瓜+蝦仁，家常好味道', keys: ['蒜頭','絲瓜','紅蘿蔔','雪白菇','肉片','蝦仁','雞蛋','鹽巴'], url: 'https://www.instagram.com/p/DAsPJ9ys0vY/' },
+      { name: '蛤蜊茶碗蒸', icon: '🐚', desc: '蛤蜊+雞蛋，滑嫩鮮甜', keys: ['蛤蜊','雞蛋','高湯包','水'], url: 'https://www.instagram.com/p/DAgaaR5MH7d/' },
+      { name: '娃娃菜金針菇冬粉湯', icon: '🍜', desc: '娃娃菜+金針菇+冬粉，清甜鮮美', keys: ['娃娃菜','金針菇','冬粉','肉片','蒜頭','醬油','醬油膏','糖'], url: 'https://www.instagram.com/p/DAVEnFEMDDT/' },
+      { name: '山藥雞湯', icon: '🍲', desc: '山藥+雞腿肉+杏鮑菇，清甜鮮美', keys: ['山藥','雞腿肉','杏鮑菇','薑片','紅棗','枸杞','鹽'], url: 'https://www.instagram.com/p/DAJLie6Mycr/' },
+      { name: '辣炒年糕', icon: '🍢', desc: 'Q彈帶勁，越嚼越香', keys: ['蒜頭','洋蔥','高麗菜','肉片','韓式辣醬','年糕','泡菜','鴻禧菇','韓式魚板','醬油','糖','白芝麻','蔥段'], url: 'https://www.instagram.com/p/DACuta-MpB2/' },
+      { name: '鮭魚豆腐蘑菇燉飯', icon: '🍚', desc: '鮭魚+板豆腐+鴻禧菇，香噴噴一碗', keys: ['鮭魚','板豆腐','鴻禧菇','洋蔥','醬油','糖','水','蔥花'], url: 'https://www.instagram.com/p/C_PSFkRvJ8d/' },
+      { name: '乾拌麵（蒜菇肉醬麵）', icon: '🍜', desc: '蒜頭+雞蛋+各種菇類，家常好味道', keys: ['蒜頭','雞蛋','娃娃菜','各種菇類','新東陽辣肉醬','麵條','醬油'], url: 'https://www.instagram.com/p/C_LRZaPPsXb/' },
+      { name: '糖醋魚蛋', icon: '🐟', desc: '蒜頭+魚蛋+番茄醬，家常好味道', keys: ['蒜頭','蔥段','魚蛋','番茄醬','糖','白醋','洋蔥','水'], url: 'https://www.instagram.com/p/C-1s0euPYQr/' },
+      { name: '蛤蜊水蓮炒', icon: '🐚', desc: '蒜末+肉絲+蛤蜊，家常好味道', keys: ['蒜末','肉絲','蛤蜊','水蓮','鳳梨醬或鹽巴'], url: 'https://www.instagram.com/p/C-ojxWMv_XD/' },
+      { name: '蒜香菇菜炒肉', icon: '🍄', desc: '蒜末+洋蔥+高麗菜+肉片，家常好味道', keys: ['蒜末','洋蔥','紅蘿蔔','高麗菜','雪白菇','肉片','醬油','醬油膏'], url: 'https://www.instagram.com/p/C-l9py8PTD6/' },
+      { name: '檸檬蝦', icon: '🦐', desc: '泰國蝦+檸檬汁，清爽鮮甜', keys: ['泰國蝦','檸檬汁','糖','蒜末','蔥花'], url: 'https://www.instagram.com/p/C-c0yjQPaV_/' },
+      { name: '豆豉苦瓜魚肚', icon: '🐟', desc: '苦瓜+魚肚+豆豉，家常好味道', keys: ['苦瓜','魚肚','醬油','蒜頭','薑','小魚乾','豆豉','冰糖','蔥花'], url: 'https://www.instagram.com/p/C-ABBKgPnwz/' },
+      { name: '番茄滷五花肉', icon: '🍖', desc: '馬鈴薯+番茄+豬五花，家常好味道', keys: ['馬鈴薯','紅蘿蔔','番茄','豬五花','冰糖','蒜頭','薑片','醬油','醬油膏','蔥'], url: 'https://www.instagram.com/p/C9W119rPcko/' },
+      { name: '酪梨莎莎醬', icon: '🥑', desc: '萬用好醬，百搭提味', keys: ['酪梨','番茄','洋蔥','黑胡椒','鹽巴','檸檬汁','香菜'], url: 'https://www.instagram.com/p/C9Q8IcCPrws/' },
+      { name: '松阪豬蔬菜煲', icon: '🍲', desc: '暖呼呼一鍋，豐盛滿足', keys: ['松阪豬','蒜頭','洋蔥','菇類','紅蘿蔔','櫛瓜','醬油','醬油膏','水'], url: 'https://www.instagram.com/p/C9Oj91eM5zH/' },
+      { name: '馬鈴薯絞肉', icon: '🥔', desc: '馬鈴薯+蒜頭+絞肉，家常好味道', keys: ['馬鈴薯','蒜頭','蔥','絞肉','紅蘿蔔','醬油','糖','油','醬油膏','水'], url: 'https://www.instagram.com/p/C83mTfiPvz7/' },
+      { name: '鮭魚炒飯', icon: '🍚', desc: '鮭魚+蒜頭+洋蔥，香噴噴一碗', keys: ['鮭魚','蒜頭','洋蔥','鴻禧菇','醬油','蔥花','雞蛋','隔夜白飯'], url: 'https://www.instagram.com/p/C8bpOXMvANK/' },
+      { name: '奶油醬油雞蛋豆腐', icon: '🫘', desc: '雞蛋豆腐+洋蔥+蒜頭，家常好味道', keys: ['雞蛋豆腐','洋蔥','蒜頭','蔥花','醬油','無鹽奶油'], url: 'https://www.instagram.com/p/C75-9B7vzvM/' },
+      { name: '鳳梨虱目魚湯', icon: '🐟', desc: '鳳梨+虱目魚，清甜鮮美', keys: ['鳳梨豆醬','新鮮鳳梨','虱目魚皮','魚肚','魚腸'], url: 'https://www.instagram.com/p/C71RzlYvAvZ/' },
+      { name: '瓜仔肉', icon: '🥩', desc: '蒜頭+紅蔥頭+絞肉，家常好味道', keys: ['蒜頭','紅蔥頭','薑','青蔥','絞肉','蔭瓜','醬油','醬油膏','水'], url: 'https://www.instagram.com/p/C7dUjmUvWDj/' },
+      { name: '魷魚芋頭螺肉湯', icon: '🦑', desc: '乾魷魚+排骨+芋頭，清甜鮮美', keys: ['乾魷魚','排骨','芋頭','蒜頭','蒜苗','香菇','蝦米','螺肉罐頭','芹菜','醬油','鹽巴','白胡椒'], url: 'https://www.instagram.com/p/C7QXYbnP8XM/' },
+      { name: '芋頭米粉', icon: '🍜', desc: 'Q彈滑順，鮮香下飯', keys: ['蒜頭','紅蔥頭','香菇','蝦米','肉絲','芋頭','米粉','芹菜','醬油','鹽巴','白胡椒'], url: 'https://www.instagram.com/p/C7ODmwQvTFd/' },
+      { name: '腐竹肉燥', icon: '🥘', desc: '腐竹+絞肉+蒜頭，家常好味道', keys: ['腐竹','絞肉','蒜頭','蔥花','醬油','醬油膏','黑糖'], url: 'https://www.instagram.com/p/C7AwFp9vaZ8/' },
+      { name: '酸白菜年糕炒肉片', icon: '🍢', desc: 'Q彈帶勁，越嚼越香', keys: ['酸白菜','寧波年糕','豬肉片','醬油','蒜頭','高麗菜','紅蘿蔔','鹽','蔥花'], url: 'https://www.instagram.com/p/C6q67csPrwI/' },
+      { name: '蒜香麵線', icon: '🍜', desc: 'Q彈滑順，鮮香下飯', keys: ['豬油','蒜末','蔥花','醬油','麵線'], url: 'https://www.instagram.com/p/C6NKrghPT-m/' },
+      { name: '蔬菜肉餅', icon: '🥩', desc: '洋蔥+櫛瓜+玉米+絞肉，家常好味道', keys: ['洋蔥','櫛瓜','玉米','絞肉','雞蛋'], url: 'https://www.instagram.com/p/C6Xour0PWGf/' },
+      { name: '滷肉飯', icon: '🍚', desc: '豬皮+肉角+絞肉，香噴噴一碗', keys: ['豬皮','肉角','絞肉','蒜頭','紅蔥頭','薑片','蔥','醬油','黑糖','五香粉'], url: 'https://www.instagram.com/p/C6JfYrsP-ei/' },
+      { name: '茭白筍杏鮑菇炒絞肉', icon: '🍄', desc: '蒜頭+茭白筍+杏鮑菇，家常好味道', keys: ['蒜頭','茭白筍','杏鮑菇','絞肉','醬油','砂糖','蔥花','辣椒'], url: 'https://www.instagram.com/p/C6Fp82rvS3F/' },
+      { name: '洋蔥湯', icon: '🧅', desc: '巨無霸洋蔥，清甜鮮美', keys: ['洋蔥'], url: 'https://www.instagram.com/p/C57Wq5_PnYJ/' },
+      { name: '冬瓜肉燥', icon: '🫛', desc: '冬瓜+絞肉+蒜頭，家常好味道', keys: ['冬瓜','絞肉','蒜頭','醬油','醬油膏','砂糖'], url: 'https://www.instagram.com/p/C55G4LEvRPl/' },
+      { name: '杏鮑菇雞腿肉', icon: '🍄', desc: '杏鮑菇+雞腿肉+蒜頭，家常好味道', keys: ['杏鮑菇','雞腿肉','蒜頭','醬油','醬油膏','砂糖','水','蔥花'], url: 'https://www.instagram.com/p/C5pQ_7bvG-U/' },
     ];
 
     let userIngredients = [];
@@ -1495,13 +1457,13 @@
 
     function renderTags() {
       document.getElementById('ingredientTags').innerHTML = userIngredients.map(ing =>
-        `<span class="ing-tag">${ing}<button onclick="removeIngredient('${ing}')">??/button></span>`
+        `<span class="ing-tag">${ing}<button onclick="removeIngredient('${ing}')">✕</button></span>`
       ).join('');
     }
 
     function searchRecipes() {
       if (!userIngredients.length) {
-        document.getElementById('recipeResults').innerHTML = '<p class="no-result">???乩?鈭??嚗?/p>';
+        document.getElementById('recipeResults').innerHTML = '<p class="no-result">先加入一些食材吧！</p>';
         return;
       }
       const scored = recipes.map(r => {
@@ -1511,15 +1473,15 @@
 
       const el = document.getElementById('recipeResults');
       if (!scored.length) {
-        el.innerHTML = '<p class="no-result">?曆??啁泵????嚗????岫閰佗?</p>';
+        el.innerHTML = '<p class="no-result">找不到符合的料理，換個食材試試？</p>';
         return;
       }
       el.innerHTML = scored.map(r =>
         `<div class="recipe-item">
           <div class="recipe-item-name">${r.icon} ${r.name}</div>
           <div class="recipe-item-desc">${r.desc}</div>
-          <div class="recipe-item-ing">?閬?${r.keys.join('??)}</div>
-          ${r.url ? `<a href="${r.url}" target="_blank" rel="noopener" class="reel-btn">? ??瘜?/a>` : ''}
+          <div class="recipe-item-ing">需要：${r.keys.join('、')}</div>
+          ${r.url ? `<a href="${r.url}" target="_blank" rel="noopener" class="reel-btn">🎬 看作法</a>` : ''}
         </div>`
       ).join('');
     }
@@ -1557,17 +1519,17 @@
       const ics = [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
-        'PRODID:-//敺桃?//Picks//ZH-TW',
+        'PRODID:-//微絜//Picks//ZH-TW',
         'BEGIN:VEVENT',
         'DTSTART;VALUE=DATE:' + dateStr,
         'DTEND;VALUE=DATE:' + dateStr,
-        'SUMMARY:?? ' + name,
-        'DESCRIPTION:敺桃????佗?頞翰?餅嚚\n' + (url || 'https://picks-rho.vercel.app'),
+        'SUMMARY:🛒 ' + name,
+        'DESCRIPTION:微絜開團啦！趕快去搶～\\n' + (url || 'https://picks-rho.vercel.app'),
         'URL:' + (url || 'https://picks-rho.vercel.app'),
         'BEGIN:VALARM',
         'TRIGGER:-PT0M',
         'ACTION:DISPLAY',
-        'DESCRIPTION:' + name + ' ????',
+        'DESCRIPTION:' + name + ' 開團提醒',
         'END:VALARM',
         'END:VEVENT',
         'END:VCALENDAR'
@@ -1581,7 +1543,7 @@
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(a.href);
-      showToast('?? 撌脣??亥?鈭???嚗?);
+      showToast('📅 已加入行事曆提醒！');
     }
   </script>
 </body>
