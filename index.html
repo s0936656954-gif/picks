@@ -933,6 +933,40 @@
       color: #3a3a38;
     }
 
+    /* Personality result */
+    .personality-card {
+      background: linear-gradient(135deg, rgba(248,234,225,0.9), rgba(193,183,170,0.25));
+      border: 1px solid rgba(138,71,15,0.18);
+      border-radius: 16px;
+      padding: 22px 18px 18px;
+      text-align: center;
+      margin: 6px 0 4px;
+    }
+    .personality-emoji { font-size: 3.2rem; line-height: 1; margin-bottom: 8px; }
+    .personality-title {
+      font-family: 'ZCOOL QingKe HuangYou', cursive;
+      font-size: 1.35rem;
+      color: #5f624e;
+      margin-bottom: 10px;
+    }
+    .personality-tag {
+      display: inline-block;
+      padding: 3px 10px;
+      background: rgba(138,71,15,0.1);
+      border-radius: 20px;
+      font-size: 0.68rem;
+      font-family: sans-serif;
+      color: #8A470F;
+      margin-bottom: 10px;
+    }
+    .personality-desc {
+      font-size: 0.8rem;
+      font-family: sans-serif;
+      color: #5f624e;
+      line-height: 1.75;
+      text-align: left;
+    }
+
     .cook-action-btn {
       width: 100%;
       padding: 12px;
@@ -1603,8 +1637,24 @@
       <div class="dinner-screen" id="dinner-stage3">
         <h3 class="game-title">🍽️ 今晚菜單</h3>
         <div class="dinner-menu" id="dinnerMenu"></div>
+        <button class="cook-action-btn" onclick="showPersonality()" style="background:#8A470F;margin-top:10px;">🔮 看我的煮飯人格</button>
+        <div style="display:flex;gap:8px;margin-top:8px;">
+          <button class="cook-action-btn" onclick="initDinnerGame()" style="flex:1;margin:0;font-size:0.8rem;padding:9px;">再來一次</button>
+          <button class="cook-action-btn" onclick="initDinnerGame(true)" style="flex:1;margin:0;font-size:0.8rem;padding:9px;">換食材</button>
+        </div>
+      </div>
+
+      <!-- 第四階段：煮飯人格 -->
+      <div class="dinner-screen" id="dinner-stage4">
+        <h3 class="game-title">🔮 你的煮飯人格</h3>
+        <div class="personality-card">
+          <div class="personality-emoji" id="pEmoji"></div>
+          <div class="personality-title" id="pTitle"></div>
+          <span class="personality-tag" id="pTag"></span>
+          <p class="personality-desc" id="pDesc"></p>
+        </div>
         <div style="display:flex;gap:8px;margin-top:12px;">
-          <button class="cook-action-btn" onclick="initDinnerGame()" style="flex:1;margin:0;">再來一次</button>
+          <button class="cook-action-btn" onclick="initDinnerGame()" style="flex:1;margin:0;">再玩一次</button>
           <button class="cook-action-btn" onclick="initDinnerGame(true)" style="flex:1;margin:0;background:#8A470F;">換食材</button>
         </div>
       </div>
@@ -1988,7 +2038,7 @@
           msgEl.style.opacity = '1';
           inTransition = false;
         }, 280);
-      }, 2600);
+      }, 1500);
 
       // Progress bar
       dinnerCookTimer = setInterval(() => {
@@ -2053,6 +2103,71 @@
         `<div class="dinner-dish"><span style="font-size:1.1rem;">${d.emoji}</span>${d.name}</div>`
       ).join('');
       showDinnerScreen('stage3');
+    }
+
+    const cookPersonalities = [
+      {
+        id: 'hoarder',
+        emoji: '🧹', title: '冰箱清除機', tag: '食材越多越安心',
+        desc: '每次煮飯都是一場冰箱大掃除。食材不用就會壞、壞了就是罪惡感——你深深懂這件事。看似隨興，其實是整個家最有效率的人。',
+        match: n => n.length >= 8
+      },
+      {
+        id: 'seafood',
+        emoji: '🦐', title: '鮮味追求者', tag: '今天的餐桌聞起來像海邊',
+        desc: '對鮮味有著近乎偏執的堅持。蝦子、蛤蜊、鮭魚，有其中一樣就能讓今天的飯升等。你相信「新鮮」就是最好的調味料。',
+        match: n => ['蝦子','蛤蜊','鮭魚'].filter(x => n.includes(x)).length >= 2
+      },
+      {
+        id: 'meat',
+        emoji: '🥩', title: '蛋白質信仰者', tag: '肉才是重點，菜是裝飾',
+        desc: '高蛋白、大火炒、上桌秒清空。你不是不知道蔬菜重要，只是肉類永遠排第一位。家人默默多扒了一碗飯？這就是你的成就感。',
+        match: n => ['豬肉','雞腿','培根','絞肉'].filter(x => n.includes(x)).length >= 2
+      },
+      {
+        id: 'veggie',
+        emoji: '🥬', title: '養生系媽媽', tag: '青菜就是青春',
+        desc: '冰箱永遠有各種蔬菜，孩子不吃？沒關係，你自己吃得很開心。你深信多吃蔬菜能解決大部分的問題，包括心情不好。',
+        match: n => ['高麗菜','青江菜','花椰菜','空心菜','青椒','茄子','紅蘿蔔','玉米','豆芽菜'].filter(x => n.includes(x)).length >= 3
+      },
+      {
+        id: 'noodle',
+        emoji: '🍜', title: '麵食主義者', tag: '有麵條就有安全感',
+        desc: '麵條是靈魂的歸宿。炒麵、湯麵、拌麵，加什麼都好吃。今天是麵，明天也是麵——而且你不覺得有任何問題。',
+        match: n => n.includes('麵條')
+      },
+      {
+        id: 'garlic',
+        emoji: '🧄', title: '蒜頭狂熱者', tag: '沒有蒜就不算開始煮',
+        desc: '每道菜都要爆香蒜頭才算正式開始。香氣是真的、愛也是真的——全家的吐息可以作證，但沒有人敢抱怨。',
+        match: n => n.includes('蒜頭') && n.length >= 4
+      },
+      {
+        id: 'egg',
+        emoji: '🥚', title: '雞蛋救星型', tag: '蛋是永遠的後盾',
+        desc: '無論冰箱剩什麼，只要有蛋就不慌。番茄炒蛋、韭菜炒蛋、玉米炒蛋——雞蛋是你的萬能解答，也是這個家的精神支柱。',
+        match: n => n.includes('雞蛋')
+      },
+      {
+        id: 'lazy',
+        emoji: '🛵', title: '懶系生存者', tag: '效率才是王道',
+        desc: '用最少的食材撐起一頓飯，這不叫偷懶——這叫精準。今天選這樣就夠了，外送？那是下下策，你還沒輸。',
+        match: n => n.length <= 2
+      },
+    ];
+
+    function analyzePersonality() {
+      const names = selectedIngredients.map(i => i.name);
+      return cookPersonalities.find(p => p.match(names)) || cookPersonalities[6];
+    }
+
+    function showPersonality() {
+      const p = analyzePersonality();
+      document.getElementById('pEmoji').textContent = p.emoji;
+      document.getElementById('pTitle').textContent = p.title;
+      document.getElementById('pTag').textContent = p.tag;
+      document.getElementById('pDesc').textContent = p.desc;
+      showDinnerScreen('stage4');
     }
 
     // ── Recipe Game ──
