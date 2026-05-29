@@ -550,6 +550,7 @@
       font-size: 0.58rem;
       color: #8A470F;
       font-family: sans-serif;
+      font-weight: 600;
       align-self: center;
       margin-right: 1px;
       letter-spacing: 0.03em;
@@ -728,90 +729,349 @@
       margin-bottom: 18px;
     }
 
-    /* Heel game */
-    .heel-scene {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 8px 0 2px;
-      gap: 8px;
-      user-select: none;
-    }
+    /* ── Cook Game Hub ── */
+    .cook-screen { display: none; }
+    .cook-screen.active { display: block; }
 
-    .heel-visual {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .heel-shoe-btn {
-      font-size: 3.2rem;
+    .cook-back-btn {
+      position: absolute;
+      top: 14px;
+      left: 14px;
       background: none;
       border: none;
+      font-size: 1.2rem;
+      color: #5f624e;
       cursor: pointer;
+      padding: 4px 8px;
+      display: none;
       line-height: 1;
-      filter: drop-shadow(0 3px 8px rgba(0,0,0,0.14));
-      transform-origin: bottom right;
     }
+    .cook-back-btn.visible { display: block; }
 
-    .heel-shoe-btn.tap {
-      animation: heelKnock 0.34s cubic-bezier(.36,.07,.19,.97);
+    .cook-menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0;
     }
-
-    @keyframes heelKnock {
-      0%   { transform: rotate(0deg) translateX(0); }
-      25%  { transform: rotate(-22deg) translateX(-6px); }
-      55%  { transform: rotate(16deg) translateX(18px); }
-      80%  { transform: rotate(-4deg) translateX(2px); }
-      100% { transform: rotate(0deg) translateX(0); }
-    }
-
-    .heel-planks {
+    .cook-menu-btn {
+      background: rgba(248,234,225,0.55);
+      border: 1.5px solid rgba(138,71,15,0.15);
+      border-radius: 14px;
+      padding: 18px 10px 14px;
+      font-family: sans-serif;
+      cursor: pointer;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      align-items: center;
+      gap: 7px;
+      transition: background 0.15s, transform 0.12s;
     }
+    .cook-menu-btn:hover { background: rgba(138,71,15,0.1); transform: scale(1.03); }
+    .cook-menu-emoji { font-size: 2.4rem; line-height: 1; }
+    .cook-menu-label { font-size: 0.85rem; color: #3a3a38; font-weight: 600; }
 
-    .heel-plank {
-      width: 96px;
-      height: 17px;
-      background: linear-gradient(90deg, #c8956b 0%, #a06040 60%, #7a4525 100%);
-      border-radius: 4px;
-      border: 1.5px solid #6b3a1f;
-      box-shadow: inset 0 2px 0 rgba(255,255,255,0.18), 0 2px 5px rgba(0,0,0,0.22);
-      opacity: 0.25;
-      transform-origin: left center;
+    .cook-action-btn {
+      display: block;
+      margin: 12px auto 0;
+      padding: 10px 30px;
+      background: #5f624e;
+      color: #F8EAE1;
+      border: none;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-family: sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: background 0.2s, transform 0.1s;
     }
+    .cook-action-btn:hover { background: #4a4d3c; }
+    .cook-action-btn:active { transform: scale(0.96); }
+    .cook-action-btn:disabled { background: #B1BBBA; cursor: default; transform: none; }
 
-    .heel-plank.hit {
-      opacity: 1;
-      animation: plankSmash 0.28s ease;
-    }
-
-    .heel-plank.done { opacity: 1; }
-
-    @keyframes plankSmash {
-      0%   { transform: scaleX(1); }
-      35%  { transform: scaleX(0.8); }
-      100% { transform: scaleX(1); }
-    }
-
-    .heel-sparks {
-      font-size: 1.4rem;
-      min-height: 28px;
-      letter-spacing: 5px;
-    }
-
-    .heel-result {
+    .cook-sub-title {
       text-align: center;
-      font-size: 0.92rem;
+      font-size: 0.72rem;
+      color: #9da6a3;
+      font-family: sans-serif;
+      letter-spacing: 0.05em;
+      margin: 6px 0 10px;
+      min-height: 1.2em;
+    }
+    .cook-score-display {
+      text-align: center;
+      margin-top: 8px;
+      font-size: 1.7rem;
+      letter-spacing: 6px;
+    }
+    .cook-result-msg {
+      text-align: center;
+      font-size: 0.85rem;
       color: #5f624e;
       font-family: 'Lora', serif;
       font-style: italic;
-      min-height: 2.4em;
-      line-height: 1.6;
-      margin-top: 4px;
+      margin: 6px 0 10px;
+      line-height: 1.5;
     }
+
+    /* ── 章魚燒 ── */
+    .tako-pan {
+      background: linear-gradient(135deg, #c07820 0%, #8c4508 100%);
+      border-radius: 14px;
+      padding: 12px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 10px 0;
+      box-shadow: inset 0 3px 8px rgba(0,0,0,0.35), 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .tako-mold {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #5a2e08;
+      box-shadow: inset 0 3px 7px rgba(0,0,0,0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.5s ease;
+    }
+    .tako-mold.filled { background: #EEE0C0; }
+    .tako-mold.has-tako::after { content: '🐙'; font-size: 1.1rem; position: absolute; }
+    .tako-mold.phase-1 { background: #F0D878; }
+    .tako-mold.phase-2 { background: #D49010; cursor: pointer; box-shadow: inset 0 3px 7px rgba(0,0,0,0.3), 0 0 8px rgba(212,144,16,0.5); }
+    .tako-mold.phase-3 { background: #6A3500; cursor: default; }
+    .tako-mold.flipped { background: #3e1a00 !important; cursor: default; }
+    .tako-mold.flipped::after { content: '✅'; font-size: 1.1rem; position: absolute; }
+    .tako-mold.burnt::after { content: '💨'; font-size: 1rem; position: absolute; opacity: 0.6; }
+    .tako-status {
+      text-align: center;
+      font-size: 0.72rem;
+      color: #8A470F;
+      font-family: sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+      min-height: 1.2em;
+    }
+
+    /* ── 鬆餅 ── */
+    .pancake-pan {
+      background: radial-gradient(circle at 40% 35%, #b87030 20%, #7a3c10 100%);
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      margin: 8px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.22), inset 0 2px 6px rgba(255,255,255,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .pancake-circle {
+      border-radius: 50%;
+      background: #F0DEB8;
+      position: absolute;
+      transition: width 0.4s ease, height 0.4s ease, background 1s ease;
+    }
+    @keyframes bubblePop {
+      0%, 100% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1); opacity: 1; }
+    }
+    .pancake-bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.65);
+      animation: bubblePop 0.9s ease infinite;
+    }
+    .pancake-circle.cooked { background: #C88010; }
+    .pancake-circle.flipped { background: linear-gradient(160deg, #A06020 0%, #C07818 60%, #8c4508 100%); }
+    .pancake-stack {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+      gap: 2px;
+      margin: 4px auto;
+      min-height: 30px;
+    }
+    .pancake-layer {
+      height: 13px;
+      border-radius: 5px;
+      background: linear-gradient(90deg, #C88010 0%, #A06020 50%, #C88010 100%);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+      transition: width 0.3s ease;
+    }
+
+    /* ── 蛋糕 ── */
+    .cake-ingredients {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 8px 0;
+    }
+    .cake-ing-btn {
+      padding: 10px 8px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(95,98,78,0.2);
+      background: rgba(248,234,225,0.5);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    .cake-ing-btn span { font-size: 0.58rem; font-family: sans-serif; color: #9da6a3; }
+    .cake-ing-btn.next-needed { border-color: #8A470F; box-shadow: 0 0 0 2.5px rgba(138,71,15,0.18); }
+    .cake-ing-btn.added { opacity: 0.35; pointer-events: none; border-color: transparent; }
+    @keyframes cakeShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+    .cake-ing-btn.wrong { animation: cakeShake 0.28s ease; }
+    .cake-bowl {
+      width: 90px; height: 50px;
+      border: 2.5px solid #B1BBBA;
+      border-top: none;
+      border-radius: 0 0 55px 55px;
+      margin: 8px auto;
+      background: rgba(234,234,230,0.35);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 5px;
+      gap: 2px;
+      font-size: 1rem;
+      transition: opacity 0.3s;
+    }
+    .cake-progress {
+      width: 82%;
+      height: 6px;
+      background: rgba(177,187,186,0.3);
+      border-radius: 3px;
+      margin: 8px auto;
+      overflow: hidden;
+    }
+    .cake-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #8A470F, #c07820);
+      border-radius: 3px;
+      transition: width 0.18s;
+    }
+    .cake-mix-btn {
+      display: block;
+      margin: 8px auto 0;
+      padding: 10px 28px;
+      background: #5f624e;
+      color: #F8EAE1;
+      border: none;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-family: sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.08s;
+    }
+    .cake-mix-btn:active { transform: scale(0.93); }
+    .cake-decorations {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin: 10px 0;
+    }
+    .cake-deco-btn {
+      font-size: 1.9rem;
+      background: none;
+      border: 2px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      padding: 5px;
+      transition: border-color 0.15s, transform 0.12s;
+    }
+    .cake-deco-btn.picked { border-color: #8A470F; transform: scale(1.12); }
+    .cake-display { text-align: center; font-size: 3.5rem; margin: 8px 0; }
+
+    /* ── 義大利麵 ── */
+    .pasta-pot-wrap { display: flex; flex-direction: column; align-items: center; gap: 2px; margin: 6px 0; }
+    .pasta-flame { font-size: 1.8rem; text-align: center; height: 30px; line-height: 30px; }
+    .pasta-pot {
+      width: 110px; height: 90px;
+      background: linear-gradient(180deg, #999 0%, #666 100%);
+      border-radius: 0 0 18px 18px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .pasta-water {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 70%;
+      background: rgba(195,220,238,0.55);
+      transition: background 1s;
+    }
+    .pasta-water.boiling { background: rgba(170,205,228,0.85); }
+    @keyframes pastaBubble {
+      0% { transform: translateY(0) scale(1); opacity: 0.75; }
+      100% { transform: translateY(-45px) scale(0.2); opacity: 0; }
+    }
+    .pasta-bubble {
+      position: absolute;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.8);
+      animation: pastaBubble 1s ease infinite;
+    }
+    @keyframes pastaWave {
+      from { transform: rotate(-2deg); }
+      to { transform: rotate(2deg); }
+    }
+    .pasta-strand {
+      position: absolute;
+      width: 3px;
+      border-radius: 2px;
+      background: #F0D890;
+      bottom: 18%;
+      animation: pastaWave 0.4s ease infinite alternate;
+    }
+    .pasta-timer {
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: sans-serif;
+      color: #8A470F;
+      margin: 4px 0;
+      min-height: 1.6em;
+    }
+    .pasta-sauces {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px 0;
+    }
+    .pasta-sauce-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(95,98,78,0.18);
+      background: rgba(248,234,225,0.4);
+      cursor: pointer;
+      transition: all 0.15s;
+      font-size: 1.5rem;
+    }
+    .pasta-sauce-btn span { font-size: 0.6rem; font-family: sans-serif; color: #9da6a3; }
+    .pasta-sauce-btn.chosen { background: #5f624e; border-color: #5f624e; }
+    .pasta-sauce-btn.chosen span { color: #F8EAE1; }
 
     /* Recipe game */
     .recipe-input-row { display: flex; gap: 8px; margin-bottom: 10px; }
@@ -1152,28 +1412,119 @@
 
   <!-- Side game buttons -->
   <div class="side-btns">
-    <button class="side-btn" onclick="openGame('heel')" title="敲鞋跟許願">👠</button>
+    <button class="side-btn" onclick="openGame('cook')" title="今天吃什麼">🍳</button>
     <button class="side-btn" onclick="openGame('recipe')" title="食材配菜">🥣</button>
   </div>
 
-  <!-- Heel game modal -->
-  <div class="game-modal" id="modal-heel">
+  <!-- Cook game hub modal -->
+  <div class="game-modal" id="modal-cook">
     <div class="game-card">
-      <button class="modal-close" onclick="closeGame('heel')">✕</button>
-      <h3 class="game-title">敲鞋跟許願</h3>
-      <p class="game-desc">敲三下，看看今天適不適合買</p>
-      <div class="heel-scene">
-        <div class="heel-visual">
-          <button class="heel-shoe-btn" id="heelBtn" onclick="tapHeel()">👡</button>
-          <div class="heel-planks">
-            <div class="heel-plank" id="plank1"></div>
-            <div class="heel-plank" id="plank2"></div>
-            <div class="heel-plank" id="plank3"></div>
+      <button class="cook-back-btn" id="cookBackBtn" onclick="cookGoMenu()">←</button>
+      <button class="modal-close" onclick="closeGame('cook')">✕</button>
+
+      <!-- 選單 -->
+      <div class="cook-screen active" id="cook-menu">
+        <h3 class="game-title">微絜廚房</h3>
+        <p class="game-desc">選一道來煮！</p>
+        <div class="cook-menu-grid">
+          <button class="cook-menu-btn" onclick="playGame('takoyaki')">
+            <span class="cook-menu-emoji">🐙</span>
+            <span class="cook-menu-label">章魚燒</span>
+          </button>
+          <button class="cook-menu-btn" onclick="playGame('pancake')">
+            <span class="cook-menu-emoji">🥞</span>
+            <span class="cook-menu-label">鬆餅</span>
+          </button>
+          <button class="cook-menu-btn" onclick="playGame('cake')">
+            <span class="cook-menu-emoji">🎂</span>
+            <span class="cook-menu-label">蛋糕</span>
+          </button>
+          <button class="cook-menu-btn" onclick="playGame('pasta')">
+            <span class="cook-menu-emoji">🍝</span>
+            <span class="cook-menu-label">義大利麵</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 章魚燒 -->
+      <div class="cook-screen" id="cook-takoyaki">
+        <h3 class="game-title">🐙 章魚燒</h3>
+        <p class="tako-status" id="takoStatus">準備好了嗎？</p>
+        <div class="tako-pan" id="takoPan">
+          <div class="tako-mold" id="takoMold0"></div>
+          <div class="tako-mold" id="takoMold1"></div>
+          <div class="tako-mold" id="takoMold2"></div>
+          <div class="tako-mold" id="takoMold3"></div>
+          <div class="tako-mold" id="takoMold4"></div>
+          <div class="tako-mold" id="takoMold5"></div>
+        </div>
+        <button class="cook-action-btn" id="takoBtn" onclick="takoAction()">倒麵糊！</button>
+        <div class="cook-score-display" id="takoScore" style="display:none;"></div>
+        <p class="cook-result-msg" id="takoMsg" style="display:none;"></p>
+        <button class="cook-action-btn" id="takoRetryBtn" onclick="initTakoyaki()" style="display:none;">再玩一次</button>
+      </div>
+
+      <!-- 鬆餅 -->
+      <div class="cook-screen" id="cook-pancake">
+        <h3 class="game-title">🥞 鬆餅</h3>
+        <p class="cook-sub-title" id="pancakeStatus">點「倒麵糊」開始！</p>
+        <div class="pancake-stack" id="pancakeStack"></div>
+        <div class="pancake-pan" id="pancakePan">
+          <div class="pancake-circle" id="pancakeCircle" style="width:0;height:0;"></div>
+        </div>
+        <button class="cook-action-btn" id="pancakeBtn" onclick="pancakeAction()">倒麵糊！</button>
+        <div class="cook-score-display" id="pancakeScore" style="display:none;"></div>
+        <p class="cook-result-msg" id="pancakeMsg" style="display:none;"></p>
+        <button class="cook-action-btn" id="pancakeRetryBtn" onclick="initPancake()" style="display:none;">再玩一次</button>
+      </div>
+
+      <!-- 蛋糕 -->
+      <div class="cook-screen" id="cook-cake">
+        <h3 class="game-title">🎂 蛋糕</h3>
+        <p class="cook-sub-title" id="cakeStatus">依序加入食材！</p>
+        <div class="cake-ingredients" id="cakeIngredients">
+          <button class="cake-ing-btn next-needed" id="cakeIng0" onclick="addCakeIng(0)">🌾<span>麵粉</span></button>
+          <button class="cake-ing-btn" id="cakeIng1" onclick="addCakeIng(1)">🥚<span>雞蛋</span></button>
+          <button class="cake-ing-btn" id="cakeIng2" onclick="addCakeIng(2)">🧈<span>奶油</span></button>
+          <button class="cake-ing-btn" id="cakeIng3" onclick="addCakeIng(3)">🍯<span>糖</span></button>
+        </div>
+        <div class="cake-bowl" id="cakeBowl"></div>
+        <div class="cake-progress" id="cakeMixProgress" style="display:none;"><div class="cake-progress-bar" id="cakeMixBar"></div></div>
+        <button class="cake-mix-btn" id="cakeMixBtn" onclick="mixCake()" style="display:none;">攪拌！</button>
+        <div class="cake-decorations" id="cakeDecos" style="display:none;">
+          <button class="cake-deco-btn" onclick="pickDeco(this,'🍓')">🍓</button>
+          <button class="cake-deco-btn" onclick="pickDeco(this,'🍫')">🍫</button>
+          <button class="cake-deco-btn" onclick="pickDeco(this,'🌸')">🌸</button>
+          <button class="cake-deco-btn" onclick="pickDeco(this,'🍒')">🍒</button>
+        </div>
+        <div class="cake-display" id="cakeDisplay" style="display:none;"></div>
+        <p class="cook-result-msg" id="cakeMsg" style="display:none;"></p>
+        <button class="cook-action-btn" id="cakeActionBtn" onclick="cakeConfirmDeco()" style="display:none;">完成！</button>
+        <button class="cook-action-btn" id="cakeRetryBtn" onclick="initCake()" style="display:none;">再做一個</button>
+      </div>
+
+      <!-- 義大利麵 -->
+      <div class="cook-screen" id="cook-pasta">
+        <h3 class="game-title">🍝 義大利麵</h3>
+        <p class="cook-sub-title" id="pastaStatus">先把水煮開！</p>
+        <div class="pasta-pot-wrap">
+          <div class="pasta-flame" id="pastaFlame"></div>
+          <div class="pasta-pot" id="pastaPot">
+            <div class="pasta-water" id="pastaWater"></div>
           </div>
         </div>
-        <div class="heel-sparks" id="heelSparks"></div>
+        <div class="pasta-timer" id="pastaTimerDisplay" style="display:none;"></div>
+        <div class="pasta-sauces" id="pastaSauces" style="display:none;">
+          <button class="pasta-sauce-btn" onclick="chooseSauce(this,'🍅','番茄')">🍅<span>番茄</span></button>
+          <button class="pasta-sauce-btn" onclick="chooseSauce(this,'🧀','奶油')">🧀<span>奶油</span></button>
+          <button class="pasta-sauce-btn" onclick="chooseSauce(this,'🌿','青醬')">🌿<span>青醬</span></button>
+        </div>
+        <button class="cook-action-btn" id="pastaBtn" onclick="pastaAction()">點火！🔥</button>
+        <div class="cook-score-display" id="pastaResult" style="display:none;"></div>
+        <p class="cook-result-msg" id="pastaMsg" style="display:none;"></p>
+        <button class="cook-action-btn" id="pastaRetryBtn" onclick="initPasta()" style="display:none;">再煮一次</button>
       </div>
-      <p class="heel-result" id="heelResult"></p>
+
     </div>
   </div>
 
@@ -1230,56 +1581,445 @@
     updateCountdowns();
     setInterval(updateCountdowns, 1000);
 
-    // ── Heel Game ──
-    const heelFortunes = [
-      '今天手氣超旺，適合出手！',
-      '算了啦，荷包先休息一下。',
-      '猶豫就是失去！直接買！',
-      '再比較三家，理性消費。',
-      '微絜推薦的，閉眼入就對了 ♡',
-      '存錢是美德，但生活需要品質。',
-      '今天不買，明天後悔。',
-      '深呼吸，等折扣！',
-      '你值得最好的，去買吧！',
-      '月底了，手先放開。',
-      '信微絜，得永生 ✨',
-      '買！反正遲早都要買。',
-    ];
+    // ── Cook Game Hub ──
+    function showCookScreen(name) {
+      document.querySelectorAll('.cook-screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('cook-' + name).classList.add('active');
+      document.getElementById('cookBackBtn').classList.toggle('visible', name !== 'menu');
+    }
 
-    let heelCount = 0;
-    let heelLocked = false;
+    function cookGoMenu() {
+      takoStopAll();
+      clearTimeout(pancakeTimer_id);
+      clearInterval(pastaCountInterval);
+      clearTimeout(pastaBoilTimer);
+      showCookScreen('menu');
+    }
 
-    function tapHeel() {
-      if (heelLocked) return;
-      heelCount++;
-      const btn = document.getElementById('heelBtn');
-      btn.classList.remove('tap');
-      void btn.offsetWidth;
-      btn.classList.add('tap');
-      setTimeout(() => btn.classList.remove('tap'), 360);
+    function playGame(name) {
+      showCookScreen(name);
+      if (name === 'takoyaki') initTakoyaki();
+      else if (name === 'pancake') initPancake();
+      else if (name === 'cake') initCake();
+      else if (name === 'pasta') initPasta();
+    }
 
-      const plank = document.getElementById('plank' + heelCount);
-      plank.classList.add('hit');
-      setTimeout(() => { plank.classList.remove('hit'); plank.classList.add('done'); }, 300);
+    // ── 章魚燒 ──
+    let takoState = 'idle';
+    let takoFlippedCount = 0;
+    let takoTimers = [];
+    let takoCookInterval = null;
+    let takoScore = 0;
+    let takoPhase = [];
+    const TAKO_N = 6;
 
-      const sparks = document.getElementById('heelSparks');
-      sparks.textContent = ['✨', '⭐', '💫'][heelCount - 1];
+    function takoStopAll() {
+      takoTimers.forEach(clearTimeout);
+      takoTimers = [];
+      if (takoCookInterval) { clearInterval(takoCookInterval); takoCookInterval = null; }
+    }
 
-      if (heelCount === 3) {
-        heelLocked = true;
-        setTimeout(() => {
-          sparks.textContent = '✨ ⭐ ✨';
-          const f = heelFortunes[Math.floor(Math.random() * heelFortunes.length)];
-          document.getElementById('heelResult').textContent = f;
-        }, 380);
-        setTimeout(() => {
-          heelCount = 0;
-          heelLocked = false;
-          document.querySelectorAll('.heel-plank').forEach(p => p.classList.remove('hit', 'done'));
-          document.getElementById('heelResult').textContent = '';
-          sparks.textContent = '';
-        }, 5000);
+    function initTakoyaki() {
+      takoStopAll();
+      takoState = 'idle'; takoFlippedCount = 0; takoScore = 0;
+      takoPhase = Array(TAKO_N).fill(0);
+      for (let i = 0; i < TAKO_N; i++) {
+        const m = document.getElementById('takoMold' + i);
+        m.className = 'tako-mold';
+        m.onclick = null;
+        m.textContent = '';
       }
+      document.getElementById('takoStatus').textContent = '準備好了嗎？';
+      document.getElementById('takoBtn').textContent = '倒麵糊！';
+      document.getElementById('takoBtn').style.display = 'block';
+      document.getElementById('takoBtn').disabled = false;
+      document.getElementById('takoScore').style.display = 'none';
+      document.getElementById('takoMsg').style.display = 'none';
+      document.getElementById('takoRetryBtn').style.display = 'none';
+    }
+
+    function takoAction() {
+      if (takoState === 'idle') {
+        takoState = 'filling';
+        document.getElementById('takoStatus').textContent = '麵糊倒入中...';
+        document.getElementById('takoBtn').disabled = true;
+        for (let i = 0; i < TAKO_N; i++) {
+          takoTimers.push(setTimeout(() => {
+            document.getElementById('takoMold' + i).classList.add('filled');
+            if (i === TAKO_N - 1) {
+              takoState = 'adding';
+              document.getElementById('takoStatus').textContent = '點每格加章魚！加完按「開火」';
+              document.getElementById('takoBtn').textContent = '開火！🔥';
+              document.getElementById('takoBtn').disabled = false;
+              for (let j = 0; j < TAKO_N; j++) {
+                const m = document.getElementById('takoMold' + j);
+                m.onclick = () => { if (!m.classList.contains('has-tako')) m.classList.add('has-tako'); };
+              }
+            }
+          }, i * 180));
+        }
+      } else if (takoState === 'adding') {
+        takoState = 'cooking';
+        document.getElementById('takoBtn').style.display = 'none';
+        for (let i = 0; i < TAKO_N; i++) document.getElementById('takoMold' + i).onclick = null;
+        document.getElementById('takoStatus').textContent = '金色時點它翻面！⏱';
+        const offsets = Array.from({length: TAKO_N}, () => Math.random() * 1200 + 200);
+        takoCookInterval = setInterval(() => {
+          let allDone = true;
+          for (let i = 0; i < TAKO_N; i++) {
+            if (takoPhase[i] < 3) { allDone = false; offsets[i] -= 220; }
+            if (offsets[i] <= 0 && takoPhase[i] < 3) {
+              takoPhase[i]++;
+              takoUpdateMold(i);
+              offsets[i] = 800 + Math.random() * 700;
+            }
+          }
+          if (allDone) { clearInterval(takoCookInterval); takoShowResult(); }
+        }, 220);
+        for (let i = 0; i < TAKO_N; i++) {
+          document.getElementById('takoMold' + i).onclick = () => takoFlip(i);
+        }
+      }
+    }
+
+    function takoUpdateMold(i) {
+      const m = document.getElementById('takoMold' + i);
+      m.classList.remove('phase-1','phase-2','phase-3','burnt');
+      if (takoPhase[i] === 1) m.classList.add('phase-1');
+      else if (takoPhase[i] === 2) m.classList.add('phase-2');
+      else if (takoPhase[i] === 3) {
+        m.classList.add('phase-3','burnt');
+        m.onclick = null;
+        takoFlippedCount++;
+        if (takoFlippedCount >= TAKO_N) { clearInterval(takoCookInterval); takoShowResult(); }
+      }
+    }
+
+    function takoFlip(i) {
+      const m = document.getElementById('takoMold' + i);
+      if (m.classList.contains('flipped') || m.classList.contains('burnt')) return;
+      if (takoPhase[i] === 2) takoScore += 3;
+      else if (takoPhase[i] === 1) takoScore += 1;
+      m.classList.add('flipped');
+      m.classList.remove('has-tako','phase-1','phase-2');
+      m.onclick = null;
+      takoFlippedCount++;
+      if (takoFlippedCount >= TAKO_N) { clearInterval(takoCookInterval); takoShowResult(); }
+    }
+
+    function takoShowResult() {
+      takoState = 'done';
+      const max = TAKO_N * 3;
+      const stars = takoScore >= max * 0.8 ? '⭐⭐⭐' : takoScore >= max * 0.4 ? '⭐⭐' : '⭐';
+      const msgs = { '⭐⭐⭐':'完美！微絜認證章魚燒達人✨', '⭐⭐':'不錯喔！再練練就完美', '⭐':'繼續加油，有點焦了哈哈 😅' };
+      document.getElementById('takoStatus').textContent = '出爐！';
+      document.getElementById('takoScore').textContent = stars;
+      document.getElementById('takoScore').style.display = 'block';
+      document.getElementById('takoMsg').textContent = msgs[stars];
+      document.getElementById('takoMsg').style.display = 'block';
+      document.getElementById('takoRetryBtn').style.display = 'block';
+    }
+
+    // ── 鬆餅 ──
+    let pancakeState = 'idle';
+    let pancakeCount = 0;
+    let pancakeTimer_id = null;
+    const PANCAKE_MAX = 3;
+
+    function initPancake() {
+      clearTimeout(pancakeTimer_id);
+      pancakeState = 'idle'; pancakeCount = 0;
+      const circle = document.getElementById('pancakeCircle');
+      circle.style.width = '0'; circle.style.height = '0';
+      circle.className = 'pancake-circle';
+      circle.innerHTML = '';
+      document.getElementById('pancakeStack').innerHTML = '';
+      document.getElementById('pancakeStatus').textContent = '點「倒麵糊」開始！';
+      document.getElementById('pancakeBtn').textContent = '倒麵糊！';
+      document.getElementById('pancakeBtn').style.display = 'block';
+      document.getElementById('pancakeBtn').disabled = false;
+      document.getElementById('pancakeScore').style.display = 'none';
+      document.getElementById('pancakeMsg').style.display = 'none';
+      document.getElementById('pancakeRetryBtn').style.display = 'none';
+    }
+
+    function pancakeAction() {
+      if (pancakeState === 'idle') {
+        pancakeState = 'pouring';
+        document.getElementById('pancakeBtn').disabled = true;
+        document.getElementById('pancakeStatus').textContent = '麵糊倒入中...';
+        const circle = document.getElementById('pancakeCircle');
+        setTimeout(() => { circle.style.width = '118px'; circle.style.height = '118px'; }, 50);
+        pancakeTimer_id = setTimeout(() => {
+          // Add bubbles
+          for (let b = 0; b < 4; b++) {
+            const bub = document.createElement('div');
+            bub.className = 'pancake-bubble';
+            const size = 4 + Math.random() * 5;
+            bub.style.cssText = `width:${size}px;height:${size}px;left:${15+Math.random()*65}%;top:${15+Math.random()*55}%;animation-delay:${Math.random()*0.7}s;animation-duration:${0.7+Math.random()*0.5}s;`;
+            circle.appendChild(bub);
+          }
+          pancakeState = 'bubbling';
+          document.getElementById('pancakeStatus').textContent = '泡泡冒出來了！翻面吧！';
+          document.getElementById('pancakeBtn').textContent = '翻面！';
+          document.getElementById('pancakeBtn').disabled = false;
+        }, 1600);
+      } else if (pancakeState === 'bubbling') {
+        pancakeState = 'flipping';
+        document.getElementById('pancakeBtn').disabled = true;
+        document.getElementById('pancakeStatus').textContent = '翻面！另一面再等等...';
+        const circle = document.getElementById('pancakeCircle');
+        circle.innerHTML = '';
+        circle.classList.add('cooked');
+        circle.style.transition = 'width 0.4s ease, height 0.4s ease, background 1s ease, transform 0.3s ease';
+        circle.style.transform = 'scaleY(0)';
+        pancakeTimer_id = setTimeout(() => {
+          circle.classList.remove('cooked'); circle.classList.add('flipped');
+          circle.style.transform = 'scaleY(1)';
+          pancakeTimer_id = setTimeout(() => {
+            pancakeState = 'done-one';
+            document.getElementById('pancakeStatus').textContent = '好了！起鍋！';
+            document.getElementById('pancakeBtn').textContent = '起鍋 🍽️';
+            document.getElementById('pancakeBtn').disabled = false;
+          }, 1400);
+        }, 350);
+      } else if (pancakeState === 'done-one') {
+        pancakeCount++;
+        const circle = document.getElementById('pancakeCircle');
+        circle.style.width = '0'; circle.style.height = '0';
+        circle.className = 'pancake-circle';
+        circle.innerHTML = '';
+        // Add layer to stack (narrower per layer)
+        const stack = document.getElementById('pancakeStack');
+        const layer = document.createElement('div');
+        const w = 88 - (pancakeCount - 1) * 6;
+        layer.className = 'pancake-layer';
+        layer.style.width = w + 'px';
+        stack.appendChild(layer);
+        if (pancakeCount >= PANCAKE_MAX) {
+          pancakeState = 'finished';
+          document.getElementById('pancakeBtn').style.display = 'none';
+          document.getElementById('pancakeStatus').textContent = `${PANCAKE_MAX} 片疊好了！上桌！`;
+          document.getElementById('pancakeScore').textContent = '🥞🥞🥞';
+          document.getElementById('pancakeScore').style.display = 'block';
+          document.getElementById('pancakeMsg').textContent = '鬆餅達人！微絜說要加楓糖漿 🍁';
+          document.getElementById('pancakeMsg').style.display = 'block';
+          document.getElementById('pancakeRetryBtn').style.display = 'block';
+        } else {
+          pancakeState = 'idle';
+          document.getElementById('pancakeStatus').textContent = `第 ${pancakeCount} 片完成！繼續？`;
+          document.getElementById('pancakeBtn').textContent = '再倒一片！';
+          document.getElementById('pancakeBtn').disabled = false;
+        }
+      }
+    }
+
+    // ── 蛋糕 ──
+    const CAKE_ORDER = ['🌾','🥚','🧈','🍯'];
+    const CAKE_NAMES = ['麵粉','雞蛋','奶油','糖'];
+    let cakePhase = 'ingredients';
+    let cakeNextIng = 0;
+    let cakeMixCount = 0;
+    let cakeBakeInterval = null;
+    let cakePickedDecos = [];
+    const CAKE_MIX_TOTAL = 14;
+
+    function initCake() {
+      if (cakeBakeInterval) { clearInterval(cakeBakeInterval); cakeBakeInterval = null; }
+      cakePhase = 'ingredients'; cakeNextIng = 0; cakeMixCount = 0; cakePickedDecos = [];
+      document.getElementById('cakeStatus').textContent = '依序加入食材！';
+      document.getElementById('cakeBowl').innerHTML = '';
+      document.getElementById('cakeBowl').style.display = 'flex';
+      document.getElementById('cakeDisplay').style.display = 'none';
+      document.getElementById('cakeDisplay').style.fontSize = '3.5rem';
+      document.getElementById('cakeMsg').style.display = 'none';
+      document.getElementById('cakeRetryBtn').style.display = 'none';
+      document.getElementById('cakeMixProgress').style.display = 'none';
+      document.getElementById('cakeMixBar').style.width = '0%';
+      document.getElementById('cakeMixBtn').style.display = 'none';
+      document.getElementById('cakeDecos').style.display = 'none';
+      document.getElementById('cakeActionBtn').style.display = 'none';
+      document.getElementById('cakeIngredients').style.display = 'flex';
+      document.querySelectorAll('.cake-ing-btn').forEach((b,i) => {
+        b.className = 'cake-ing-btn' + (i === 0 ? ' next-needed' : '');
+        b.disabled = false;
+      });
+      document.querySelectorAll('.cake-deco-btn').forEach(b => b.classList.remove('picked'));
+    }
+
+    function addCakeIng(idx) {
+      if (idx !== cakeNextIng) {
+        const btn = document.getElementById('cakeIng' + idx);
+        btn.classList.add('wrong');
+        setTimeout(() => btn.classList.remove('wrong'), 300);
+        document.getElementById('cakeStatus').textContent = `先加 ${CAKE_NAMES[cakeNextIng]}！`;
+        return;
+      }
+      document.getElementById('cakeIng' + idx).classList.replace?.('next-needed','') || document.getElementById('cakeIng' + idx).classList.remove('next-needed');
+      document.getElementById('cakeIng' + idx).classList.add('added');
+      document.getElementById('cakeBowl').innerHTML += CAKE_ORDER[idx];
+      cakeNextIng++;
+      if (cakeNextIng < 4) document.getElementById('cakeIng' + cakeNextIng).classList.add('next-needed');
+      if (cakeNextIng === 4) {
+        document.getElementById('cakeStatus').textContent = '食材齊了！快速點擊攪拌！';
+        document.getElementById('cakeIngredients').style.display = 'none';
+        document.getElementById('cakeMixProgress').style.display = 'block';
+        document.getElementById('cakeMixBtn').style.display = 'block';
+        cakePhase = 'mixing';
+      }
+    }
+
+    function mixCake() {
+      if (cakePhase !== 'mixing') return;
+      cakeMixCount++;
+      const pct = Math.min(100, (cakeMixCount / CAKE_MIX_TOTAL) * 100);
+      document.getElementById('cakeMixBar').style.width = pct + '%';
+      document.getElementById('cakeStatus').textContent = '攪拌中... ' + Math.round(pct) + '%';
+      if (cakeMixCount >= CAKE_MIX_TOTAL) {
+        cakePhase = 'baking';
+        document.getElementById('cakeMixBtn').style.display = 'none';
+        document.getElementById('cakeBowl').style.display = 'none';
+        document.getElementById('cakeStatus').textContent = '進烤箱！🔥';
+        let sec = 0;
+        cakeBakeInterval = setInterval(() => {
+          sec++;
+          document.getElementById('cakeMixBar').style.width = (sec / 5 * 100) + '%';
+          document.getElementById('cakeStatus').textContent = `烘烤中 ${sec}/5 秒...`;
+          if (sec >= 5) {
+            clearInterval(cakeBakeInterval);
+            cakePhase = 'decorating';
+            document.getElementById('cakeMixProgress').style.display = 'none';
+            document.getElementById('cakeStatus').textContent = '出爐！選 2 個裝飾！';
+            document.getElementById('cakeDisplay').textContent = '🎂';
+            document.getElementById('cakeDisplay').style.display = 'block';
+            document.getElementById('cakeDecos').style.display = 'flex';
+            document.getElementById('cakeActionBtn').textContent = '完成！';
+            document.getElementById('cakeActionBtn').style.display = 'block';
+            document.getElementById('cakeActionBtn').disabled = true;
+          }
+        }, 1000);
+      }
+    }
+
+    function pickDeco(btn, emoji) {
+      if (btn.classList.contains('picked')) {
+        btn.classList.remove('picked');
+        cakePickedDecos = cakePickedDecos.filter(d => d !== emoji);
+      } else {
+        if (cakePickedDecos.length >= 2) return;
+        btn.classList.add('picked');
+        cakePickedDecos.push(emoji);
+      }
+      document.getElementById('cakeDisplay').textContent = '🎂' + cakePickedDecos.join('');
+      document.getElementById('cakeActionBtn').disabled = cakePickedDecos.length < 2;
+    }
+
+    function cakeConfirmDeco() {
+      if (cakePhase !== 'decorating') return;
+      cakePhase = 'done';
+      document.getElementById('cakeDecos').style.display = 'none';
+      document.getElementById('cakeActionBtn').style.display = 'none';
+      document.getElementById('cakeDisplay').style.fontSize = '4.5rem';
+      document.getElementById('cakeStatus').textContent = '完成出爐！';
+      document.getElementById('cakeMsg').textContent = '微絜說：這個蛋糕好可愛，捨不得吃！';
+      document.getElementById('cakeMsg').style.display = 'block';
+      document.getElementById('cakeRetryBtn').style.display = 'block';
+    }
+
+    // ── 義大利麵 ──
+    let pastaState = 'cold';
+    let pastaCountInterval = null;
+    let pastaBoilTimer = null;
+    let pastaCookSec = 8;
+
+    function initPasta() {
+      clearInterval(pastaCountInterval); clearTimeout(pastaBoilTimer);
+      pastaState = 'cold'; pastaCookSec = 8;
+      document.getElementById('pastaStatus').textContent = '先把水煮開！';
+      document.getElementById('pastaFlame').textContent = '';
+      const water = document.getElementById('pastaWater');
+      water.className = 'pasta-water'; water.innerHTML = '';
+      document.getElementById('pastaPot').querySelectorAll('.pasta-strand').forEach(s => s.remove());
+      document.getElementById('pastaTimerDisplay').style.display = 'none';
+      document.getElementById('pastaSauces').style.display = 'none';
+      document.getElementById('pastaBtn').textContent = '點火！🔥';
+      document.getElementById('pastaBtn').style.display = 'block';
+      document.getElementById('pastaBtn').disabled = false;
+      document.getElementById('pastaResult').style.display = 'none';
+      document.getElementById('pastaMsg').style.display = 'none';
+      document.getElementById('pastaRetryBtn').style.display = 'none';
+      document.querySelectorAll('.pasta-sauce-btn').forEach(b => b.classList.remove('chosen'));
+    }
+
+    function pastaAction() {
+      if (pastaState === 'cold') {
+        pastaState = 'heating';
+        document.getElementById('pastaFlame').textContent = '🔥';
+        document.getElementById('pastaStatus').textContent = '等水煮開...';
+        document.getElementById('pastaBtn').disabled = true;
+        pastaBoilTimer = setTimeout(() => {
+          pastaState = 'boiling';
+          const water = document.getElementById('pastaWater');
+          water.classList.add('boiling');
+          for (let b = 0; b < 5; b++) {
+            const bub = document.createElement('div');
+            bub.className = 'pasta-bubble';
+            bub.style.cssText = `left:${10+Math.random()*78}%;animation-delay:${Math.random()*0.8}s;animation-duration:${0.75+Math.random()*0.5}s;`;
+            water.appendChild(bub);
+          }
+          document.getElementById('pastaStatus').textContent = '滾了！加麵條！';
+          document.getElementById('pastaBtn').textContent = '加麵條！🍝';
+          document.getElementById('pastaBtn').disabled = false;
+        }, 2500);
+      } else if (pastaState === 'boiling') {
+        pastaState = 'cooking';
+        document.getElementById('pastaStatus').textContent = '煮麵中！';
+        document.getElementById('pastaBtn').disabled = true;
+        const pot = document.getElementById('pastaPot');
+        for (let p = 0; p < 5; p++) {
+          const s = document.createElement('div');
+          s.className = 'pasta-strand';
+          s.style.cssText = `height:${38+Math.random()*22}px;left:${14+p*14}%;animation-delay:${Math.random()*0.25}s;`;
+          pot.appendChild(s);
+        }
+        pastaCookSec = 8;
+        document.getElementById('pastaTimerDisplay').style.display = 'block';
+        document.getElementById('pastaTimerDisplay').textContent = pastaCookSec + ' 秒';
+        pastaCountInterval = setInterval(() => {
+          pastaCookSec--;
+          document.getElementById('pastaTimerDisplay').textContent = pastaCookSec + ' 秒';
+          if (pastaCookSec <= 0) {
+            clearInterval(pastaCountInterval);
+            pastaState = 'drained';
+            document.getElementById('pastaStatus').textContent = '熟了！撈起來！';
+            document.getElementById('pastaBtn').textContent = '撈起！🥢';
+            document.getElementById('pastaBtn').disabled = false;
+          }
+        }, 1000);
+      } else if (pastaState === 'drained') {
+        pastaState = 'saucing';
+        document.getElementById('pastaTimerDisplay').style.display = 'none';
+        document.getElementById('pastaFlame').textContent = '';
+        const water = document.getElementById('pastaWater');
+        water.className = 'pasta-water'; water.innerHTML = '';
+        document.getElementById('pastaPot').querySelectorAll('.pasta-strand').forEach(s => s.remove());
+        document.getElementById('pastaStatus').textContent = '選你的醬料！';
+        document.getElementById('pastaSauces').style.display = 'flex';
+        document.getElementById('pastaBtn').style.display = 'none';
+      }
+    }
+
+    function chooseSauce(btn, emoji, name) {
+      document.querySelectorAll('.pasta-sauce-btn').forEach(b => b.classList.remove('chosen'));
+      btn.classList.add('chosen');
+      pastaState = 'done';
+      document.getElementById('pastaSauces').style.display = 'none';
+      document.getElementById('pastaStatus').textContent = '上桌！';
+      document.getElementById('pastaResult').textContent = '🍝' + emoji;
+      document.getElementById('pastaResult').style.display = 'block';
+      document.getElementById('pastaMsg').textContent = name + '義大利麵完成！微絜說好香～';
+      document.getElementById('pastaMsg').style.display = 'block';
+      document.getElementById('pastaRetryBtn').style.display = 'block';
     }
 
     // ── Recipe Game ──
@@ -1425,15 +2165,17 @@
 
     function openGame(type) {
       document.getElementById('modal-' + type).classList.add('open');
+      if (type === 'cook') showCookScreen('menu');
     }
 
     function closeGame(type) {
       document.getElementById('modal-' + type).classList.remove('open');
-      if (type === 'heel') {
-        heelCount = 0; heelLocked = false;
-        document.querySelectorAll('.heel-plank').forEach(p => p.classList.remove('hit', 'done'));
-        document.getElementById('heelResult').textContent = '';
-        document.getElementById('heelSparks').textContent = '';
+      if (type === 'cook') {
+        takoStopAll();
+        clearTimeout(pancakeTimer_id);
+        clearInterval(pastaCountInterval);
+        clearTimeout(pastaBoilTimer);
+        if (cakeBakeInterval) { clearInterval(cakeBakeInterval); cakeBakeInterval = null; }
       }
       if (type === 'recipe') {
         userIngredients = [];
