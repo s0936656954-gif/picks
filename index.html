@@ -729,37 +729,78 @@
     }
 
     /* Heel game */
-    .heel-wrap { display: flex; justify-content: center; margin: 10px 0; }
+    .heel-scene {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 8px 0 2px;
+      gap: 8px;
+      user-select: none;
+    }
 
-    .heel-btn {
-      font-size: 3.8rem;
+    .heel-visual {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .heel-shoe-btn {
+      font-size: 3.2rem;
       background: none;
       border: none;
       cursor: pointer;
       line-height: 1;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+      filter: drop-shadow(0 3px 8px rgba(0,0,0,0.14));
+      transform-origin: bottom right;
     }
 
-    .heel-btn.tap { animation: heelTap 0.28s ease; }
-
-    @keyframes heelTap {
-      0%   { transform: scale(1) rotate(0deg); }
-      35%  { transform: scale(1.28) rotate(-12deg); }
-      65%  { transform: scale(0.93) rotate(6deg); }
-      100% { transform: scale(1) rotate(0deg); }
+    .heel-shoe-btn.tap {
+      animation: heelKnock 0.34s cubic-bezier(.36,.07,.19,.97);
     }
 
-    .heel-dots { display: flex; justify-content: center; gap: 10px; margin: 10px 0; }
-
-    .dot {
-      width: 12px; height: 12px;
-      border-radius: 50%;
-      border: 2px solid #8A470F;
-      background: transparent;
-      transition: background 0.3s;
+    @keyframes heelKnock {
+      0%   { transform: rotate(0deg) translateX(0); }
+      25%  { transform: rotate(-22deg) translateX(-6px); }
+      55%  { transform: rotate(16deg) translateX(18px); }
+      80%  { transform: rotate(-4deg) translateX(2px); }
+      100% { transform: rotate(0deg) translateX(0); }
     }
 
-    .dot.filled { background: #8A470F; }
+    .heel-planks {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .heel-plank {
+      width: 96px;
+      height: 17px;
+      background: linear-gradient(90deg, #c8956b 0%, #a06040 60%, #7a4525 100%);
+      border-radius: 4px;
+      border: 1.5px solid #6b3a1f;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.18), 0 2px 5px rgba(0,0,0,0.22);
+      opacity: 0.25;
+      transform-origin: left center;
+    }
+
+    .heel-plank.hit {
+      opacity: 1;
+      animation: plankSmash 0.28s ease;
+    }
+
+    .heel-plank.done { opacity: 1; }
+
+    @keyframes plankSmash {
+      0%   { transform: scaleX(1); }
+      35%  { transform: scaleX(0.8); }
+      100% { transform: scaleX(1); }
+    }
+
+    .heel-sparks {
+      font-size: 1.4rem;
+      min-height: 28px;
+      letter-spacing: 5px;
+    }
 
     .heel-result {
       text-align: center;
@@ -769,7 +810,7 @@
       font-style: italic;
       min-height: 2.4em;
       line-height: 1.6;
-      margin-top: 8px;
+      margin-top: 4px;
     }
 
     /* Recipe game */
@@ -1121,13 +1162,16 @@
       <button class="modal-close" onclick="closeGame('heel')">✕</button>
       <h3 class="game-title">敲鞋跟許願</h3>
       <p class="game-desc">敲三下，看看今天適不適合買</p>
-      <div class="heel-wrap">
-        <button class="heel-btn" id="heelBtn" onclick="tapHeel()">👠</button>
-      </div>
-      <div class="heel-dots">
-        <span class="dot" id="dot1"></span>
-        <span class="dot" id="dot2"></span>
-        <span class="dot" id="dot3"></span>
+      <div class="heel-scene">
+        <div class="heel-visual">
+          <button class="heel-shoe-btn" id="heelBtn" onclick="tapHeel()">👡</button>
+          <div class="heel-planks">
+            <div class="heel-plank" id="plank1"></div>
+            <div class="heel-plank" id="plank2"></div>
+            <div class="heel-plank" id="plank3"></div>
+          </div>
+        </div>
+        <div class="heel-sparks" id="heelSparks"></div>
       </div>
       <p class="heel-result" id="heelResult"></p>
     </div>
@@ -1212,18 +1256,29 @@
       btn.classList.remove('tap');
       void btn.offsetWidth;
       btn.classList.add('tap');
-      setTimeout(() => btn.classList.remove('tap'), 300);
-      document.getElementById('dot' + heelCount).classList.add('filled');
+      setTimeout(() => btn.classList.remove('tap'), 360);
+
+      const plank = document.getElementById('plank' + heelCount);
+      plank.classList.add('hit');
+      setTimeout(() => { plank.classList.remove('hit'); plank.classList.add('done'); }, 300);
+
+      const sparks = document.getElementById('heelSparks');
+      sparks.textContent = ['✨', '⭐', '💫'][heelCount - 1];
+
       if (heelCount === 3) {
         heelLocked = true;
-        const f = heelFortunes[Math.floor(Math.random() * heelFortunes.length)];
-        document.getElementById('heelResult').textContent = '✨ ' + f;
+        setTimeout(() => {
+          sparks.textContent = '✨ ⭐ ✨';
+          const f = heelFortunes[Math.floor(Math.random() * heelFortunes.length)];
+          document.getElementById('heelResult').textContent = f;
+        }, 380);
         setTimeout(() => {
           heelCount = 0;
           heelLocked = false;
-          document.querySelectorAll('.dot').forEach(d => d.classList.remove('filled'));
+          document.querySelectorAll('.heel-plank').forEach(p => p.classList.remove('hit', 'done'));
           document.getElementById('heelResult').textContent = '';
-        }, 4000);
+          sparks.textContent = '';
+        }, 5000);
       }
     }
 
@@ -1376,8 +1431,9 @@
       document.getElementById('modal-' + type).classList.remove('open');
       if (type === 'heel') {
         heelCount = 0; heelLocked = false;
-        document.querySelectorAll('.dot').forEach(d => d.classList.remove('filled'));
+        document.querySelectorAll('.heel-plank').forEach(p => p.classList.remove('hit', 'done'));
         document.getElementById('heelResult').textContent = '';
+        document.getElementById('heelSparks').textContent = '';
       }
       if (type === 'recipe') {
         userIngredients = [];
