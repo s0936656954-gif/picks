@@ -1963,12 +1963,19 @@
       startCookingSounds();
       const fill = document.getElementById('cookProgressFill');
       const msgEl = document.getElementById('chaosMsgEl');
-      const shuffled = [...chaosMessages].sort(() => Math.random() - 0.5);
-      let msgIdx = 0;
+      let lastIdx = -1;
       let progress = 0;
       let inTransition = false;
 
-      msgEl.textContent = shuffled[0];
+      function pickMsg() {
+        let next;
+        do { next = Math.floor(Math.random() * chaosMessages.length); }
+        while (next === lastIdx);
+        lastIdx = next;
+        return chaosMessages[next];
+      }
+
+      msgEl.textContent = pickMsg();
       msgEl.style.opacity = '1';
 
       // Message carousel — independent from progress, one at a time
@@ -1977,8 +1984,7 @@
         inTransition = true;
         msgEl.style.opacity = '0';
         setTimeout(() => {
-          msgIdx = (msgIdx + 1) % shuffled.length;
-          msgEl.textContent = shuffled[msgIdx];
+          msgEl.textContent = pickMsg();
           msgEl.style.opacity = '1';
           inTransition = false;
         }, 280);
