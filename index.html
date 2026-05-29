@@ -889,6 +889,168 @@
       font-family: 'Lora', serif;
       text-align: center;
     }
+
+    /* ── 料理猜猜樂 Quiz Game ── */
+    .quiz-screen { display: none; }
+    .quiz-screen.active { display: block; }
+
+    .quiz-progress {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .quiz-progress-bar {
+      flex: 1;
+      height: 6px;
+      background: #e8e4de;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .quiz-progress-fill {
+      height: 100%;
+      background: #8A470F;
+      border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+    .quiz-progress-text {
+      font-size: 0.7rem;
+      color: #9da6a3;
+      font-family: sans-serif;
+      white-space: nowrap;
+    }
+    .quiz-score-badge {
+      font-size: 0.72rem;
+      color: #8A470F;
+      font-family: sans-serif;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .quiz-ing-area {
+      background: rgba(248,234,225,0.55);
+      border: 1px solid rgba(138,71,15,0.15);
+      border-radius: 12px;
+      padding: 14px 12px 10px;
+      margin: 4px 0 12px;
+    }
+    .quiz-ing-label {
+      font-size: 0.62rem;
+      color: #9da6a3;
+      font-family: sans-serif;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .quiz-ing-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .quiz-ing-chip {
+      padding: 4px 12px;
+      background: #fff;
+      border: 1px solid #e8e4de;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-family: sans-serif;
+      color: #3a3a38;
+    }
+    .quiz-question-label {
+      text-align: center;
+      font-size: 0.72rem;
+      color: #9da6a3;
+      font-family: sans-serif;
+      margin-bottom: 10px;
+    }
+    .quiz-choices {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .quiz-choice-btn {
+      width: 100%;
+      padding: 11px 14px;
+      background: #fefefd;
+      border: 1.5px solid #e8e4de;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-family: sans-serif;
+      color: #2c2c2c;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+      line-height: 1.35;
+    }
+    .quiz-choice-btn:hover:not(:disabled) {
+      background: #f0ede8;
+      border-color: #5f624e;
+      transform: translateX(3px);
+    }
+    .quiz-choice-btn.correct {
+      background: rgba(76,175,80,0.1);
+      border-color: #4CAF50;
+      color: #2e7d32;
+    }
+    .quiz-choice-btn.wrong {
+      background: rgba(244,67,54,0.08);
+      border-color: #f44336;
+      color: #c62828;
+    }
+    .quiz-feedback {
+      text-align: center;
+      padding: 9px 12px;
+      font-family: sans-serif;
+      font-size: 0.8rem;
+      border-radius: 8px;
+      margin-top: 8px;
+      min-height: 36px;
+      transition: opacity 0.2s;
+    }
+    .quiz-feedback.correct { background: rgba(76,175,80,0.1); color: #2e7d32; }
+    .quiz-feedback.wrong   { background: rgba(244,67,54,0.08); color: #c62828; }
+    .quiz-next-btn {
+      display: none;
+      width: 100%;
+      margin-top: 10px;
+      padding: 11px;
+      background: #5f624e;
+      color: #F8EAE1;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-family: sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .quiz-next-btn:hover { background: #4a4d3c; }
+    .quiz-start-choices {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .quiz-start-choices .cook-action-btn {
+      flex: 1;
+      margin: 0;
+    }
+    .quiz-result-wrap { text-align: center; padding: 10px 0 6px; }
+    .quiz-result-emoji { font-size: 3.5rem; display: block; margin-bottom: 6px; }
+    .quiz-result-score {
+      font-size: 3rem;
+      font-family: 'Playfair Display', serif;
+      color: #8A470F;
+      line-height: 1.1;
+    }
+    .quiz-result-denom { font-size: 1.2rem; color: #9da6a3; font-family: sans-serif; }
+    .quiz-result-msg {
+      font-size: 0.88rem;
+      color: #5f624e;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      margin: 10px 0 18px;
+    }
+    .quiz-result-btns { display: flex; gap: 8px; }
+    .quiz-result-btns .cook-action-btn { flex: 1; margin: 0; font-size: 0.82rem; }
   </style>
 </head>
 <body>
@@ -1151,6 +1313,7 @@
   <div class="side-btns">
     <button class="side-btn" onclick="openGame('cook')" title="今天吃什麼">🍳</button>
     <button class="side-btn" onclick="openGame('recipe')" title="食材配菜">🥣</button>
+    <button class="side-btn" onclick="openGame('quiz')" title="料理猜猜樂">🎯</button>
   </div>
 
   <!-- 中式熱炒 game modal -->
@@ -1203,6 +1366,59 @@
       <div class="ingredient-tags" id="ingredientTags"></div>
       <button class="recipe-search-btn" onclick="searchRecipes()">幫我配菜 →</button>
       <div class="recipe-results" id="recipeResults"></div>
+    </div>
+  </div>
+
+  <!-- 料理猜猜樂 quiz modal -->
+  <div class="game-modal" id="modal-quiz">
+    <div class="game-card">
+      <button class="modal-close" onclick="closeGame('quiz')">✕</button>
+
+      <!-- Start screen -->
+      <div class="quiz-screen active" id="quiz-start">
+        <h3 class="game-title">料理猜猜樂</h3>
+        <p class="game-desc">看食材線索，猜出是哪道菜！</p>
+        <div style="text-align:center;font-size:3.2rem;margin:16px 0 10px;">🧠🍽️</div>
+        <p style="text-align:center;font-size:0.78rem;color:#9da6a3;font-family:sans-serif;margin-bottom:16px;">全部從微絜的真實料理食譜出題</p>
+        <div class="quiz-start-choices">
+          <button class="cook-action-btn" onclick="startQuiz(5)">5 題挑戰</button>
+          <button class="cook-action-btn" onclick="startQuiz(10)" style="background:#8A470F;">10 題挑戰</button>
+        </div>
+      </div>
+
+      <!-- Question screen -->
+      <div class="quiz-screen" id="quiz-question">
+        <div class="quiz-progress">
+          <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgressFill" style="width:0%"></div></div>
+          <span class="quiz-progress-text" id="quizProgressText">1 / 5</span>
+          <span class="quiz-score-badge" id="quizScoreBadge">⭐ 0</span>
+        </div>
+        <div class="quiz-ing-area">
+          <p class="quiz-ing-label">食材提示</p>
+          <div class="quiz-ing-list" id="quizIngList"></div>
+        </div>
+        <p class="quiz-question-label">這是哪道料理？</p>
+        <div class="quiz-choices" id="quizChoices"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-next-btn" id="quizNextBtn" onclick="nextQuizQuestion()">下一題 →</button>
+      </div>
+
+      <!-- Result screen -->
+      <div class="quiz-screen" id="quiz-result">
+        <h3 class="game-title">挑戰結束！</h3>
+        <div class="quiz-result-wrap">
+          <span class="quiz-result-emoji" id="quizResultEmoji">🌟</span>
+          <div>
+            <span class="quiz-result-score" id="quizResultScore">0</span>
+            <span class="quiz-result-denom" id="quizResultDenom">/ 5</span>
+          </div>
+          <p class="quiz-result-msg" id="quizResultMsg"></p>
+        </div>
+        <div class="quiz-result-btns">
+          <button class="cook-action-btn" onclick="startQuiz(quizTotal)" style="background:#8A470F;">再挑戰一次</button>
+          <button class="cook-action-btn" onclick="showQuizScreen('start')">換題數</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1486,9 +1702,110 @@
       ).join('');
     }
 
+    // ── 料理猜猜樂 Quiz Game ──
+    let quizQuestions = [];
+    let quizCurrentIdx = 0;
+    let quizScore = 0;
+    let quizTotal = 5;
+    let quizAnswered = false;
+
+    function showQuizScreen(name) {
+      document.querySelectorAll('.quiz-screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('quiz-' + name).classList.add('active');
+    }
+
+    function startQuiz(total) {
+      quizTotal = total;
+      quizScore = 0;
+      quizCurrentIdx = 0;
+      quizAnswered = false;
+      const shuffled = [...recipes].sort(() => Math.random() - 0.5);
+      quizQuestions = shuffled.slice(0, total);
+      showQuizScreen('question');
+      renderQuizQuestion();
+    }
+
+    function renderQuizQuestion() {
+      const q = quizQuestions[quizCurrentIdx];
+      const pct = (quizCurrentIdx / quizTotal) * 100;
+      document.getElementById('quizProgressFill').style.width = pct + '%';
+      document.getElementById('quizProgressText').textContent = (quizCurrentIdx + 1) + ' / ' + quizTotal;
+      document.getElementById('quizScoreBadge').textContent = '⭐ ' + quizScore;
+
+      const hintKeys = q.keys.slice(0, Math.min(4, q.keys.length));
+      document.getElementById('quizIngList').innerHTML = hintKeys.map(k =>
+        '<span class="quiz-ing-chip">' + k + '</span>'
+      ).join('');
+
+      const others = recipes.filter(r => r.name !== q.name).sort(() => Math.random() - 0.5).slice(0, 3);
+      const choices = [...others.map(r => r.name), q.name].sort(() => Math.random() - 0.5);
+
+      document.getElementById('quizChoices').innerHTML = choices.map((c, i) => {
+        const safe = c.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        const safeAns = q.name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        return '<button class="quiz-choice-btn" id="qchoice' + i + '" onclick="selectQuizChoice(this,\'' + safe + '\',\'' + safeAns + '\')">' + c + '</button>';
+      }).join('');
+
+      const fb = document.getElementById('quizFeedback');
+      fb.className = 'quiz-feedback';
+      fb.textContent = '';
+      const nb = document.getElementById('quizNextBtn');
+      nb.style.display = 'none';
+      quizAnswered = false;
+    }
+
+    function selectQuizChoice(btn, chosen, correct) {
+      if (quizAnswered) return;
+      quizAnswered = true;
+      document.querySelectorAll('.quiz-choice-btn').forEach(b => { b.disabled = true; });
+      const isCorrect = chosen === correct;
+      const fb = document.getElementById('quizFeedback');
+      if (isCorrect) {
+        btn.classList.add('correct');
+        quizScore++;
+        fb.textContent = '🎉 答對了！厲害！';
+        fb.className = 'quiz-feedback correct';
+      } else {
+        btn.classList.add('wrong');
+        document.querySelectorAll('.quiz-choice-btn').forEach(b => {
+          if (b.textContent.trim() === correct) b.classList.add('correct');
+        });
+        fb.textContent = '❌ 答錯了！正確答案是「' + correct + '」';
+        fb.className = 'quiz-feedback wrong';
+      }
+      document.getElementById('quizScoreBadge').textContent = '⭐ ' + quizScore;
+      const nb = document.getElementById('quizNextBtn');
+      nb.style.display = 'block';
+      nb.textContent = (quizCurrentIdx + 1 >= quizTotal) ? '看成績 →' : '下一題 →';
+    }
+
+    function nextQuizQuestion() {
+      quizCurrentIdx++;
+      if (quizCurrentIdx >= quizTotal) {
+        showQuizResult();
+      } else {
+        renderQuizQuestion();
+      }
+    }
+
+    function showQuizResult() {
+      document.getElementById('quizResultScore').textContent = quizScore;
+      document.getElementById('quizResultDenom').textContent = '/ ' + quizTotal;
+      const pct = quizScore / quizTotal;
+      let msg, emoji;
+      if (pct >= 0.9)      { emoji = '👑'; msg = '料理達人！微絜認證！'; }
+      else if (pct >= 0.7) { emoji = '🌟'; msg = '廚藝不錯喔，繼續加油！'; }
+      else if (pct >= 0.5) { emoji = '😊'; msg = '還不錯，多看看食譜吧！'; }
+      else                 { emoji = '📖'; msg = '多跟著微絜學做菜吧！'; }
+      document.getElementById('quizResultEmoji').textContent = emoji;
+      document.getElementById('quizResultMsg').textContent = msg;
+      showQuizScreen('result');
+    }
+
     function openGame(type) {
       document.getElementById('modal-' + type).classList.add('open');
       if (type === 'cook') initStirFry();
+      if (type === 'quiz') showQuizScreen('start');
     }
 
     function closeGame(type) {
