@@ -4,6 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>微絜｜@jay1102</title>
+
+  <!-- ══════════════════════════════════════════════════
+       Google Analytics 4
+       步驟：
+       1. 前往 analytics.google.com 建立資源
+       2. 取得評估 ID（格式：G-XXXXXXXXXX）
+       3. 把下方兩處 G-XXXXXXXXXX 換成你的 ID
+       ══════════════════════════════════════════════════ -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+    function track(ev, params) {
+      if (typeof gtag === 'function') gtag('event', ev, params || {});
+    }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Playfair+Display:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=ZCOOL+QingKe+HuangYou&family=Noto+Serif+TC:wght@300;400&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
@@ -2471,6 +2489,7 @@
     // Called from dinner stage 3 → stage 4
     function showPersonality() {
       const names = selectedIngredients.map(i => i.name);
+      track('game_complete', { game_name: '今晚吃啥', ingredients: names.join(',') });
       const p = analyzePersonality(names);
       document.getElementById('pEmoji').textContent = p.emoji;
       document.getElementById('pTitle').textContent = p.title;
@@ -2553,6 +2572,7 @@
       clearInterval(sTickId); sTickId = null;
       if (sAnimId) { cancelAnimationFrame(sAnimId); sAnimId = null; }
       stopSliceMusic();
+      track('game_complete', { game_name: '切菜大師', score: sScore });
       document.getElementById('sliceFinalScore').textContent = sScore;
       document.getElementById('sliceSaveBtn').disabled = false;
       document.getElementById('sliceNameInput').value = '';
@@ -2809,6 +2829,7 @@
       kRunning = false; clearInterval(kTickId); kTickId = null;
       if (kAnimId) { cancelAnimationFrame(kAnimId); kAnimId = null; }
       stopKnifeMusic();
+      track('game_complete', { game_name: '刀工大神', score: kScore });
       document.getElementById('knifeFinalScore').textContent = kScore;
       document.getElementById('knifeSaveBtn').disabled = false;
       document.getElementById('knifeNameInput').value = '';
@@ -3096,6 +3117,7 @@
       cRunning = false; clearInterval(cTickId); cTickId = null;
       if (cAnimId) { cancelAnimationFrame(cAnimId); cAnimId = null; }
       stopCatchMusic();
+      track('game_complete', { game_name: '接菜大賽', score: cScore });
       document.getElementById('catchFinalScore').textContent = cScore;
       document.getElementById('catchSaveBtn').disabled = false;
       document.getElementById('catchNameInput').value = '';
@@ -3627,6 +3649,7 @@
     }
 
     function showQuizResult() {
+      track('game_complete', { game_name: '料理猜猜', score: quizScore });
       document.getElementById('quizResultScore').textContent = quizScore;
       document.getElementById('quizResultDenom').textContent = '/ ' + quizTotal;
       const pct = quizScore / quizTotal;
@@ -3647,6 +3670,8 @@
       if (type === 'slice') initSliceGame();
       if (type === 'knife') initKnifeGame();
       if (type === 'catch') initCatchGame();
+      const nameMap = { cook:'今晚吃啥', quiz:'料理猜猜', slice:'切菜大師', knife:'刀工大神', catch:'接菜大賽', games:'小遊戲hub', recipe:'搜尋食譜' };
+      track('game_open', { game_name: nameMap[type] || type });
     }
 
     function closeGame(type) {
@@ -3688,6 +3713,7 @@
     }
 
     function addReminder(name, dateStr, url) {
+      track('add_reminder', { item_name: name });
       const ics = [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
@@ -3717,6 +3743,19 @@
       URL.revokeObjectURL(a.href);
       showToast('📅 已加入行事曆提醒！');
     }
+
+    // ── Analytics: group buy click tracking ──
+    document.querySelectorAll('.group-row').forEach(el => {
+      el.addEventListener('click', () => {
+        const name = el.querySelector('.group-row-name')?.textContent?.trim() || el.id;
+        track('group_buy_click', { item_name: name });
+      });
+    });
+
+    // ── Analytics: IG follow button ──
+    document.querySelector('.ig-bar-btn')?.addEventListener('click', () => {
+      track('ig_follow_click');
+    });
 
   </script>
 </body>
