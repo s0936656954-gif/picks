@@ -1773,7 +1773,7 @@
 
       <!-- Group buy clicks -->
       <div class="admin-section">
-        <div class="admin-section-title">🛒 開團點擊</div>
+        <div class="admin-section-title">👆 所有按鍵點擊</div>
         <div id="adminClickList"></div>
       </div>
 
@@ -2129,7 +2129,21 @@
       });
     }
 
+    function sortGroupsByDeadline() {
+      const container = document.getElementById('row2')?.parentElement;
+      if (!container) return;
+      const now = new Date();
+      [...groups]
+        .filter(g => g.end > now)
+        .sort((a, b) => a.end - b.end)
+        .forEach(({ rowId }) => {
+          const el = document.getElementById(rowId);
+          if (el) container.appendChild(el);
+        });
+    }
+
     updateCountdowns();
+    sortGroupsByDeadline();
     setInterval(updateCountdowns, 1000);
 
     // ── 今天晚餐生存戰 Game ──
@@ -3758,30 +3772,59 @@
       showToast('📅 已加入行事曆提醒！');
     }
 
-    // ── Analytics: group buy click tracking ──
-    document.querySelectorAll('.group-row').forEach(el => {
-      el.addEventListener('click', () => {
-        const name = el.querySelector('.group-row-name')?.textContent?.trim() || el.id;
-        track('group_buy_click', { item_name: name });
-        // Store in localStorage for admin panel
-        try {
-          const c = JSON.parse(localStorage.getItem('gbClicks') || '{}');
-          c[name] = (c[name] || 0) + 1;
-          localStorage.setItem('gbClicks', JSON.stringify(c));
-        } catch(e) {}
-      });
-    });
+    // ── Universal click tracker ──
+    // Labels all meaningful button/link clicks → GA4 + localStorage for admin
+    document.addEventListener('click', e => {
+      const el = e.target.closest('button, a');
+      if (!el) return;
 
-    // ── Analytics: IG follow button ──
-    document.querySelector('.ig-bar-btn')?.addEventListener('click', () => {
-      track('ig_follow_click');
-    });
+      let label = null;
+
+      if (el.closest('.group-row')) {
+        label = '開團：' + (el.closest('.group-row').querySelector('.group-row-name')?.textContent?.trim() || '');
+        // also fire specific GA4 event
+        const name = el.closest('.group-row').querySelector('.group-row-name')?.textContent?.trim() || el.id;
+        track('group_buy_click', { item_name: name });
+      } else if (el.classList.contains('ig-bar-btn') || el.closest('.ig-bar-btn')) {
+        label = 'IG 追蹤按鈕';
+        track('ig_follow_click');
+      } else if (el.classList.contains('side-btn')) {
+        label = '功能：' + (el.querySelector('.side-label')?.textContent?.trim() || el.textContent?.trim());
+      } else if (el.classList.contains('hub-card')) {
+        label = '小遊戲選擇：' + el.textContent?.trim().slice(0, 15);
+      } else if (el.id === 'startCookBtn') {
+        label = '今晚吃啥：開火';
+      } else if (el.classList.contains('add-reminder-btn')) {
+        label = '行事曆：' + (el.closest('.group-row')?.querySelector('.group-row-name')?.textContent?.trim() || '開團提醒');
+      } else if (el.classList.contains('cook-action-btn')) {
+        const t = el.textContent?.trim().replace(/\s+/g, ' ');
+        if (t && t !== '✕') label = '動作：' + t.slice(0, 20);
+      } else {
+        // skip noisy / internal elements
+        if (el.classList.contains('fridge-item') || el.classList.contains('dish-count-btn') ||
+            el.classList.contains('modal-close') || el.id?.startsWith('fi_') ||
+            el.classList.contains('slice-save-btn') || el.id?.includes('SaveBtn') ||
+            el.classList.contains('recipe-tag') || el.classList.contains('recipe-card') ||
+            el.classList.contains('quiz-opt')) return;
+        const t = el.textContent?.trim().replace(/\s+/g, ' ');
+        if (!t || t === '✕' || t.length > 30) return;
+        label = t;
+      }
+
+      if (!label) return;
+      track('button_click', { label });
+      try {
+        const c = JSON.parse(localStorage.getItem('allClicks') || '{}');
+        c[label] = (c[label] || 0) + 1;
+        localStorage.setItem('allClicks', JSON.stringify(c));
+      } catch(e) {}
+    }, true);
 
     // ── Admin panel ──
     function openAdminPanel() {
       const medals = ['🥇','🥈','🥉','4.','5.'];
-      // Click counts
-      const clicks = (() => { try { return JSON.parse(localStorage.getItem('gbClicks') || '{}'); } catch(e) { return {}; } })();
+      // All click counts
+      const clicks = (() => { try { return JSON.parse(localStorage.getItem('allClicks') || '{}'); } catch(e) { return {}; } })();
       const clickKeys = Object.keys(clicks).sort((a,b) => clicks[b]-clicks[a]);
       const clickEl = document.getElementById('adminClickList');
       if (clickKeys.length === 0) {
