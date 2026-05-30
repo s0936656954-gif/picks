@@ -2094,6 +2094,7 @@
     let customIngredients = [];
     let targetDishCount = 3;
     let dinnerCookTimer = null;
+    let dinnerMsgTimer = null;
     let cookingAudioCtx = null;
     let clankTimer = null;
 
@@ -2104,6 +2105,7 @@
 
     function initDinnerGame(keepSelection) {
       if (dinnerCookTimer) { clearInterval(dinnerCookTimer); dinnerCookTimer = null; }
+      if (dinnerMsgTimer) { clearInterval(dinnerMsgTimer); dinnerMsgTimer = null; }
       stopCookingSounds();
       if (!keepSelection) {
         selectedIngredients = [];
@@ -2258,7 +2260,8 @@
       msgEl.style.opacity = '1';
 
       // Message carousel — independent from progress, one at a time
-      const msgTimer = setInterval(() => {
+      if (dinnerMsgTimer) { clearInterval(dinnerMsgTimer); dinnerMsgTimer = null; }
+      dinnerMsgTimer = setInterval(() => {
         if (inTransition) return;
         inTransition = true;
         msgEl.style.opacity = '0';
@@ -2275,8 +2278,8 @@
         fill.style.width = Math.min(progress, 100) + '%';
         if (progress >= 100) {
           clearInterval(dinnerCookTimer);
-          clearInterval(msgTimer);
-          dinnerCookTimer = null;
+          clearInterval(dinnerMsgTimer);
+          dinnerCookTimer = null; dinnerMsgTimer = null;
           stopCookingSounds();
           setTimeout(showDinnerResult, 350);
         }
@@ -3139,6 +3142,7 @@
       document.getElementById('modal-' + type).classList.remove('open');
       if (type === 'cook') {
         if (dinnerCookTimer) { clearInterval(dinnerCookTimer); dinnerCookTimer = null; }
+        if (dinnerMsgTimer) { clearInterval(dinnerMsgTimer); dinnerMsgTimer = null; }
         stopCookingSounds();
       }
       if (type === 'recipe') {
