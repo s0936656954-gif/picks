@@ -2120,6 +2120,30 @@
       } catch(e) { return []; }
     }
 
+    // Firebase key: replace chars forbidden by RTDB (.#$[]/  )
+    function fbKey(s) { return s.replace(/[.#$[\]/]/g, '_').slice(0, 80); }
+
+    async function fbIncrementClick(label) {
+      try {
+        const key = fbKey(label);
+        const res = await fetch(`${FB}/clicks/${key}.json`);
+        const cur = (await res.json()) || 0;
+        await fetch(`${FB}/clicks/${key}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(cur + 1)
+        });
+      } catch(e) {}
+    }
+
+    async function fbGetClicks() {
+      try {
+        const res = await fetch(`${FB}/clicks.json`);
+        if (!res.ok) return {};
+        return (await res.json()) || {};
+      } catch(e) { return {}; }
+    }
+
     // 截止日期設定（格式：年, 月-1, 日, 時, 分）← 月份需 -1，例如6月填5
     const groups = [
       { n:2, rowId:'row2', end: new Date(2026, 4, 31, 23, 59) },  // HARU
@@ -3833,23 +3857,20 @@
 
       if (!label) return;
       track('button_click', { label });
-      try {
-        const c = JSON.parse(localStorage.getItem('allClicks') || '{}');
-        c[label] = (c[label] || 0) + 1;
-        localStorage.setItem('allClicks', JSON.stringify(c));
-      } catch(e) {}
+      fbIncrementClick(label); // save to Firebase (fire-and-forget)
     }, true);
 
     // ── Admin panel ──
     async function openAdminPanel() {
       openGame('admin');
       const medals = ['🥇','🥈','🥉','4.','5.'];
-      // All click counts (localStorage, on this device)
-      const clicks = (() => { try { return JSON.parse(localStorage.getItem('allClicks') || '{}'); } catch(e) { return {}; } })();
-      const clickKeys = Object.keys(clicks).sort((a,b) => clicks[b]-clicks[a]);
+      // Click counts from Firebase (all users)
       const clickEl = document.getElementById('adminClickList');
+      clickEl.innerHTML = '<div class="admin-empty">載入中⋯</div>';
+      const clicks = await fbGetClicks();
+      const clickKeys = Object.keys(clicks).sort((a,b) => clicks[b]-clicks[a]);
       if (clickKeys.length === 0) {
-        clickEl.innerHTML = '<div class="admin-empty">尚無點擊記錄（在這台裝置上）</div>';
+        clickEl.innerHTML = '<div class="admin-empty">尚無點擊記錄</div>';
       } else {
         clickEl.innerHTML = clickKeys.map(k =>
           `<div class="admin-click-row"><span class="admin-click-name">${k}</span><span class="admin-click-count">${clicks[k]} 次</span></div>`
