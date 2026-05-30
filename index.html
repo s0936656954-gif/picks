@@ -1961,7 +1961,7 @@
           <h3 style="color:#fff;font-family:'ZCOOL QingKe HuangYou',cursive;font-size:1.4rem;margin-bottom:4px;">時間到！</h3>
           <p style="color:#ffd93d;font-family:sans-serif;font-size:2.2rem;font-weight:700;margin-bottom:14px;">⭐ <span id="sliceFinalScore">0</span></p>
           <div style="display:flex;gap:6px;margin-bottom:10px;width:240px;">
-            <input type="text" id="sliceNameInput" placeholder="輸入名字上榜" maxlength="8"
+            <input type="text" id="sliceNameInput" placeholder="輸入 IG 帳號上榜" maxlength="20"
               style="flex:1;padding:8px 10px;border-radius:8px;border:none;font-size:0.85rem;font-family:sans-serif;outline:none;" />
             <button id="sliceSaveBtn" onclick="saveSliceScore()"
               style="padding:8px 12px;background:#8A470F;color:#fff;border:none;border-radius:8px;font-family:sans-serif;cursor:pointer;white-space:nowrap;">上榜</button>
@@ -2033,7 +2033,7 @@
           <h3 style="color:#fff;font-family:'ZCOOL QingKe HuangYou',cursive;font-size:1.4rem;margin-bottom:4px;">時間到！</h3>
           <p style="color:#ffd93d;font-family:sans-serif;font-size:2.2rem;font-weight:700;margin-bottom:14px;">🔪 <span id="knifeFinalScore">0</span> 刀</p>
           <div style="display:flex;gap:6px;margin-bottom:10px;width:240px;">
-            <input type="text" id="knifeNameInput" placeholder="輸入名字上榜" maxlength="8"
+            <input type="text" id="knifeNameInput" placeholder="輸入 IG 帳號上榜" maxlength="20"
               style="flex:1;padding:8px 10px;border-radius:8px;border:none;font-size:0.85rem;font-family:sans-serif;outline:none;" />
             <button id="knifeSaveBtn" onclick="saveKnifeScore()"
               style="padding:8px 12px;background:#8A470F;color:#fff;border:none;border-radius:8px;font-family:sans-serif;cursor:pointer;white-space:nowrap;">上榜</button>
@@ -2070,7 +2070,7 @@
           <h3 style="color:#fff;font-family:'ZCOOL QingKe HuangYou',cursive;font-size:1.4rem;margin-bottom:4px;">吃飽了！</h3>
           <p style="color:#ffd93d;font-family:sans-serif;font-size:2.2rem;font-weight:700;margin-bottom:14px;">🍽 <span id="catchFinalScore">0</span> 道</p>
           <div style="display:flex;gap:6px;margin-bottom:10px;width:240px;">
-            <input type="text" id="catchNameInput" placeholder="輸入名字上榜" maxlength="8"
+            <input type="text" id="catchNameInput" placeholder="輸入 IG 帳號上榜" maxlength="20"
               style="flex:1;padding:8px 10px;border-radius:8px;border:none;font-size:0.85rem;font-family:sans-serif;outline:none;" />
             <button id="catchSaveBtn" onclick="saveCatchScore()"
               style="padding:8px 12px;background:#8A470F;color:#fff;border:none;border-radius:8px;font-family:sans-serif;cursor:pointer;white-space:nowrap;">上榜</button>
@@ -2678,7 +2678,7 @@
     }
 
     function saveSliceScore() {
-      const name = (document.getElementById('sliceNameInput').value.trim() || '匿名').slice(0, 8);
+      const name = (document.getElementById('sliceNameInput').value.trim() || '匿名').slice(0, 20);
       const board = getSliceBoard();
       board.push({ name, score: parseInt(document.getElementById('sliceFinalScore').textContent) || 0 });
       board.sort((a, b) => b.score - a.score); board.splice(5);
@@ -2959,7 +2959,7 @@
     }
 
     function saveKnifeScore() {
-      const name = (document.getElementById('knifeNameInput').value.trim() || '匿名').slice(0, 8);
+      const name = (document.getElementById('knifeNameInput').value.trim() || '匿名').slice(0, 20);
       const board = getKnifeBoard();
       board.push({ name, score: parseInt(document.getElementById('knifeFinalScore').textContent) || 0 });
       board.sort((a, b) => b.score - a.score); board.splice(5);
@@ -3384,7 +3384,7 @@
     }
 
     function saveCatchScore() {
-      const name = (document.getElementById('catchNameInput').value.trim() || '匿名').slice(0, 8);
+      const name = (document.getElementById('catchNameInput').value.trim() || '匿名').slice(0, 20);
       const board = getCatchBoard();
       board.push({ name, score: parseInt(document.getElementById('catchFinalScore').textContent) || 0 });
       board.sort((a, b) => b.score - a.score); board.splice(5);
