@@ -1262,6 +1262,41 @@
       font-family: 'Lora', serif;
       text-align: center;
     }
+    /* Admin dashboard */
+    .admin-modal { background: #0f0f14; }
+    .admin-section { margin-bottom: 18px; }
+    .admin-section-title {
+      font-size: 0.7rem; font-family: sans-serif; font-weight: 700;
+      color: #888; letter-spacing: 1.5px; text-transform: uppercase;
+      margin-bottom: 8px; padding-bottom: 5px;
+      border-bottom: 1px solid #222;
+    }
+    .admin-board-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px; border-radius: 8px; margin-bottom: 4px;
+      background: #1a1a22; font-family: sans-serif;
+    }
+    .admin-rank { font-size: 0.8rem; width: 22px; text-align: center; flex-shrink: 0; }
+    .admin-name { flex: 1; font-size: 0.8rem; color: #ddd; }
+    .admin-pts { font-size: 0.8rem; color: #f5a623; font-weight: 700; }
+    .admin-click-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 7px 10px; border-radius: 8px; margin-bottom: 4px;
+      background: #1a1a22; font-family: sans-serif;
+    }
+    .admin-click-name { font-size: 0.78rem; color: #ccc; flex: 1; }
+    .admin-click-count {
+      font-size: 0.85rem; color: #4fc3f7; font-weight: 700;
+      background: rgba(79,195,247,0.12); padding: 2px 8px; border-radius: 10px;
+    }
+    .admin-ga-btn {
+      display: block; width: 100%; padding: 12px; border-radius: 12px;
+      background: linear-gradient(135deg, #e37400, #f5a623);
+      color: #fff; font-family: sans-serif; font-size: 0.85rem; font-weight: 700;
+      text-align: center; text-decoration: none; margin-top: 6px;
+      border: none; cursor: pointer;
+    }
+    .admin-empty { font-size: 0.75rem; color: #555; font-family: sans-serif; text-align: center; padding: 8px 0; }
 
     /* ── 料理猜猜樂 Quiz Game ── */
     .quiz-screen { display: none; }
@@ -1728,6 +1763,40 @@
     </div>
   </div>
 
+  </div>
+
+  <!-- 後台管理面板 -->
+  <div class="game-modal admin-modal" id="modal-admin">
+    <div class="game-card" style="position:relative;background:#0f0f14;border:1px solid #222;">
+      <button class="modal-close" onclick="closeGame('admin')" style="color:#888;">✕</button>
+      <h3 class="game-title" style="color:#f5a623;margin-bottom:16px;">📊 後台數據</h3>
+
+      <!-- Group buy clicks -->
+      <div class="admin-section">
+        <div class="admin-section-title">🛒 開團點擊</div>
+        <div id="adminClickList"></div>
+      </div>
+
+      <!-- Game leaderboards -->
+      <div class="admin-section">
+        <div class="admin-section-title">🔪 切菜大師 排行</div>
+        <div id="adminSliceBoard"></div>
+      </div>
+      <div class="admin-section">
+        <div class="admin-section-title">🥒 刀工大神 排行</div>
+        <div id="adminKnifeBoard"></div>
+      </div>
+      <div class="admin-section">
+        <div class="admin-section-title">🍽️ 接菜大賽 排行</div>
+        <div id="adminCatchBoard"></div>
+      </div>
+
+      <!-- GA4 link -->
+      <div class="admin-section">
+        <div class="admin-section-title">📈 完整流量數據</div>
+        <a class="admin-ga-btn" href="https://analytics.google.com" target="_blank">開啟 Google Analytics →</a>
+      </div>
+    </div>
   </div>
 
   <!-- 今天晚餐生存戰 game modal -->
@@ -3667,6 +3736,12 @@
       el.addEventListener('click', () => {
         const name = el.querySelector('.group-row-name')?.textContent?.trim() || el.id;
         track('group_buy_click', { item_name: name });
+        // Store in localStorage for admin panel
+        try {
+          const c = JSON.parse(localStorage.getItem('gbClicks') || '{}');
+          c[name] = (c[name] || 0) + 1;
+          localStorage.setItem('gbClicks', JSON.stringify(c));
+        } catch(e) {}
       });
     });
 
@@ -3674,6 +3749,39 @@
     document.querySelector('.ig-bar-btn')?.addEventListener('click', () => {
       track('ig_follow_click');
     });
+
+    // ── Admin panel ──
+    function openAdminPanel() {
+      const medals = ['🥇','🥈','🥉','4.','5.'];
+      // Click counts
+      const clicks = (() => { try { return JSON.parse(localStorage.getItem('gbClicks') || '{}'); } catch(e) { return {}; } })();
+      const clickKeys = Object.keys(clicks).sort((a,b) => clicks[b]-clicks[a]);
+      const clickEl = document.getElementById('adminClickList');
+      if (clickKeys.length === 0) {
+        clickEl.innerHTML = '<div class="admin-empty">尚無點擊記錄（在這台裝置上）</div>';
+      } else {
+        clickEl.innerHTML = clickKeys.map(k =>
+          `<div class="admin-click-row"><span class="admin-click-name">${k}</span><span class="admin-click-count">${clicks[k]} 次</span></div>`
+        ).join('');
+      }
+      // Leaderboards
+      const renderBoard = (data, elId) => {
+        const el = document.getElementById(elId);
+        if (!data.length) { el.innerHTML = '<div class="admin-empty">尚無紀錄</div>'; return; }
+        el.innerHTML = data.map((e, i) =>
+          `<div class="admin-board-row"><span class="admin-rank">${medals[i]||i+1+''}</span><span class="admin-name">${e.name}</span><span class="admin-pts">${e.score}</span></div>`
+        ).join('');
+      };
+      renderBoard(getSliceBoard(), 'adminSliceBoard');
+      renderBoard(getKnifeBoard(), 'adminKnifeBoard');
+      renderBoard(getCatchBoard(), 'adminCatchBoard');
+      openGame('admin');
+    }
+
+    // Open admin panel if ?admin in URL
+    if (new URLSearchParams(location.search).has('admin')) {
+      setTimeout(openAdminPanel, 600);
+    }
 
   </script>
 </body>
