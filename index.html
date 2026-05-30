@@ -2097,6 +2097,29 @@
       } catch(e) { return null; }
     }
 
+    // ── Firebase Realtime Database ──
+    const FB = 'https://jay1102-e6a99-default-rtdb.firebaseio.com';
+
+    async function fbSave(game, name, score) {
+      try {
+        await fetch(`${FB}/scores/${game}.json`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, score, ts: Date.now() })
+        });
+      } catch(e) {}
+    }
+
+    async function fbGetTop(game, limit = 5) {
+      try {
+        const res = await fetch(`${FB}/scores/${game}.json`);
+        if (!res.ok) return [];
+        const data = await res.json();
+        if (!data) return [];
+        return Object.values(data).sort((a, b) => b.score - a.score).slice(0, limit);
+      } catch(e) { return []; }
+    }
+
     // 截止日期設定（格式：年, 月-1, 日, 時, 分）← 月份需 -1，例如6月填5
     const groups = [
       { n:2, rowId:'row2', end: new Date(2026, 4, 31, 23, 59) },  // HARU
@@ -2691,19 +2714,18 @@
       } catch(e) {}
     }
 
-    function saveSliceScore() {
+    async function saveSliceScore() {
       const name = (document.getElementById('sliceNameInput').value.trim() || '匿名').slice(0, 20);
-      const board = getSliceBoard();
-      board.push({ name, score: parseInt(document.getElementById('sliceFinalScore').textContent) || 0 });
-      board.sort((a, b) => b.score - a.score); board.splice(5);
-      saveSliceBoard(board);
+      const score = parseInt(document.getElementById('sliceFinalScore').textContent) || 0;
       document.getElementById('sliceSaveBtn').disabled = true;
+      await fbSave('slice', name, score);
       renderSliceBoard('sliceLeaderboardOver');
     }
 
-    function renderSliceBoard(elId) {
-      const board = getSliceBoard(), el = document.getElementById(elId);
-      if (!el) return;
+    async function renderSliceBoard(elId) {
+      const el = document.getElementById(elId); if (!el) return;
+      el.innerHTML = '<p style="text-align:center;color:#aaa;font-size:0.72rem;font-family:sans-serif;margin-top:6px;">載入中⋯</p>';
+      const board = await fbGetTop('slice');
       if (!board.length) { el.innerHTML = '<p style="text-align:center;color:#aaa;font-size:0.72rem;font-family:sans-serif;margin-top:6px;">還沒有紀錄，快來挑戰！</p>'; return; }
       const m = ['🥇','🥈','🥉','4.','5.'];
       el.innerHTML = '<div class="slice-board">' + board.map((e, i) =>
@@ -2972,19 +2994,18 @@
       } catch(e) {}
     }
 
-    function saveKnifeScore() {
+    async function saveKnifeScore() {
       const name = (document.getElementById('knifeNameInput').value.trim() || '匿名').slice(0, 20);
-      const board = getKnifeBoard();
-      board.push({ name, score: parseInt(document.getElementById('knifeFinalScore').textContent) || 0 });
-      board.sort((a, b) => b.score - a.score); board.splice(5);
-      saveKnifeBoard(board);
+      const score = parseInt(document.getElementById('knifeFinalScore').textContent) || 0;
       document.getElementById('knifeSaveBtn').disabled = true;
+      await fbSave('knife', name, score);
       renderKnifeBoard('knifeLeaderboardOver');
     }
 
-    function renderKnifeBoard(elId) {
-      const board = getKnifeBoard(), el = document.getElementById(elId);
-      if (!el) return;
+    async function renderKnifeBoard(elId) {
+      const el = document.getElementById(elId); if (!el) return;
+      el.innerHTML = '<p style="text-align:center;color:#aaa;font-size:0.72rem;font-family:sans-serif;margin-top:6px;">載入中⋯</p>';
+      const board = await fbGetTop('knife');
       if (!board.length) { el.innerHTML = '<p style="text-align:center;color:#aaa;font-size:0.72rem;font-family:sans-serif;margin-top:6px;">還沒有紀錄，快來挑戰！</p>'; return; }
       const m = ['🥇','🥈','🥉','4.','5.'];
       el.innerHTML = '<div class="slice-board">' + board.map((e, i) =>
@@ -3397,19 +3418,18 @@
       } catch(e) {}
     }
 
-    function saveCatchScore() {
+    async function saveCatchScore() {
       const name = (document.getElementById('catchNameInput').value.trim() || '匿名').slice(0, 20);
-      const board = getCatchBoard();
-      board.push({ name, score: parseInt(document.getElementById('catchFinalScore').textContent) || 0 });
-      board.sort((a, b) => b.score - a.score); board.splice(5);
-      saveCatchBoard(board);
+      const score = parseInt(document.getElementById('catchFinalScore').textContent) || 0;
       document.getElementById('catchSaveBtn').disabled = true;
+      await fbSave('catch', name, score);
       renderCatchBoard('catchLeaderboardOver');
     }
 
-    function renderCatchBoard(elId) {
-      const board = getCatchBoard(), el = document.getElementById(elId);
-      if (!el) return;
+    async function renderCatchBoard(elId) {
+      const el = document.getElementById(elId); if (!el) return;
+      el.innerHTML = '<p style="text-align:center;color:#aaa;font-size:0.72rem;font-family:sans-serif;margin-top:6px;">載入中⋯</p>';
+      const board = await fbGetTop('catch');
       if (!board.length) { el.innerHTML = '<p style="text-align:center;color:#aaa;font-size:0.72rem;font-family:sans-serif;margin-top:6px;">還沒有紀錄，快來挑戰！</p>'; return; }
       const m = ['🥇','🥈','🥉','4.','5.'];
       el.innerHTML = '<div class="slice-board">' + board.map((e, i) =>
@@ -3821,9 +3841,10 @@
     }, true);
 
     // ── Admin panel ──
-    function openAdminPanel() {
+    async function openAdminPanel() {
+      openGame('admin');
       const medals = ['🥇','🥈','🥉','4.','5.'];
-      // All click counts
+      // All click counts (localStorage, on this device)
       const clicks = (() => { try { return JSON.parse(localStorage.getItem('allClicks') || '{}'); } catch(e) { return {}; } })();
       const clickKeys = Object.keys(clicks).sort((a,b) => clicks[b]-clicks[a]);
       const clickEl = document.getElementById('adminClickList');
@@ -3834,18 +3855,23 @@
           `<div class="admin-click-row"><span class="admin-click-name">${k}</span><span class="admin-click-count">${clicks[k]} 次</span></div>`
         ).join('');
       }
-      // Leaderboards
-      const renderBoard = (data, elId) => {
-        const el = document.getElementById(elId);
+      // Leaderboards from Firebase (all players)
+      const renderFbBoard = (data, elId) => {
+        const el = document.getElementById(elId); if (!el) return;
         if (!data.length) { el.innerHTML = '<div class="admin-empty">尚無紀錄</div>'; return; }
         el.innerHTML = data.map((e, i) =>
-          `<div class="admin-board-row"><span class="admin-rank">${medals[i]||i+1+''}</span><span class="admin-name">${e.name}</span><span class="admin-pts">${e.score}</span></div>`
+          `<div class="admin-board-row"><span class="admin-rank">${medals[i]||String(i+1)+'.'}</span><span class="admin-name">${e.name}</span><span class="admin-pts">${e.score}</span></div>`
         ).join('');
       };
-      renderBoard(getSliceBoard(), 'adminSliceBoard');
-      renderBoard(getKnifeBoard(), 'adminKnifeBoard');
-      renderBoard(getCatchBoard(), 'adminCatchBoard');
-      openGame('admin');
+      ['adminSliceBoard','adminKnifeBoard','adminCatchBoard'].forEach(id => {
+        const el = document.getElementById(id); if (el) el.innerHTML = '<div class="admin-empty">載入中⋯</div>';
+      });
+      const [slice, knife, catchData] = await Promise.all([
+        fbGetTop('slice'), fbGetTop('knife'), fbGetTop('catch')
+      ]);
+      renderFbBoard(slice, 'adminSliceBoard');
+      renderFbBoard(knife, 'adminKnifeBoard');
+      renderFbBoard(catchData, 'adminCatchBoard');
     }
 
     // Open admin panel if ?admin in URL
