@@ -877,6 +877,79 @@
     }
     .knife-screen.active { display: flex; }
 
+    /* ── 備料清單 ── */
+    .util-banner {
+      display: flex; align-items: center; gap: 14px;
+      width: 100%; background: #f7f3ee; border: none;
+      border-radius: 14px; padding: 14px 16px; margin-bottom: 18px;
+      cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      transition: background 0.15s, transform 0.12s; text-align: left;
+    }
+    .util-banner:hover { background: #ede8e0; transform: translateY(-1px); }
+    .util-banner-icon { font-size: 1.6rem; }
+    .util-banner-title {
+      font-family: 'Noto Sans TC', sans-serif; font-size: 0.92rem;
+      color: #3d3a35; font-weight: 700; margin-bottom: 2px;
+    }
+    .util-banner-sub { font-family: sans-serif; font-size: 0.68rem; color: #9da6a3; }
+    .util-banner-arrow { color: #c8c0b6; font-size: 1.1rem; margin-left: auto; }
+
+    #modal-list .game-card.list-card {
+      padding: 0; overflow: hidden; height: 82vh;
+      display: flex; flex-direction: column;
+    }
+    .list-screen { display: none; flex-direction: column; height: 100%; }
+    .list-screen.active { display: flex; }
+    .list-header {
+      padding: 28px 22px 0; flex-shrink: 0;
+    }
+    .list-recipe-grid {
+      flex: 1; overflow-y: auto; padding: 10px 16px 10px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    }
+    .list-recipe-card {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 10px; border-radius: 10px; border: 2px solid transparent;
+      background: #f4f1ec; cursor: pointer;
+      font-family: 'Noto Sans TC', sans-serif; font-size: 0.78rem;
+      color: #3d3a35; line-height: 1.3; text-align: left;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .list-recipe-card.sel { background: #fef3e8; border-color: #8A470F; }
+    .list-recipe-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .list-recipe-name { flex: 1; font-size: 0.73rem; }
+    .list-recipe-tick { color: #8A470F; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+    .list-footer {
+      padding: 10px 16px 18px; flex-shrink: 0;
+      border-top: 1px solid #f0ece6;
+    }
+    .list-ingredients-area {
+      flex: 1; overflow-y: auto; padding: 0 22px 6px;
+    }
+    .list-dish-summary {
+      font-family: sans-serif; font-size: 0.72rem; color: #8A470F;
+      font-weight: 700; margin-bottom: 10px; line-height: 1.5;
+    }
+    .list-section-label {
+      font-family: 'Noto Sans TC', sans-serif; font-size: 0.68rem;
+      color: #9da6a3; letter-spacing: 0.08em; margin: 12px 0 6px;
+      text-transform: uppercase;
+    }
+    .list-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0; border-bottom: 1px solid #f0ece6;
+      font-family: 'Noto Sans TC', sans-serif; font-size: 0.85rem; color: #3d3a35;
+    }
+    .list-item:last-child { border-bottom: none; }
+    .list-cb {
+      width: 18px; height: 18px; border: 2px solid #c8c0b6;
+      border-radius: 4px; flex-shrink: 0; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .list-cb.checked { background: #8A470F; border-color: #8A470F; }
+    .list-cb.checked::after { content: '✓'; color: #fff; font-size: 0.7rem; font-weight: 700; }
+
     .dinner-tip {
       text-align: center;
       font-size: 0.7rem;
@@ -1473,6 +1546,15 @@
         </button>
       </div>
 
+      <button class="util-banner" onclick="openGame('list')">
+        <span class="util-banner-icon">📋</span>
+        <div>
+          <div class="util-banner-title">備料清單產生器</div>
+          <div class="util-banner-sub">選幾道菜，自動整合食材清單</div>
+        </div>
+        <span class="util-banner-arrow">›</span>
+      </button>
+
       <div class="divider"><span class="divider-text">限時團購</span></div>
 
       <!-- 5/31 結團 -->
@@ -1954,6 +2036,44 @@
           </div>
           <div id="knifeLeaderboardOver" style="width:100%;max-width:260px;margin-bottom:14px;"></div>
           <button class="cook-action-btn" onclick="startKnifeGame()" style="background:#5f624e;width:160px;margin:0;">再玩一次</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 備料清單 modal -->
+  <div class="game-modal" id="modal-list">
+    <div class="game-card list-card">
+      <button class="modal-close" onclick="closeGame('list')" style="z-index:30;">✕</button>
+
+      <!-- Step 1: Pick recipes -->
+      <div class="list-screen active" id="list-pick">
+        <div class="list-header">
+          <div class="game-title" style="margin-bottom:2px;">📋 備料清單</div>
+          <div class="game-desc" style="margin-bottom:8px;">選想煮的菜，自動合併食材</div>
+          <div id="listPickCount" style="font-size:0.72rem;color:#8A470F;font-family:sans-serif;font-weight:700;min-height:1.2em;margin-bottom:4px;"></div>
+        </div>
+        <div id="listRecipeGrid" class="list-recipe-grid"></div>
+        <div class="list-footer">
+          <button class="cook-action-btn" id="listGenBtn" onclick="generateShoppingList()"
+            style="margin:0;width:100%;opacity:0.4;pointer-events:none;">產生清單</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Result -->
+      <div class="list-screen" id="list-result">
+        <div class="list-header">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <button onclick="showListScreen('pick')"
+              style="background:none;border:none;color:#9da6a3;cursor:pointer;font-size:0.9rem;padding:0;font-family:sans-serif;">‹ 重選</button>
+            <div class="game-title" style="margin:0;">🛒 購物清單</div>
+          </div>
+          <div id="listDishSummary" class="list-dish-summary"></div>
+        </div>
+        <div class="list-ingredients-area" id="listIngredients"></div>
+        <div class="list-footer">
+          <button class="cook-action-btn" id="listCopyBtn" onclick="copyShoppingList()"
+            style="margin:0;width:100%;background:#5f624e;">複製清單</button>
         </div>
       </div>
     </div>
@@ -2889,6 +3009,95 @@
       if (kMusicCtx) { try { kMusicCtx.close(); } catch(e) {} kMusicCtx = null; }
     }
 
+    // ── 備料清單產生器 ──
+    let listSelected = new Set();
+    let listChecked = new Set();
+
+    function initListGame() {
+      listSelected = new Set();
+      listChecked = new Set();
+      renderListGrid();
+      showListScreen('pick');
+    }
+
+    function showListScreen(name) {
+      document.querySelectorAll('#modal-list .list-screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('list-' + name).classList.add('active');
+    }
+
+    function renderListGrid() {
+      const grid = document.getElementById('listRecipeGrid');
+      grid.innerHTML = recipes.map((r, i) => {
+        const sel = listSelected.has(i);
+        return `<button class="list-recipe-card${sel ? ' sel' : ''}" onclick="toggleListRecipe(${i})">
+          <span class="list-recipe-icon">${r.icon}</span>
+          <span class="list-recipe-name">${r.name}</span>
+          ${sel ? '<span class="list-recipe-tick">✓</span>' : ''}
+        </button>`;
+      }).join('');
+      const n = listSelected.size;
+      document.getElementById('listPickCount').textContent = n ? `已選 ${n} 道菜` : '';
+      const btn = document.getElementById('listGenBtn');
+      if (n > 0) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; }
+      else        { btn.style.opacity = '0.4'; btn.style.pointerEvents = 'none'; }
+    }
+
+    function toggleListRecipe(idx) {
+      if (listSelected.has(idx)) listSelected.delete(idx);
+      else listSelected.add(idx);
+      renderListGrid();
+    }
+
+    function generateShoppingList() {
+      if (!listSelected.size) return;
+      listChecked = new Set();
+      // Merge & deduplicate ingredients preserving order
+      const seen = new Set(), merged = [];
+      listSelected.forEach(i => {
+        recipes[i].keys.forEach(k => { if (!seen.has(k)) { seen.add(k); merged.push(k); } });
+      });
+      // Dish summary
+      const dishes = [...listSelected].map(i => `${recipes[i].icon} ${recipes[i].name}`);
+      document.getElementById('listDishSummary').textContent = dishes.join('、');
+      // Ingredients
+      const area = document.getElementById('listIngredients');
+      area.innerHTML = `<div class="list-section-label">食材清單（${merged.length} 樣）</div>` +
+        merged.map((k, i) =>
+          `<div class="list-item" id="li${i}">
+            <div class="list-cb" id="lcb${i}" onclick="toggleListCb(${i})"></div>
+            <span>${k}</span>
+          </div>`).join('');
+      showListScreen('result');
+      document.getElementById('listCopyBtn').textContent = '複製清單';
+    }
+
+    function toggleListCb(idx) {
+      const cb = document.getElementById('lcb' + idx);
+      const row = document.getElementById('li' + idx);
+      if (listChecked.has(idx)) {
+        listChecked.delete(idx);
+        cb.classList.remove('checked');
+        row.style.opacity = '1';
+      } else {
+        listChecked.add(idx);
+        cb.classList.add('checked');
+        row.style.opacity = '0.38';
+      }
+    }
+
+    function copyShoppingList() {
+      const dishes = [...listSelected].map(i => recipes[i].name);
+      const area = document.getElementById('listIngredients');
+      const items = [...area.querySelectorAll('.list-item span')].map(s => '□ ' + s.textContent);
+      const today = new Date().toLocaleDateString('zh-TW');
+      const text = `🛒 購物清單  ${today}\n選了：${dishes.join('、')}\n\n${items.join('\n')}\n\n微絜備料小幫手 picks-rho.vercel.app`;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('listCopyBtn');
+        btn.textContent = '已複製！';
+        setTimeout(() => btn.textContent = '複製清單', 2000);
+      }).catch(() => showToast('請手動長按複製'));
+    }
+
     // ── Recipe Game ──
     const recipes = [
       { name: '糖醋豆包', icon: '🥘', desc: '炸豆包+肉片+洋蔥，家常好味道', keys: ['炸豆包','肉片','洋蔥','番茄醬','醬油','白醋','蔥段'], url: 'https://www.instagram.com/p/DYEJxNpMs91/' },
@@ -3136,6 +3345,7 @@
       if (type === 'quiz') showQuizScreen('start');
       if (type === 'slice') initSliceGame();
       if (type === 'knife') initKnifeGame();
+      if (type === 'list') initListGame();
     }
 
     function closeGame(type) {
