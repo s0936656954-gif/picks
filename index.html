@@ -2226,6 +2226,7 @@
     function playBop() {
       try {
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        ctx.resume();
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.connect(gain); gain.connect(ctx.destination);
@@ -2240,6 +2241,7 @@
     function startCookingSounds() {
       try {
         cookingAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        cookingAudioCtx.resume();
         const sr = cookingAudioCtx.sampleRate;
         const buf = cookingAudioCtx.createBuffer(1, sr * 2, sr);
         const data = buf.getChannelData(0);
@@ -2664,6 +2666,7 @@
     function playVegSliceSound() {
       try {
         const ac = sMusicCtx; if (!ac) return;
+        if (ac.state === 'suspended') ac.resume();
         const now = ac.currentTime;
         // Sharp click transient (3ms full-spectrum)
         const n1 = ac.createBuffer(1, Math.ceil(ac.sampleRate * 0.004), ac.sampleRate);
@@ -2705,6 +2708,7 @@
     function startSliceMusic() {
       try {
         sMusicCtx = new (window.AudioContext || window.webkitAudioContext)();
+        sMusicCtx.resume();
         const mel = [784,784,880,784,659,698,784,0, 784,784,880,784,1047,988,0,0,
                      784,784,880,784,659,698,523,0, 587,659,698,784,659,587,523,0];
         const tempo = 0.13;
@@ -2933,6 +2937,7 @@
     function playKnifeSliceSound() {
       try {
         const ac = kMusicCtx; if (!ac) return;
+        if (ac.state === 'suspended') ac.resume();
         const now = ac.currentTime;
         // Click transient
         const n1 = ac.createBuffer(1, Math.ceil(ac.sampleRate * 0.005), ac.sampleRate);
@@ -2955,6 +2960,7 @@
     function playKnifeMissSound() {
       try {
         const ac = kMusicCtx || new (window.AudioContext || window.webkitAudioContext)();
+        if (ac.state === 'suspended') ac.resume();
         const osc = ac.createOscillator(), g = ac.createGain();
         osc.type = 'sine'; osc.frequency.value = 110;
         g.gain.setValueAtTime(0.18, ac.currentTime);
@@ -2986,6 +2992,7 @@
     function startKnifeMusic() {
       try {
         kMusicCtx = new (window.AudioContext || window.webkitAudioContext)();
+        kMusicCtx.resume();
         const mel = [523,659,784,659, 523,659,523,0, 784,880,1047,880, 784,880,784,0,
                      659,784,880,784, 659,784,659,0, 523,784,1047,784, 523,784,523,0];
         const tempo = 0.115;
@@ -3348,6 +3355,7 @@
     function playCatchSound(caught) {
       try {
         const ac = cMusicCtx || new (window.AudioContext || window.webkitAudioContext)();
+        if (ac.state === 'suspended') ac.resume();
         if (caught) {
           // Porcelain plate clink: two-tone metallic ping
           for (const freq of [1600, 2400]) {
@@ -3391,6 +3399,7 @@
     function startCatchMusic() {
       try {
         cMusicCtx = new (window.AudioContext || window.webkitAudioContext)();
+        cMusicCtx.resume();
         // Upbeat pentatonic melody (different from knife/slice)
         const mel = [523,784,659,880, 784,523,659,0, 880,1047,880,659, 784,659,523,0,
                      659,784,880,659, 523,659,784,0, 1047,880,784,659, 784,523,0,0];
