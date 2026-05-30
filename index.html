@@ -1826,6 +1826,13 @@
             <button class="dish-count-btn" data-count="5" onclick="setDishCount(5)">5 道</button>
           </div>
         </div>
+        <div class="dish-count-row">
+          <span class="dish-count-label">需要湯？</span>
+          <div class="dish-count-btns">
+            <button class="dish-count-btn active" id="soupNoBtn" onclick="setSoupWant(false)">不用</button>
+            <button class="dish-count-btn" id="soupYesBtn" onclick="setSoupWant(true)">要一道湯</button>
+          </div>
+        </div>
         <button class="cook-action-btn" id="startCookBtn" onclick="startDinnerCooking()" disabled>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="margin-right:5px;flex-shrink:0"><path d="M12 2C10 6 7 9 7 13a5 5 0 0 0 10 0c0-4-3-7-5-11z" fill="#ff8c42"/><path d="M12 8C11 10 9.5 12.5 9.5 14a2.5 2.5 0 0 0 5 0C14.5 12.5 13 10 12 8z" fill="#ffd166"/></svg>
           開火啦
@@ -2167,18 +2174,18 @@
       { name: '香菇炒豬肉',   emoji: '🍄', needs: ['香菇', '豬肉'],     bonus: ['蒜頭'] },
       { name: '豬肉炒麵',     emoji: '🍜', needs: ['豬肉', '麵條'],     bonus: ['高麗菜', '蒜頭'] },
       { name: '蒜炒青江菜',   emoji: '🥦', needs: ['青江菜', '蒜頭'],   bonus: [] },
-      { name: '蝦仁豆腐湯',   emoji: '🍲', needs: ['蝦子', '豆腐'],     bonus: ['香菇'] },
-      { name: '番茄蛋花湯',   emoji: '🍲', needs: ['番茄', '雞蛋'],     bonus: [] },
+      { name: '蝦仁豆腐湯',   emoji: '🍲', needs: ['蝦子', '豆腐'],     bonus: ['香菇'],  soup: true },
+      { name: '番茄蛋花湯',   emoji: '🍲', needs: ['番茄', '雞蛋'],     bonus: [],        soup: true },
       { name: '蒜香炒麵',     emoji: '🍜', needs: ['麵條', '蒜頭'],     bonus: ['豬肉', '青江菜'] },
       { name: '清炒高麗菜',   emoji: '🥬', needs: ['高麗菜'],           bonus: ['蒜頭'] },
       { name: '蒜炒蝦',       emoji: '🦐', needs: ['蝦子', '蒜頭'],     bonus: [] },
-      { name: '豆腐蛋花湯',   emoji: '🍲', needs: ['豆腐', '雞蛋'],     bonus: [] },
-      { name: '番茄豆腐湯',   emoji: '🍲', needs: ['番茄', '豆腐'],     bonus: [] },
+      { name: '豆腐蛋花湯',   emoji: '🍲', needs: ['豆腐', '雞蛋'],     bonus: [],        soup: true },
+      { name: '番茄豆腐湯',   emoji: '🍲', needs: ['番茄', '豆腐'],     bonus: [],        soup: true },
       { name: '蝦子麵線',     emoji: '🍜', needs: ['蝦子', '麵條'],     bonus: ['蒜頭'] },
-      { name: '香菇豆腐湯',   emoji: '🍲', needs: ['香菇', '豆腐'],     bonus: [] },
+      { name: '香菇豆腐湯',   emoji: '🍲', needs: ['香菇', '豆腐'],     bonus: [],        soup: true },
       { name: '豬肉青江菜',   emoji: '🥦', needs: ['豬肉', '青江菜'],   bonus: ['蒜頭'] },
-      { name: '香菇雞蛋湯',   emoji: '🍲', needs: ['香菇', '雞蛋'],     bonus: [] },
-      { name: '番茄豬肉湯',   emoji: '🍲', needs: ['番茄', '豬肉'],     bonus: ['豆腐'] },
+      { name: '香菇雞蛋湯',   emoji: '🍲', needs: ['香菇', '雞蛋'],     bonus: [],        soup: true },
+      { name: '番茄豬肉湯',   emoji: '🍲', needs: ['番茄', '豬肉'],     bonus: ['豆腐'],  soup: true },
       { name: '蒜香時蔬麵',   emoji: '🍜', needs: ['麵條', '青江菜'],   bonus: ['蒜頭', '香菇'] },
       { name: '洋蔥炒蛋',     emoji: '🧅', needs: ['洋蔥', '雞蛋'],     bonus: ['培根'] },
       { name: '培根炒蛋',     emoji: '🥓', needs: ['培根', '雞蛋'],     bonus: ['洋蔥'] },
@@ -2195,7 +2202,7 @@
       { name: '花椰菜炒培根', emoji: '🥦', needs: ['花椰菜', '培根'],   bonus: ['蒜頭'] },
       { name: '豆芽菜炒肉',   emoji: '🫛', needs: ['豆芽菜', '豬肉'],   bonus: ['韭菜'] },
       { name: '起司烘蛋',     emoji: '🧀', needs: ['起司', '雞蛋'],     bonus: ['培根', '洋蔥'] },
-      { name: '絞肉豆腐煮',   emoji: '🍲', needs: ['絞肉', '豆腐'],     bonus: ['蒜頭'] },
+      { name: '絞肉豆腐煮',   emoji: '🍲', needs: ['絞肉', '豆腐'],     bonus: ['蒜頭'],  soup: true },
       { name: '雞腿燒蔬菜',   emoji: '🍗', needs: ['雞腿'],             bonus: ['洋蔥', '紅蘿蔔', '馬鈴薯'] },
       { name: '蔥炒蛋',       emoji: '🌿', needs: ['青蔥', '雞蛋'],     bonus: [] },
       { name: '地瓜稀飯',     emoji: '🍠', needs: ['地瓜'],             bonus: [] },
@@ -2221,6 +2228,7 @@
     let selectedIngredients = [];
     let customIngredients = [];
     let targetDishCount = 3;
+    let wantSoup = false;
     let dinnerCookTimer = null;
     let dinnerMsgTimer = null;
     let cookingAudioCtx = null;
@@ -2240,9 +2248,12 @@
         selectedIngredients = [];
         customIngredients = [];
         targetDishCount = 3;
+        wantSoup = false;
         document.querySelectorAll('.dish-count-btn').forEach(b => {
           b.classList.toggle('active', b.dataset.count === '3');
         });
+        document.getElementById('soupNoBtn').classList.add('active');
+        document.getElementById('soupYesBtn').classList.remove('active');
       }
       renderFridgeGrid();
       renderBasket();
@@ -2355,9 +2366,15 @@
 
     function setDishCount(n) {
       targetDishCount = n;
-      document.querySelectorAll('.dish-count-btn').forEach(b => {
+      document.querySelectorAll('.dish-count-btn[data-count]').forEach(b => {
         b.classList.toggle('active', b.dataset.count === String(n));
       });
+    }
+
+    function setSoupWant(v) {
+      wantSoup = v;
+      document.getElementById('soupNoBtn').classList.toggle('active', !v);
+      document.getElementById('soupYesBtn').classList.toggle('active', v);
     }
 
     function renderBasket() {
@@ -2416,15 +2433,18 @@
 
     function generateDinnerDishes() {
       const names = selectedIngredients.map(i => i.name);
-      const scored = dinnerRecipes.map(r => {
+      const scoreAll = dinnerRecipes.map(r => {
         const hit = r.needs.filter(n => names.includes(n)).length;
         const bon = r.bonus.filter(n => names.includes(n)).length;
         return { ...r, score: hit * 10 + bon * 3 + Math.random() * 6 };
       }).filter(r => r.score >= 10).sort((a, b) => b.score - a.score);
 
-      if (!scored.length) {
+      if (!scoreAll.length) {
         return [{ name: '泡麵將就一下', emoji: '🍜' }, { name: '白飯配醬油', emoji: '🍚' }, { name: '外送吧', emoji: '🛵' }];
       }
+
+      const soups = scoreAll.filter(r => r.soup);
+      const mains = scoreAll.filter(r => !r.soup);
 
       // 多樣化：每種主食材最多出現一道，避免全是蛋料理
       const proteinTag = {
@@ -2435,24 +2455,31 @@
         for (const n of r.needs) if (proteinTag[n]) return proteinTag[n];
         return r.needs[0] || 'other';
       };
+
       const result = [];
       const usedTag = {};
-      for (const dish of scored) {
+      const mainSlots = wantSoup ? targetDishCount - 1 : targetDishCount;
+
+      for (const dish of mains) {
         const tag = getTag(dish);
         if (!usedTag[tag]) {
-          result.push(dish);
-          usedTag[tag] = true;
-          if (result.length >= targetDishCount) break;
+          result.push(dish); usedTag[tag] = true;
+          if (result.length >= mainSlots) break;
         }
       }
-      // 補不夠的名額
-      if (result.length < targetDishCount) {
-        for (const dish of scored) {
+      // 補不夠的主菜名額
+      if (result.length < mainSlots) {
+        for (const dish of mains) {
           if (!result.includes(dish)) {
             result.push(dish);
-            if (result.length >= targetDishCount) break;
+            if (result.length >= mainSlots) break;
           }
         }
+      }
+      // 加一道湯
+      if (wantSoup) {
+        const soup = soups[0] || { name: '味噌湯（自備）', emoji: '🍲' };
+        result.push(soup);
       }
       return result;
     }
