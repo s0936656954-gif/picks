@@ -2056,6 +2056,18 @@
   <div class="toast" id="toast"></div>
 
   <script>
+    // Shared AudioContext — one per page, reused across all games
+    let _ac = null;
+    function getAC() {
+      try {
+        if (!_ac || _ac.state === 'closed') {
+          _ac = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (_ac.state === 'suspended') _ac.resume();
+        return _ac;
+      } catch(e) { return null; }
+    }
+
     // 截止日期設定（格式：年, 月-1, 日, 時, 分）← 月份需 -1，例如6月填5
     const groups = [
       { n:2, rowId:'row2', end: new Date(2026, 4, 31, 23, 59) },  // HARU
@@ -2190,6 +2202,7 @@
     let dinnerCookTimer = null;
     let dinnerMsgTimer = null;
     let cookingAudioCtx = null;
+    let cookNoise = null;
     let clankTimer = null;
 
     function showDinnerScreen(name) {
@@ -2225,8 +2238,7 @@
 
     function playBop() {
       try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        ctx.resume();
+        const ctx = getAC(); if (!ctx) return;
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.connect(gain); gain.connect(ctx.destination);
@@ -2240,8 +2252,7 @@
 
     function startCookingSounds() {
       try {
-        cookingAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        cookingAudioCtx.resume();
+        cookingAudioCtx = getAC(); if (!cookingAudioCtx) return;
         const sr = cookingAudioCtx.sampleRate;
         const buf = cookingAudioCtx.createBuffer(1, sr * 2, sr);
         const data = buf.getChannelData(0);
@@ -2257,6 +2268,7 @@
         sizzleGain.gain.value = 0.055;
         noise.connect(bpf); bpf.connect(sizzleGain); sizzleGain.connect(cookingAudioCtx.destination);
         noise.start();
+        cookNoise = noise;
         clankTimer = setInterval(playCookClank, 1400);
       } catch(e) {}
     }
@@ -2279,10 +2291,8 @@
 
     function stopCookingSounds() {
       if (clankTimer) { clearInterval(clankTimer); clankTimer = null; }
-      if (cookingAudioCtx) {
-        try { cookingAudioCtx.close(); } catch(e) {}
-        cookingAudioCtx = null;
-      }
+      if (cookNoise) { try { cookNoise.stop(); } catch(e) {} cookNoise = null; }
+      cookingAudioCtx = null;
     }
 
     function toggleIngredient(id) {
@@ -2665,8 +2675,7 @@
 
     function playVegSliceSound() {
       try {
-        const ac = sMusicCtx; if (!ac) return;
-        if (ac.state === 'suspended') ac.resume();
+        const ac = sMusicCtx || getAC(); if (!ac) return;
         const now = ac.currentTime;
         // Sharp click transient (3ms full-spectrum)
         const n1 = ac.createBuffer(1, Math.ceil(ac.sampleRate * 0.004), ac.sampleRate);
@@ -2707,8 +2716,7 @@
 
     function startSliceMusic() {
       try {
-        sMusicCtx = new (window.AudioContext || window.webkitAudioContext)();
-        sMusicCtx.resume();
+        sMusicCtx = getAC();
         const mel = [784,784,880,784,659,698,784,0, 784,784,880,784,1047,988,0,0,
                      784,784,880,784,659,698,523,0, 587,659,698,784,659,587,523,0];
         const tempo = 0.13;
@@ -2735,7 +2743,7 @@
     function stopSliceMusic() {
       sMusicNodes.forEach(n => { try { n.stop(); } catch(e) {} });
       sMusicNodes = [];
-      if (sMusicCtx) { try { sMusicCtx.close(); } catch(e) {} sMusicCtx = null; }
+      sMusicCtx = null;
     }
 
     // ── 刀工大神 Game ──
@@ -2936,8 +2944,7 @@
 
     function playKnifeSliceSound() {
       try {
-        const ac = kMusicCtx; if (!ac) return;
-        if (ac.state === 'suspended') ac.resume();
+        const ac = kMusicCtx || getAC(); if (!ac) return;
         const now = ac.currentTime;
         // Click transient
         const n1 = ac.createBuffer(1, Math.ceil(ac.sampleRate * 0.005), ac.sampleRate);
@@ -2959,8 +2966,7 @@
 
     function playKnifeMissSound() {
       try {
-        const ac = kMusicCtx || new (window.AudioContext || window.webkitAudioContext)();
-        if (ac.state === 'suspended') ac.resume();
+        const ac = kMusicCtx || getAC(); if (!ac) return;
         const osc = ac.createOscillator(), g = ac.createGain();
         osc.type = 'sine'; osc.frequency.value = 110;
         g.gain.setValueAtTime(0.18, ac.currentTime);
@@ -2991,8 +2997,7 @@
 
     function startKnifeMusic() {
       try {
-        kMusicCtx = new (window.AudioContext || window.webkitAudioContext)();
-        kMusicCtx.resume();
+        kMusicCtx = getAC();
         const mel = [523,659,784,659, 523,659,523,0, 784,880,1047,880, 784,880,784,0,
                      659,784,880,784, 659,784,659,0, 523,784,1047,784, 523,784,523,0];
         const tempo = 0.115;
@@ -3019,7 +3024,7 @@
     function stopKnifeMusic() {
       kMusicNodes.forEach(n => { try { n.stop(); } catch(e) {} });
       kMusicNodes = [];
-      if (kMusicCtx) { try { kMusicCtx.close(); } catch(e) {} kMusicCtx = null; }
+      kMusicCtx = null;
     }
 
     // ── 接菜大賽 Game ──
@@ -3354,8 +3359,7 @@
 
     function playCatchSound(caught) {
       try {
-        const ac = cMusicCtx || new (window.AudioContext || window.webkitAudioContext)();
-        if (ac.state === 'suspended') ac.resume();
+        const ac = cMusicCtx || getAC(); if (!ac) return;
         if (caught) {
           // Porcelain plate clink: two-tone metallic ping
           for (const freq of [1600, 2400]) {
@@ -3398,8 +3402,7 @@
 
     function startCatchMusic() {
       try {
-        cMusicCtx = new (window.AudioContext || window.webkitAudioContext)();
-        cMusicCtx.resume();
+        cMusicCtx = getAC();
         // Upbeat pentatonic melody (different from knife/slice)
         const mel = [523,784,659,880, 784,523,659,0, 880,1047,880,659, 784,659,523,0,
                      659,784,880,659, 523,659,784,0, 1047,880,784,659, 784,523,0,0];
@@ -3427,7 +3430,7 @@
     function stopCatchMusic() {
       cMusicNodes.forEach(n => { try { n.stop(); } catch(e) {} });
       cMusicNodes = [];
-      if (cMusicCtx) { try { cMusicCtx.close(); } catch(e) {} cMusicCtx = null; }
+      cMusicCtx = null;
     }
 
     // ── Recipe Game ──
