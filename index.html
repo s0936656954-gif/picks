@@ -864,6 +864,11 @@
     }
     .knife-timer-el { font-size: 1.4rem; font-weight: 700; color: #ffd93d; }
     .knife-score-label { font-size: 0.9rem; font-weight: 700; color: #fff; }
+    #knifeFlash {
+      position: absolute; inset: 0;
+      background: #ff2222; opacity: 0; pointer-events: none;
+      transition: opacity 0.14s; z-index: 15; border-radius: 16px;
+    }
     .knife-screen {
       display: none; position: absolute; inset: 0;
       background: rgba(40,25,10,0.88);
@@ -1922,6 +1927,7 @@
       <button class="modal-close knife-close" onclick="closeGame('knife')">✕</button>
       <div class="knife-container" id="knifeContainer">
         <canvas id="knifeCanvas"></canvas>
+        <div id="knifeFlash"></div>
         <div class="knife-hud">
           <span class="knife-score-label">🔪 <span id="knifeScoreEl">0</span> 刀</span>
           <span id="knifeTimerEl" class="knife-timer-el">30</span>
@@ -1931,7 +1937,8 @@
         <div class="knife-screen active" id="knife-start">
           <div style="font-size:3rem;margin-bottom:6px;">🥒</div>
           <h3 style="color:#fff;font-family:'ZCOOL QingKe HuangYou',cursive;font-size:1.55rem;margin-bottom:5px;">刀工大神</h3>
-          <p style="color:#ccd;font-family:sans-serif;font-size:0.78rem;text-align:center;margin-bottom:18px;">看準刀子位置按下切割小黃瓜，30秒切最多刀！</p>
+          <p style="color:#ccd;font-family:sans-serif;font-size:0.78rem;text-align:center;margin-bottom:4px;">看準刀子位置按下切割小黃瓜，30秒切最多刀！</p>
+          <p style="color:#ff8a80;font-family:sans-serif;font-size:0.75rem;margin-bottom:18px;">⚠️ 切到重複的地方就失敗！</p>
           <button class="cook-action-btn" onclick="startKnifeGame()" style="background:#8A470F;width:170px;margin:0;">開始挑戰</button>
           <div id="knifeLeaderboard" style="margin-top:14px;width:100%;max-width:260px;"></div>
         </div>
@@ -2607,7 +2614,7 @@
 
     // ── 刀工大神 Game ──
     let kCanvas, kCtx, kScore = 0, kTime = 30;
-    let kRunning = false, kAnimId = null, kTickId = null, kLastTS = 0;
+    let kRunning = false, kFailing = false, kAnimId = null, kTickId = null, kLastTS = 0;
     let kPhase = 0, kElapsed = 0, kCuts = [];
     let kMusicCtx = null, kMusicNodes = [];
     let kCucBounds = { x: 0, y: 0, w: 1, h: 1 };
@@ -2629,7 +2636,7 @@
       const cont = document.getElementById('knifeContainer');
       kCanvas.width = cont.clientWidth; kCanvas.height = cont.clientHeight;
       if (kRunning) { kRunning = false; cancelAnimationFrame(kAnimId); clearInterval(kTickId); stopKnifeMusic(); }
-      kScore = 0; kTime = 30; kPhase = 0; kElapsed = 0; kCuts = [];
+      kScore = 0; kTime = 30; kPhase = 0; kElapsed = 0; kCuts = []; kFailing = false;
       computeKCucBounds();
       updateKnifeHUD();
       showKnifeScreen('start');
@@ -2647,12 +2654,18 @@
     }
 
     function onKnifeClick() {
-      if (!kRunning) return;
+      if (!kRunning || kFailing) return;
       const kx = knifeKnifePosX();
       const { x: cx, w: cw } = kCucBounds;
       if (kx >= cx + 6 && kx <= cx + cw - 6) {
         const tooClose = kCuts.some(c => Math.abs(c - kx) < 6);
-        if (!tooClose) {
+        if (tooClose) {
+          kFailing = true;
+          playKnifeMissSound();
+          const fl = document.getElementById('knifeFlash');
+          fl.style.opacity = '0.65'; setTimeout(() => fl.style.opacity = '0', 200);
+          setTimeout(endKnifeGame, 380);
+        } else {
           kCuts.push(kx);
           kScore++; updateKnifeHUD();
           playKnifeSliceSound();
@@ -2675,7 +2688,7 @@
     function startKnifeGame() {
       const cont = document.getElementById('knifeContainer');
       kCanvas.width = cont.clientWidth; kCanvas.height = cont.clientHeight;
-      kScore = 0; kTime = 30; kPhase = 0; kElapsed = 0; kCuts = [];
+      kScore = 0; kTime = 30; kPhase = 0; kElapsed = 0; kCuts = []; kFailing = false;
       computeKCucBounds();
       updateKnifeHUD();
       showKnifeScreen(null);
