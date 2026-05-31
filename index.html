@@ -2177,15 +2177,17 @@
     }
 
     function sortGroupsByDeadline() {
-      const container = document.getElementById('row2')?.parentElement;
-      if (!container) return;
+      // Insert before the 常駐團購 divider so items stay in 限時團購 section
+      const permanentDivider = [...document.querySelectorAll('.divider')].find(d => d.textContent.includes('常駐'));
+      if (!permanentDivider) return;
+      const container = permanentDivider.parentElement;
       const now = new Date();
       [...groups]
         .filter(g => g.end > now)
         .sort((a, b) => a.end - b.end)
         .forEach(({ rowId }) => {
           const el = document.getElementById(rowId);
-          if (el) container.appendChild(el);
+          if (el) container.insertBefore(el, permanentDivider);
         });
     }
 
