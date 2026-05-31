@@ -177,24 +177,16 @@
 
     <div class="stat-grid">
       <div class="stat-card">
-        <div class="stat-num" id="sumClicks">-</div>
-        <div class="stat-sub">總點擊次數</div>
-      </div>
-      <div class="stat-card">
         <div class="stat-num" id="sumGroup">-</div>
         <div class="stat-sub">開團點擊</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num" id="sumPlayers">-</div>
-        <div class="stat-sub">遊戲玩家數</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num" id="sumIG">-</div>
-        <div class="stat-sub">IG 追蹤點擊</div>
+        <div class="stat-num" id="sumGame">-</div>
+        <div class="stat-sub">遊戲點擊</div>
       </div>
     </div>
 
-    <div class="section-label" style="margin-top:8px;">點擊排行</div>
+    <div class="section-label" style="margin-top:8px;">各開團點擊數</div>
     <div class="list-card" id="clickList">
       <div class="loading-msg">載入中⋯</div>
     </div>
@@ -292,35 +284,27 @@
   }
 
   function renderSummary(clicks, slice, knife, catchD) {
-    const allClicks = clicks ? Object.values(clicks).reduce((a,b) => a+b, 0) : 0;
-    document.getElementById('sumClicks').textContent = allClicks;
-
     const groupTotal = clicks
       ? Object.entries(clicks).filter(([k]) => k.startsWith('開團')).reduce((a,[,v]) => a+v, 0)
       : 0;
     document.getElementById('sumGroup').textContent = groupTotal;
 
-    const players = new Set();
-    [slice, knife, catchD].forEach(g => {
-      if (!g) return;
-      Object.values(g).forEach(e => players.add(e.name));
-    });
-    document.getElementById('sumPlayers').textContent = players.size;
-
-    const igTotal = clicks
-      ? Object.entries(clicks).filter(([k]) => k.includes('IG')).reduce((a,[,v]) => a+v, 0)
+    const gameTotal = clicks
+      ? Object.entries(clicks).filter(([k]) => k.startsWith('小遊戲')).reduce((a,[,v]) => a+v, 0)
       : 0;
-    document.getElementById('sumIG').textContent = igTotal;
+    document.getElementById('sumGame').textContent = gameTotal;
   }
 
   function renderClicks(data) {
     const el = document.getElementById('clickList');
     if (!data) { el.innerHTML = '<div class="empty-msg">尚無點擊記錄</div>'; return; }
-    const entries = Object.entries(data).sort((a,b) => b[1]-a[1]);
-    if (!entries.length) { el.innerHTML = '<div class="empty-msg">尚無點擊記錄</div>'; return; }
+    const entries = Object.entries(data)
+      .filter(([k]) => k.startsWith('開團'))
+      .sort((a,b) => b[1]-a[1]);
+    if (!entries.length) { el.innerHTML = '<div class="empty-msg">尚無開團點擊記錄</div>'; return; }
     el.innerHTML = entries.map(([k, v]) => `
       <div class="list-item">
-        <div class="list-name">${k}</div>
+        <div class="list-name">${k.replace('開團：','')}</div>
         <div class="list-count">👆 ${v}</div>
       </div>`).join('');
   }
