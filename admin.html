@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>後台數據 · 微絜</title>
+  <title>後台管理 · 微絜</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: #0e0e14;
-      color: #e0e0e0;
+      background: #f4f1ec;
+      color: #1a1a1a;
       font-family: -apple-system, 'Helvetica Neue', sans-serif;
       min-height: 100vh;
     }
@@ -19,125 +19,130 @@
       justify-content: center; min-height: 100vh; padding: 24px;
     }
     .login-box {
-      background: #1a1a24; border: 1px solid #2a2a38;
-      border-radius: 20px; padding: 32px 28px; width: 100%; max-width: 340px;
-      text-align: center;
+      background: #fff; border-radius: 24px;
+      padding: 36px 28px; width: 100%; max-width: 320px;
+      text-align: center; box-shadow: 0 2px 20px rgba(0,0,0,0.08);
     }
-    .login-logo { font-size: 2.4rem; margin-bottom: 8px; }
-    .login-title { font-size: 1.1rem; font-weight: 700; color: #f5a623; margin-bottom: 4px; }
-    .login-sub { font-size: 0.75rem; color: #666; margin-bottom: 24px; }
+    .login-logo { font-size: 2.2rem; margin-bottom: 10px; }
+    .login-title { font-size: 1rem; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+    .login-sub { font-size: 0.72rem; color: #aaa; margin-bottom: 26px; }
     .login-input {
-      width: 100%; padding: 12px 16px; border-radius: 10px;
-      background: #0e0e14; border: 1px solid #2a2a38; color: #e0e0e0;
-      font-size: 1rem; text-align: center; letter-spacing: 4px;
+      width: 100%; padding: 13px 16px; border-radius: 12px;
+      background: #f7f5f2; border: 1px solid #e8e4de; color: #1a1a1a;
+      font-size: 1.1rem; text-align: center; letter-spacing: 6px;
       margin-bottom: 14px; outline: none;
     }
-    .login-input:focus { border-color: #f5a623; }
+    .login-input:focus { border-color: #c8a97e; }
     .login-btn {
-      width: 100%; padding: 12px; border-radius: 10px;
-      background: linear-gradient(135deg, #e37400, #f5a623);
-      color: #fff; font-size: 0.9rem; font-weight: 700;
-      border: none; cursor: pointer;
+      width: 100%; padding: 13px; border-radius: 12px;
+      background: #1a1a1a; color: #fff;
+      font-size: 0.9rem; font-weight: 700; border: none; cursor: pointer;
     }
-    .login-err { font-size: 0.75rem; color: #e05555; margin-top: 10px; height: 16px; }
+    .login-btn:active { background: #333; }
+    .login-err { font-size: 0.72rem; color: #c0392b; margin-top: 10px; height: 16px; }
 
     /* ── Dashboard ── */
-    #dashboard { display: none; padding: 0 0 40px; }
+    #dashboard { display: none; padding-bottom: 48px; }
 
     .dash-header {
-      background: linear-gradient(135deg, #1a1a24, #0e0e14);
-      border-bottom: 1px solid #2a2a38;
-      padding: 18px 18px 14px;
+      background: #fff; border-bottom: 1px solid #ede9e3;
+      padding: 16px 18px;
       display: flex; justify-content: space-between; align-items: center;
       position: sticky; top: 0; z-index: 10;
     }
-    .dash-title { font-size: 1rem; font-weight: 700; color: #f5a623; }
-    .dash-sub { font-size: 0.65rem; color: #555; margin-top: 2px; }
-    .refresh-btn {
-      background: #1e1e2c; border: 1px solid #2a2a38; color: #aaa;
-      padding: 8px 14px; border-radius: 8px; font-size: 0.75rem; cursor: pointer;
-      white-space: nowrap;
-    }
-    .refresh-btn:active { background: #252535; }
-
-    /* Summary cards */
-    .summary-row {
-      display: grid; grid-template-columns: 1fr 1fr 1fr;
-      gap: 10px; padding: 16px 14px 6px;
-    }
-    .sum-card {
-      background: #1a1a24; border: 1px solid #2a2a38;
-      border-radius: 12px; padding: 14px 10px; text-align: center;
-    }
-    .sum-num { font-size: 1.5rem; font-weight: 800; color: #f5a623; }
-    .sum-label { font-size: 0.6rem; color: #666; margin-top: 3px; letter-spacing: 0.5px; }
-
-    /* Sections */
-    .section { padding: 14px 14px 0; }
-    .section-title {
-      font-size: 0.65rem; font-weight: 700; color: #666;
-      letter-spacing: 1.5px; text-transform: uppercase;
-      margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
-    }
-    .section-title::after {
-      content: ''; flex: 1; height: 1px; background: #2a2a38;
+    .dash-title { font-size: 0.95rem; font-weight: 700; color: #1a1a1a; }
+    .logout-btn {
+      font-size: 0.75rem; color: #999; background: none;
+      border: none; cursor: pointer; padding: 4px 0;
     }
 
-    /* Tabs */
-    .tabs { display: flex; gap: 6px; margin-bottom: 10px; }
-    .tab {
-      flex: 1; padding: 8px 4px; border-radius: 8px; font-size: 0.72rem;
-      font-weight: 600; text-align: center; cursor: pointer;
-      background: #1a1a24; border: 1px solid #2a2a38; color: #888;
+    /* Nav tabs */
+    .nav-tabs {
+      background: #fff; border-bottom: 1px solid #ede9e3;
+      display: flex; padding: 0 18px;
+    }
+    .nav-tab {
+      flex: 1; text-align: center; padding: 12px 4px;
+      font-size: 0.75rem; color: #aaa; cursor: pointer;
+      border-bottom: 2px solid transparent; font-weight: 500;
       transition: all 0.15s;
     }
-    .tab.active { background: #f5a623; border-color: #f5a623; color: #0e0e14; }
+    .nav-tab.active { color: #1a1a1a; border-bottom-color: #1a1a1a; font-weight: 700; }
 
-    /* Board rows */
-    .board-row {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 12px; border-radius: 10px; margin-bottom: 6px;
-      background: #1a1a24; border: 1px solid #222;
+    .tab-view { display: none; }
+    .tab-view.active { display: block; }
+
+    .section-label {
+      font-size: 0.65rem; color: #aaa; font-weight: 600;
+      letter-spacing: 1px; padding: 20px 18px 10px;
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .board-rank { font-size: 0.85rem; width: 24px; flex-shrink: 0; text-align: center; }
-    .board-name { flex: 1; font-size: 0.82rem; color: #ddd; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .board-score {
-      font-size: 0.85rem; font-weight: 700; color: #f5a623;
-      background: rgba(245,166,35,0.1); padding: 2px 8px; border-radius: 8px;
-      flex-shrink: 0;
+    .section-label .ts { font-weight: 400; color: #c5b99a; font-size: 0.6rem; }
+
+    /* Stat cards */
+    .stat-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px; padding: 0 18px;
+    }
+    .stat-card {
+      background: #fff; border-radius: 16px;
+      padding: 20px 16px; box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+    .stat-num {
+      font-size: 2.4rem; font-weight: 300; color: #1a1a1a;
+      letter-spacing: -1px; line-height: 1;
+    }
+    .stat-sub { font-size: 0.68rem; color: #aaa; margin-top: 6px; }
+
+    /* List card */
+    .list-card {
+      background: #fff; border-radius: 16px; margin: 0 18px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05); overflow: hidden;
+    }
+    .list-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 16px; border-bottom: 1px solid #f2eeea;
+    }
+    .list-item:last-child { border-bottom: none; }
+    .list-name { font-size: 0.82rem; color: #1a1a1a; flex: 1; min-width: 0; padding-right: 10px; }
+    .list-count {
+      font-size: 0.85rem; font-weight: 600; color: #1a1a1a;
+      white-space: nowrap; display: flex; align-items: center; gap: 5px;
     }
 
-    /* Click rows */
-    .click-row {
-      display: flex; align-items: center; gap: 10px;
-      padding: 9px 12px; border-radius: 10px; margin-bottom: 5px;
-      background: #1a1a24; border: 1px solid #222;
+    /* Board */
+    .board-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 13px 16px; border-bottom: 1px solid #f2eeea;
     }
-    .click-bar-wrap { flex: 1; position: relative; height: 4px; background: #2a2a38; border-radius: 2px; overflow: hidden; }
-    .click-bar { height: 100%; background: #f5a623; border-radius: 2px; transition: width 0.4s; }
-    .click-label { font-size: 0.72rem; color: #bbb; width: 100%; }
-    .click-count {
-      font-size: 0.78rem; font-weight: 700; color: #4fc3f7;
-      background: rgba(79,195,247,0.1); padding: 2px 8px;
-      border-radius: 8px; white-space: nowrap; flex-shrink: 0;
+    .board-item:last-child { border-bottom: none; }
+    .board-rank { font-size: 0.82rem; color: #ccc; width: 24px; flex-shrink: 0; text-align: center; }
+    .board-rank.top { color: #c8a97e; }
+    .board-name { flex: 1; font-size: 0.82rem; color: #1a1a1a; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .board-score { font-size: 0.8rem; font-weight: 600; color: #888; white-space: nowrap; }
+
+    /* Game sub-tabs */
+    .game-tabs { display: flex; gap: 8px; padding: 0 18px 12px; }
+    .game-tab {
+      flex: 1; padding: 8px 4px; border-radius: 10px;
+      font-size: 0.72rem; font-weight: 600; text-align: center;
+      cursor: pointer; background: #fff; color: #aaa;
+      border: 1px solid #ede9e3; transition: all 0.15s;
     }
+    .game-tab.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+    .game-panel { display: none; }
+    .game-panel.active { display: block; }
 
-    .empty { color: #444; font-size: 0.75rem; text-align: center; padding: 20px 0; }
-    .loading { color: #555; font-size: 0.75rem; text-align: center; padding: 16px 0; }
-
-    .ga-btn {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      background: #1a1a24; border: 1px solid #2a2a38;
-      border-radius: 12px; padding: 14px 16px;
-      color: #bbb; font-size: 0.82rem; text-decoration: none;
-      margin: 14px 14px 0;
+    .refresh-row { text-align: center; padding: 22px 0 0; }
+    .refresh-btn {
+      background: #fff; border: 1px solid #ede9e3; color: #888;
+      padding: 10px 28px; border-radius: 12px; font-size: 0.78rem; cursor: pointer;
     }
-    .ga-btn:active { background: #222; }
+    .refresh-btn:active { background: #f7f5f2; }
+    .ts-footer { font-size: 0.6rem; color: #ccc; text-align: center; padding: 8px 0 0; }
 
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-
-    #tsLabel { font-size: 0.6rem; color: #444; text-align: center; padding: 10px 0 0; }
+    .empty-msg { color: #ccc; font-size: 0.75rem; text-align: center; padding: 24px 0; }
+    .loading-msg { color: #ccc; font-size: 0.75rem; text-align: center; padding: 20px 0; }
   </style>
 </head>
 <body>
@@ -146,10 +151,9 @@
 <div id="loginScreen">
   <div class="login-box">
     <div class="login-logo">📊</div>
-    <div class="login-title">微絜後台數據</div>
-    <div class="login-sub">請輸入密碼</div>
-    <input type="password" id="pwInput" class="login-input" placeholder="••••••" maxlength="20"
-      onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="login-title">後台管理</div>
+    <div class="login-sub">微絜專屬後台</div>
+    <input type="password" id="pwInput" class="login-input" placeholder="••••••" maxlength="20">
     <button class="login-btn" onclick="doLogin()">進入</button>
     <div class="login-err" id="loginErr"></div>
   </div>
@@ -158,61 +162,79 @@
 <!-- Dashboard -->
 <div id="dashboard">
   <div class="dash-header">
-    <div>
-      <div class="dash-title">📊 微絜後台數據</div>
-      <div class="dash-sub" id="tsLabel">-</div>
-    </div>
-    <button class="refresh-btn" onclick="loadAll()">↻ 重新整理</button>
+    <div class="dash-title">後台管理</div>
+    <button class="logout-btn" onclick="doLogout()">登出</button>
   </div>
 
-  <!-- Summary -->
-  <div class="summary-row">
-    <div class="sum-card">
-      <div class="sum-num" id="sumClicks">-</div>
-      <div class="sum-label">總點擊次數</div>
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="switchNav('flow')">流量</div>
+    <div class="nav-tab" onclick="switchNav('game')">遊戲排行</div>
+  </div>
+
+  <!-- 流量 -->
+  <div id="view-flow" class="tab-view active">
+    <div class="section-label">點擊流量統計 <span class="ts" id="tsLabel">本月</span></div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num" id="sumClicks">-</div>
+        <div class="stat-sub">總點擊次數</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="sumGroup">-</div>
+        <div class="stat-sub">開團點擊</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="sumPlayers">-</div>
+        <div class="stat-sub">遊戲玩家數</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="sumIG">-</div>
+        <div class="stat-sub">IG 追蹤點擊</div>
+      </div>
     </div>
-    <div class="sum-card">
-      <div class="sum-num" id="sumPlayers">-</div>
-      <div class="sum-label">遊戲玩家數</div>
+
+    <div class="section-label" style="margin-top:8px;">點擊排行</div>
+    <div class="list-card" id="clickList">
+      <div class="loading-msg">載入中⋯</div>
     </div>
-    <div class="sum-card">
-      <div class="sum-num" id="sumGroup">-</div>
-      <div class="sum-label">開團點擊</div>
+
+    <div class="refresh-row">
+      <button class="refresh-btn" onclick="loadAll()">↻ 重新整理</button>
+      <div class="ts-footer" id="tsFooter"></div>
     </div>
   </div>
 
-  <!-- Click tracking -->
-  <div class="section" style="margin-top:8px;">
-    <div class="section-title">👆 所有按鍵點擊</div>
-    <div id="clickList"><div class="loading">載入中⋯</div></div>
-  </div>
-
-  <!-- Game leaderboards -->
-  <div class="section" style="margin-top:16px;">
-    <div class="section-title">🏆 遊戲排行榜</div>
-    <div class="tabs">
-      <div class="tab active" onclick="switchTab('slice')">🔪 切菜</div>
-      <div class="tab" onclick="switchTab('knife')">🥒 刀工</div>
-      <div class="tab" onclick="switchTab('catch')">🍽️ 接菜</div>
+  <!-- 遊戲排行 -->
+  <div id="view-game" class="tab-view">
+    <div class="section-label">遊戲排行榜</div>
+    <div class="game-tabs">
+      <div class="game-tab active" onclick="switchGame('slice')">🔪 切菜</div>
+      <div class="game-tab" onclick="switchGame('knife')">🥒 刀工</div>
+      <div class="game-tab" onclick="switchGame('catch')">🍽️ 接菜</div>
     </div>
-    <div id="panel-slice" class="tab-panel active"><div class="loading">載入中⋯</div></div>
-    <div id="panel-knife" class="tab-panel"><div class="loading">載入中⋯</div></div>
-    <div id="panel-catch" class="tab-panel"><div class="loading">載入中⋯</div></div>
+    <div id="gpanel-slice" class="game-panel active list-card">
+      <div class="loading-msg">載入中⋯</div>
+    </div>
+    <div id="gpanel-knife" class="game-panel list-card">
+      <div class="loading-msg">載入中⋯</div>
+    </div>
+    <div id="gpanel-catch" class="game-panel list-card">
+      <div class="loading-msg">載入中⋯</div>
+    </div>
   </div>
-
-  <!-- GA4 link -->
-  <a class="ga-btn" href="https://analytics.google.com" target="_blank">
-    📈 查看 Google Analytics（流量來源）→
-  </a>
 </div>
 
 <script>
   const FB = 'https://jay1102-e6a99-default-rtdb.firebaseio.com';
-  const PW = 'jay1102'; // 改成你想要的密碼
+  const PW = 'jay1102';
+
+  document.getElementById('pwInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+  });
 
   function doLogin() {
-    const v = document.getElementById('pwInput').value;
-    if (v === PW) {
+    if (document.getElementById('pwInput').value === PW) {
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('dashboard').style.display = 'block';
       loadAll();
@@ -221,9 +243,28 @@
       document.getElementById('pwInput').value = '';
     }
   }
-  document.getElementById('pwInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') doLogin();
-  });
+
+  function doLogout() {
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('pwInput').value = '';
+  }
+
+  function switchNav(tab) {
+    document.querySelectorAll('.nav-tab').forEach((t, i) => {
+      t.classList.toggle('active', ['flow','game'][i] === tab);
+    });
+    document.querySelectorAll('.tab-view').forEach(v => v.classList.remove('active'));
+    document.getElementById(`view-${tab}`).classList.add('active');
+  }
+
+  function switchGame(game) {
+    document.querySelectorAll('.game-tab').forEach((t, i) => {
+      t.classList.toggle('active', ['slice','knife','catch'][i] === game);
+    });
+    document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(`gpanel-${game}`).classList.add('active');
+  }
 
   async function fbGet(path) {
     try {
@@ -233,74 +274,69 @@
   }
 
   async function loadAll() {
-    document.getElementById('tsLabel').textContent = '更新中⋯';
+    const now = new Date();
+    const ts = `${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
+    document.getElementById('tsLabel').textContent = ts;
+    document.getElementById('tsFooter').textContent = `上次更新 ${ts}`;
+
     const [clicks, slice, knife, catchD] = await Promise.all([
       fbGet('clicks'), fbGet('scores/slice'),
       fbGet('scores/knife'), fbGet('scores/catch')
     ]);
+
+    renderSummary(clicks, slice, knife, catchD);
     renderClicks(clicks);
     renderBoard('slice', slice);
     renderBoard('knife', knife);
     renderBoard('catch', catchD);
-    renderSummary(clicks, slice, knife, catchD);
-    const now = new Date();
-    document.getElementById('tsLabel').textContent =
-      `上次更新 ${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
   }
 
   function renderSummary(clicks, slice, knife, catchD) {
     const allClicks = clicks ? Object.values(clicks).reduce((a,b) => a+b, 0) : 0;
     document.getElementById('sumClicks').textContent = allClicks;
+
+    const groupTotal = clicks
+      ? Object.entries(clicks).filter(([k]) => k.startsWith('開團')).reduce((a,[,v]) => a+v, 0)
+      : 0;
+    document.getElementById('sumGroup').textContent = groupTotal;
+
     const players = new Set();
     [slice, knife, catchD].forEach(g => {
       if (!g) return;
       Object.values(g).forEach(e => players.add(e.name));
     });
     document.getElementById('sumPlayers').textContent = players.size;
-    const groupKeys = clicks ? Object.keys(clicks).filter(k => k.startsWith('開團')) : [];
-    const groupTotal = groupKeys.reduce((a,k) => a + (clicks[k]||0), 0);
-    document.getElementById('sumGroup').textContent = groupTotal;
+
+    const igTotal = clicks
+      ? Object.entries(clicks).filter(([k]) => k.includes('IG')).reduce((a,[,v]) => a+v, 0)
+      : 0;
+    document.getElementById('sumIG').textContent = igTotal;
   }
 
   function renderClicks(data) {
     const el = document.getElementById('clickList');
-    if (!data) { el.innerHTML = '<div class="empty">尚無點擊記錄</div>'; return; }
+    if (!data) { el.innerHTML = '<div class="empty-msg">尚無點擊記錄</div>'; return; }
     const entries = Object.entries(data).sort((a,b) => b[1]-a[1]);
-    if (!entries.length) { el.innerHTML = '<div class="empty">尚無點擊記錄</div>'; return; }
-    const max = entries[0][1];
-    el.innerHTML = entries.map(([k,v]) => `
-      <div class="click-row">
-        <div style="flex:1;min-width:0;">
-          <div class="click-label">${k}</div>
-          <div class="click-bar-wrap" style="margin-top:5px;">
-            <div class="click-bar" style="width:${Math.round(v/max*100)}%"></div>
-          </div>
-        </div>
-        <div class="click-count">${v}</div>
+    if (!entries.length) { el.innerHTML = '<div class="empty-msg">尚無點擊記錄</div>'; return; }
+    el.innerHTML = entries.map(([k, v]) => `
+      <div class="list-item">
+        <div class="list-name">${k}</div>
+        <div class="list-count">👆 ${v}</div>
       </div>`).join('');
   }
 
   function renderBoard(game, data) {
-    const el = document.getElementById(`panel-${game}`);
-    if (!data) { el.innerHTML = '<div class="empty">尚無紀錄</div>'; return; }
-    const board = Object.values(data).sort((a,b) => b.score-a.score).slice(0, 10);
-    if (!board.length) { el.innerHTML = '<div class="empty">尚無紀錄</div>'; return; }
-    const medals = ['🥇','🥈','🥉','4.','5.','6.','7.','8.','9.','10.'];
-    el.innerHTML = board.map((e,i) => `
-      <div class="board-row">
-        <span class="board-rank">${medals[i]}</span>
-        <span class="board-name">${e.name}</span>
-        <span class="board-score">${e.score}</span>
+    const el = document.getElementById(`gpanel-${game}`);
+    if (!data) { el.innerHTML = '<div class="empty-msg">尚無紀錄</div>'; return; }
+    const board = Object.values(data).sort((a,b) => b.score - a.score).slice(0, 10);
+    if (!board.length) { el.innerHTML = '<div class="empty-msg">尚無紀錄</div>'; return; }
+    const medals = ['🥇','🥈','🥉','4','5','6','7','8','9','10'];
+    el.innerHTML = board.map((e, i) => `
+      <div class="board-item">
+        <span class="board-rank ${i < 3 ? 'top' : ''}">${medals[i]}</span>
+        <span class="board-name">@${e.name}</span>
+        <span class="board-score">${e.score} 分</span>
       </div>`).join('');
-  }
-
-  function switchTab(game) {
-    document.querySelectorAll('.tab').forEach((t,i) => {
-      const g = ['slice','knife','catch'][i];
-      t.classList.toggle('active', g === game);
-    });
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.getElementById(`panel-${game}`).classList.add('active');
   }
 </script>
 </body>
