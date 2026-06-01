@@ -3815,6 +3815,10 @@
         // also fire specific GA4 event
         const name = el.closest('.group-row').querySelector('.group-row-name')?.textContent?.trim() || el.id;
         track('group_buy_click', { item_name: name });
+      } else if (el.classList.contains('card-image') && el.closest('.group-card')) {
+        const name = el.closest('.group-card').querySelector('.card-name')?.textContent?.trim() || '';
+        label = '常駐：' + name;
+        track('group_buy_click', { item_name: name, type: 'permanent' });
       } else if (el.classList.contains('ig-bar-btn') || el.closest('.ig-bar-btn')) {
         label = 'IG 追蹤按鈕';
         track('ig_follow_click');
