@@ -2545,7 +2545,11 @@
     function showDinnerResult() {
       const dishes = generateDinnerDishes();
       document.getElementById('dinnerMenu').innerHTML = dishes.map(d =>
-        `<div class="dinner-dish"><span style="font-size:1.1rem;">${d.emoji}</span>${d.name}</div>`
+        `<a class="dinner-dish" href="https://www.google.com/search?q=${encodeURIComponent(d.name)}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+          <span style="font-size:1.1rem;">${d.emoji}</span>
+          <span style="flex:1;">${d.name}</span>
+          <span style="font-size:0.7rem;color:#b07a3a;white-space:nowrap;">搜尋 →</span>
+        </a>`
       ).join('');
       showDinnerScreen('stage3');
     }
