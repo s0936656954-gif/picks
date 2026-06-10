@@ -2173,6 +2173,17 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(cur + 1)
         });
+        // Record hourly bucket for timing analysis
+        const now = new Date();
+        const dayKey = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+        const hourKey = String(now.getHours()).padStart(2,'0');
+        const hres = await fetch(`${FB}/click_hours/${dayKey}/${hourKey}.json`);
+        const hcur = (await hres.json()) || 0;
+        await fetch(`${FB}/click_hours/${dayKey}/${hourKey}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(hcur + 1)
+        });
       } catch(e) {}
     }
 

@@ -143,6 +143,27 @@
 
     .empty-msg { color: #ccc; font-size: 0.75rem; text-align: center; padding: 24px 0; }
     .loading-msg { color: #ccc; font-size: 0.75rem; text-align: center; padding: 20px 0; }
+
+    /* Hour distribution chart */
+    .hour-chart-wrap {
+      background: #fff; border-radius: 16px; margin: 0 18px;
+      box-shadow: 0 1px 6px rgba(0,0,0,.05); padding: 16px 10px 10px; overflow: hidden;
+    }
+    .hour-chart { display: flex; align-items: flex-end; height: 90px; gap: 2px; }
+    .hour-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+    .hour-bar { width: 100%; background: #e8ddd0; border-radius: 2px 2px 0 0; min-height: 2px; }
+    .hour-bar.hi   { background: #c8a97e; }
+    .hour-bar.peak { background: #1a1a1a; }
+    .hour-lbl { font-size: 0.4rem; color: #ddd; margin-top: 3px; }
+    .hour-lbl.show { color: #999; font-size: 0.45rem; }
+
+    /* Day trend bars */
+    .day-row { display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-bottom: 1px solid #f2eeea; }
+    .day-row:last-child { border-bottom: none; }
+    .day-label { font-size: 0.72rem; color: #888; width: 52px; flex-shrink: 0; }
+    .day-bar-wrap { flex: 1; background: #f7f5f2; border-radius: 4px; height: 8px; overflow: hidden; }
+    .day-bar { height: 100%; background: #c8a97e; border-radius: 4px; }
+    .day-count { font-size: 0.72rem; color: #888; width: 28px; text-align: right; flex-shrink: 0; }
   </style>
 </head>
 <body>
@@ -169,6 +190,7 @@
   <div class="nav-tabs">
     <div class="nav-tab active" onclick="switchNav('flow')">流量</div>
     <div class="nav-tab" onclick="switchNav('game')">遊戲排行</div>
+    <div class="nav-tab" onclick="switchNav('timing')">活躍時段</div>
   </div>
 
   <!-- 流量 -->
@@ -224,6 +246,39 @@
       <div class="loading-msg">載入中⋯</div>
     </div>
   </div>
+
+  <!-- 活躍時段 -->
+  <div id="view-timing" class="tab-view">
+    <div class="section-label">粉絲活躍時段分析</div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num" id="peakHour">-</div>
+        <div class="stat-sub">最活躍時段</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="totalTracked">-</div>
+        <div class="stat-sub">累計追蹤點擊</div>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top:8px;">24 小時分佈</div>
+    <div class="hour-chart-wrap">
+      <div class="hour-chart" id="hourChart">
+        <div class="loading-msg" style="width:100%;align-self:center;">載入中⋯</div>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top:12px;">近 14 天趨勢</div>
+    <div class="list-card">
+      <div id="dayChart"><div class="loading-msg">載入中⋯</div></div>
+    </div>
+
+    <div class="refresh-row">
+      <button class="refresh-btn" onclick="loadTiming()">↻ 重新整理</button>
+      <div class="ts-footer" id="tsFooterTiming"></div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -253,10 +308,11 @@
 
   function switchNav(tab) {
     document.querySelectorAll('.nav-tab').forEach((t, i) => {
-      t.classList.toggle('active', ['flow','game'][i] === tab);
+      t.classList.toggle('active', ['flow','game','timing'][i] === tab);
     });
     document.querySelectorAll('.tab-view').forEach(v => v.classList.remove('active'));
     document.getElementById(`view-${tab}`).classList.add('active');
+    if (tab === 'timing') loadTiming();
   }
 
   function switchGame(game) {
@@ -340,6 +396,74 @@
         <span class="board-name">@${e.name}</span>
         <span class="board-score">${e.score} 分</span>
       </div>`).join('');
+  }
+
+  async function loadTiming() {
+    const now = new Date();
+    const ts = `${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
+    document.getElementById('tsFooterTiming').textContent = `上次更新 ${ts}`;
+    const data = await fbGet('click_hours');
+    renderTiming(data);
+  }
+
+  function renderTiming(data) {
+    const noData = () => {
+      document.getElementById('hourChart').innerHTML = '<div class="empty-msg" style="width:100%;align-self:center;">尚無資料</div>';
+      document.getElementById('dayChart').innerHTML = '<div class="empty-msg">尚無資料</div>';
+      document.getElementById('peakHour').textContent = '-';
+      document.getElementById('totalTracked').textContent = '0';
+    };
+    if (!data) { noData(); return; }
+
+    const hourTotals = new Array(24).fill(0);
+    const dayTotals = {};
+
+    Object.entries(data).forEach(([day, hours]) => {
+      if (typeof hours !== 'object') return;
+      dayTotals[day] = 0;
+      Object.entries(hours).forEach(([h, count]) => {
+        const hr = parseInt(h, 10);
+        if (hr >= 0 && hr < 24) {
+          hourTotals[hr] += count;
+          dayTotals[day] += count;
+        }
+      });
+    });
+
+    const maxHourVal = Math.max(...hourTotals, 1);
+    const peakHr = hourTotals.indexOf(Math.max(...hourTotals));
+    const totalClicks = hourTotals.reduce((a, b) => a + b, 0);
+
+    document.getElementById('peakHour').textContent = `${peakHr}:00`;
+    document.getElementById('totalTracked').textContent = totalClicks;
+
+    // 24h bar chart
+    document.getElementById('hourChart').innerHTML = hourTotals.map((cnt, h) => {
+      const pct = Math.max(Math.round((cnt / maxHourVal) * 100), 2);
+      const showLbl = h % 6 === 0;
+      const cls = h === peakHr ? 'peak' : cnt > maxHourVal * 0.5 ? 'hi' : '';
+      return `<div class="hour-col">
+        <div class="hour-bar ${cls}" style="height:${pct}%"></div>
+        <div class="hour-lbl ${showLbl ? 'show' : ''}">${showLbl ? h : '·'}</div>
+      </div>`;
+    }).join('');
+
+    // Day trend (last 14 days, newest first)
+    const sortedDays = Object.keys(dayTotals).sort().reverse().slice(0, 14);
+    if (!sortedDays.length) {
+      document.getElementById('dayChart').innerHTML = '<div class="empty-msg">尚無資料</div>';
+      return;
+    }
+    const maxDayVal = Math.max(...sortedDays.map(d => dayTotals[d]), 1);
+    document.getElementById('dayChart').innerHTML = sortedDays.map(day => {
+      const cnt = dayTotals[day];
+      const pct = Math.round((cnt / maxDayVal) * 100);
+      return `<div class="day-row">
+        <div class="day-label">${day.slice(5)}</div>
+        <div class="day-bar-wrap"><div class="day-bar" style="width:${pct}%"></div></div>
+        <div class="day-count">${cnt}</div>
+      </div>`;
+    }).join('');
   }
 </script>
 </body>
