@@ -118,8 +118,19 @@
     .board-item:last-child { border-bottom: none; }
     .board-rank { font-size: 0.82rem; color: #ccc; width: 24px; flex-shrink: 0; text-align: center; }
     .board-rank.top { color: #c8a97e; }
-    .board-name { flex: 1; font-size: 0.82rem; color: #1a1a1a; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .board-name { flex: 1; min-width: 0; overflow: hidden; display: flex; flex-direction: column; gap: 1px; }
+    .board-name-text { font-size: 0.82rem; color: #1a1a1a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .board-time { font-size: 0.6rem; color: #bbb; }
     .board-score { font-size: 0.8rem; font-weight: 600; color: #888; white-space: nowrap; }
+
+    /* Sort toggle */
+    .sort-row { display: flex; gap: 6px; padding: 0 18px 12px; }
+    .sort-btn {
+      padding: 6px 14px; border-radius: 20px; font-size: 0.7rem; font-weight: 600;
+      cursor: pointer; background: #f7f5f2; color: #aaa;
+      border: 1px solid #ede9e3; transition: all 0.15s;
+    }
+    .sort-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
 
     /* Game sub-tabs */
     .game-tabs { display: flex; gap: 8px; padding: 0 18px 12px; }
@@ -236,6 +247,10 @@
       <div class="game-tab" onclick="switchGame('knife')">🥒 刀工</div>
       <div class="game-tab" onclick="switchGame('catch')">🍽️ 接菜</div>
     </div>
+    <div class="sort-row">
+      <button class="sort-btn active" id="sortScore" onclick="setGameSort('score')">高分排行</button>
+      <button class="sort-btn" id="sortTime" onclick="setGameSort('time')">最新紀錄</button>
+    </div>
     <div id="gpanel-slice" class="game-panel active list-card">
       <div class="loading-msg">載入中⋯</div>
     </div>
@@ -323,6 +338,28 @@
     document.getElementById(`gpanel-${game}`).classList.add('active');
   }
 
+  let gameSortMode = 'score';
+  const gameData = {};
+
+  function setGameSort(mode) {
+    gameSortMode = mode;
+    document.getElementById('sortScore').classList.toggle('active', mode === 'score');
+    document.getElementById('sortTime').classList.toggle('active', mode === 'time');
+    ['slice','knife','catch'].forEach(g => renderBoard(g, gameData[g]));
+  }
+
+  function fmtTs(ts) {
+    if (!ts) return '';
+    const d = new Date(ts);
+    const now = new Date();
+    const hh = String(d.getHours()).padStart(2,'0');
+    const mi = String(d.getMinutes()).padStart(2,'0');
+    if (d.toDateString() === now.toDateString()) return `今天 ${hh}:${mi}`;
+    const mm = String(d.getMonth()+1).padStart(2,'0');
+    const dd = String(d.getDate()).padStart(2,'0');
+    return `${mm}/${dd} ${hh}:${mi}`;
+  }
+
   async function fbGet(path) {
     try {
       const r = await fetch(`${FB}/${path}.json`);
@@ -341,6 +378,7 @@
       fbGet('scores/knife'), fbGet('scores/catch')
     ]);
 
+    gameData.slice = slice; gameData.knife = knife; gameData.catch = catchD;
     renderSummary(clicks, slice, knife, catchD);
     renderClicks(clicks);
     renderBoard('slice', slice);
@@ -387,15 +425,27 @@
   function renderBoard(game, data) {
     const el = document.getElementById(`gpanel-${game}`);
     if (!data) { el.innerHTML = '<div class="empty-msg">尚無紀錄</div>'; return; }
-    const board = Object.values(data).sort((a,b) => b.score - a.score).slice(0, 10);
-    if (!board.length) { el.innerHTML = '<div class="empty-msg">尚無紀錄</div>'; return; }
+    const all = Object.values(data);
+    if (!all.length) { el.innerHTML = '<div class="empty-msg">尚無紀錄</div>'; return; }
+
+    const board = gameSortMode === 'time'
+      ? all.sort((a,b) => (b.ts||0) - (a.ts||0)).slice(0, 20)
+      : all.sort((a,b) => b.score - a.score).slice(0, 10);
+
     const medals = ['🥇','🥈','🥉','4','5','6','7','8','9','10'];
-    el.innerHTML = board.map((e, i) => `
-      <div class="board-item">
-        <span class="board-rank ${i < 3 ? 'top' : ''}">${medals[i]}</span>
-        <span class="board-name">@${e.name}</span>
+    el.innerHTML = board.map((e, i) => {
+      const rankLabel = gameSortMode === 'time'
+        ? `<span class="board-rank">${i+1}</span>`
+        : `<span class="board-rank ${i < 3 ? 'top' : ''}">${medals[i]}</span>`;
+      return `<div class="board-item">
+        ${rankLabel}
+        <span class="board-name">
+          <span class="board-name-text">@${e.name}</span>
+          <span class="board-time">${fmtTs(e.ts)}</span>
+        </span>
         <span class="board-score">${e.score} 分</span>
-      </div>`).join('');
+      </div>`;
+    }).join('');
   }
 
   async function loadTiming() {
