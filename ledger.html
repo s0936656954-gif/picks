@@ -1321,7 +1321,7 @@ function updateSidebar() {
   const invoiceMap = {};
   records.filter(r => r.invoiceStatus === '未開').forEach(r => {
     const v = r.vendor || '（無名稱）';
-    invoiceMap[v] = (invoiceMap[v] || 0) + (r.expectedPayment || 0);
+    invoiceMap[v] = (invoiceMap[v] || 0) + 1;
   });
   const ilist = document.getElementById('sb-invoice-list');
   const ivendors = Object.keys(invoiceMap);
@@ -1332,7 +1332,7 @@ function updateSidebar() {
       .sort((a, b) => invoiceMap[b] - invoiceMap[a])
       .map(v => `<div class="unpaid-item">
         <span class="unpaid-vendor" title="${escHtml(v)}">${escHtml(v)}</span>
-        <span class="unpaid-amount" style="color:#a855f7">${fmtMoney(invoiceMap[v])}</span>
+        <span class="unpaid-amount" style="color:#a855f7">${invoiceMap[v]}筆</span>
       </div>`)
       .join('');
   }
