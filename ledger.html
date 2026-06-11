@@ -777,6 +777,12 @@ td {
           <span class="unpaid-vendor" style="color:rgba(255,255,255,0.4)">暫無未匯款紀錄</span>
         </div>
       </div>
+      <div class="sidebar-section-title" style="margin-top:14px">未開發票廠商</div>
+      <div class="unpaid-list" id="sb-invoice-list">
+        <div class="unpaid-item">
+          <span class="unpaid-vendor" style="color:rgba(255,255,255,0.4)">暫無未開發票紀錄</span>
+        </div>
+      </div>
     </div>
   </aside>
 
@@ -1307,6 +1313,26 @@ function updateSidebar() {
       .map(v => `<div class="unpaid-item">
         <span class="unpaid-vendor" title="${escHtml(v)}">${escHtml(v)}</span>
         <span class="unpaid-amount">${fmtMoney(unpaidMap[v])}</span>
+      </div>`)
+      .join('');
+  }
+
+  // 未開發票廠商
+  const invoiceMap = {};
+  records.filter(r => r.invoiceStatus === '未開').forEach(r => {
+    const v = r.vendor || '（無名稱）';
+    invoiceMap[v] = (invoiceMap[v] || 0) + (r.expectedPayment || 0);
+  });
+  const ilist = document.getElementById('sb-invoice-list');
+  const ivendors = Object.keys(invoiceMap);
+  if (ivendors.length === 0) {
+    ilist.innerHTML = '<div class="unpaid-item"><span class="unpaid-vendor" style="color:rgba(255,255,255,0.4)">暫無未開發票紀錄</span></div>';
+  } else {
+    ilist.innerHTML = ivendors
+      .sort((a, b) => invoiceMap[b] - invoiceMap[a])
+      .map(v => `<div class="unpaid-item">
+        <span class="unpaid-vendor" title="${escHtml(v)}">${escHtml(v)}</span>
+        <span class="unpaid-amount" style="color:#a855f7">${fmtMoney(invoiceMap[v])}</span>
       </div>`)
       .join('');
   }
