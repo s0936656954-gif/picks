@@ -1016,6 +1016,49 @@ td {
   </div><!-- /main-content -->
 </div><!-- /app-layout -->
 
+<!-- ===================== MARK PAID MODAL ===================== -->
+<div class="modal-overlay" id="pay-modal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header">
+      <span class="modal-title">確認已匯款</span>
+      <button class="modal-close" onclick="closePayModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="font-size:17px;font-weight:700;margin-bottom:4px" id="pay-vendor-name"></div>
+      <div style="color:var(--text-muted);margin-bottom:16px" id="pay-expected-label"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">匯款日期 *</label>
+          <input type="date" class="form-input" id="pay-date">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">實際匯款金額（若與應匯不同再填）</label>
+          <input type="number" class="form-input" id="pay-actual" placeholder="留空則自動帶入應匯金額">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">匯入帳戶 *</label>
+          <div style="display:flex;gap:20px;padding:8px 0">
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
+              <input type="radio" name="pay-account" value="公司帳戶" checked> 公司帳戶
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
+              <input type="radio" name="pay-account" value="個人帳戶"> 個人帳戶
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closePayModal()">取消</button>
+      <button class="btn btn-success" onclick="confirmMarkPaid()">✓ 確認已匯款</button>
+    </div>
+  </div>
+</div>
+
 <!-- ===================== EDIT MODAL ===================== -->
 <div class="modal-overlay" id="edit-modal">
   <div class="modal">
@@ -1476,17 +1519,34 @@ document.querySelectorAll('#records-table thead th[data-sort]').forEach(th => {
 // ======================================================
 // MARK PAID
 // ======================================================
+let _payId = null;
 function markPaid(id) {
   const r = records.find(x => x.id === id);
   if (!r) return;
+  _payId = id;
+  document.getElementById('pay-vendor-name').textContent = r.vendor || '（無廠商）';
+  document.getElementById('pay-expected-label').textContent = `應匯金額：$${fmtNum(r.expectedPayment || 0)}`;
+  document.getElementById('pay-date').value = today();
+  document.getElementById('pay-actual').value = '';
+  document.querySelector('input[name="pay-account"][value="公司帳戶"]').checked = true;
+  document.getElementById('pay-modal').classList.add('open');
+}
+function closePayModal() {
+  document.getElementById('pay-modal').classList.remove('open');
+  _payId = null;
+}
+function confirmMarkPaid() {
+  const r = records.find(x => x.id === _payId);
+  if (!r) return;
   r.paymentStatus = '已匯款';
-  r.paymentDate = today();
-  if (r.actualPayment == null || r.actualPayment === '') {
-    r.actualPayment = r.expectedPayment;
-  }
+  r.paymentDate = document.getElementById('pay-date').value || today();
+  const actualVal = document.getElementById('pay-actual').value;
+  r.actualPayment = actualVal !== '' ? parseFloat(actualVal) : r.expectedPayment;
+  r.receivingAccount = document.querySelector('input[name="pay-account"]:checked')?.value || '公司帳戶';
   calcRecord(r);
   saveRecords();
   updateAll();
+  closePayModal();
   showToast(`✅ ${r.vendor} 已標記為已匯款`);
 }
 
@@ -1657,6 +1717,9 @@ function submitEditForm(e) {
 
 document.getElementById('edit-modal').addEventListener('click', function(e) {
   if (e.target === this) closeEditModal();
+});
+document.getElementById('pay-modal').addEventListener('click', function(e) {
+  if (e.target === this) closePayModal();
 });
 
 // ======================================================
