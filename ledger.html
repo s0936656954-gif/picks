@@ -1475,10 +1475,6 @@ function renderRecords() {
     const invBadgeClass = r.invoiceStatus === '免開' ? 'badge-purple' : r.invoiceStatus === '已開' ? 'badge-green' : 'badge-gray';
     const stBadgeClass = r.paymentStatus === '已匯款' ? 'badge-green' : 'badge-red';
 
-    const markPaidBtn = r.paymentStatus === '未匯款'
-      ? `<button class="btn btn-success btn-sm" onclick="markPaid('${r.id}')">✓ 已匯</button>`
-      : '';
-
     return `<tr>
       <td>${escHtml(r.date || '—')}</td>
       <td><strong>${escHtml(r.vendor || '—')}</strong></td>
@@ -1492,7 +1488,6 @@ function renderRecords() {
       <td><span class="badge ${stBadgeClass}">${escHtml(r.paymentStatus || '未匯款')}</span></td>
       <td>
         <div class="ops-cell">
-          ${markPaidBtn}
           <button class="btn btn-outline btn-sm" onclick="openEditModal('${r.id}')">編輯</button>
           <button class="btn btn-danger btn-sm" onclick="deleteRecord('${r.id}')">刪除</button>
         </div>
