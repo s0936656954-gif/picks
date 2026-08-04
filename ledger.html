@@ -315,6 +315,8 @@ thead th.sort-desc::after { content: ' ↓'; color: var(--accent); }
 tbody tr { border-bottom: 1px solid #f5f0e8; transition: background 0.12s; }
 tbody tr:hover { background: #faf7f3; }
 tbody tr:last-child { border-bottom: none; }
+tfoot tr { background: #f0ead8; font-weight: 700; border-top: 2px solid #d8cdb8; }
+tfoot td { padding: 10px 12px; font-size: 13px; }
 
 td {
   padding: 10px 12px;
@@ -851,6 +853,7 @@ td {
                 </tr>
               </thead>
               <tbody id="records-tbody"></tbody>
+              <tfoot id="records-tfoot"></tfoot>
             </table>
           </div>
           <div class="table-info" id="table-info">共 0 筆紀錄</div>
@@ -1447,6 +1450,7 @@ function renderRecords() {
       </div>
     </td></tr>`;
     document.getElementById('table-info').textContent = '共 0 筆紀錄';
+    document.getElementById('records-tfoot').innerHTML = '';
     return;
   }
 
@@ -1459,6 +1463,7 @@ function renderRecords() {
       </div>
     </td></tr>`;
     document.getElementById('table-info').textContent = `找到 0 筆 / 共 ${records.length} 筆`;
+    document.getElementById('records-tfoot').innerHTML = '';
     return;
   }
 
@@ -1496,6 +1501,21 @@ function renderRecords() {
   }).join('');
 
   document.getElementById('table-info').textContent = `找到 ${sorted.length} 筆 / 共 ${records.length} 筆`;
+
+  // Totals footer
+  const totSales = sorted.reduce((s, r) => s + (r.salesAmount || 0), 0);
+  const totExpected = sorted.reduce((s, r) => s + (r.expectedPayment || 0), 0);
+  const totNhi2 = sorted.reduce((s, r) => s + (r.nhi2Amount || 0), 0);
+  const totTax5 = sorted.reduce((s, r) => s + (r.tax5Amount || 0), 0);
+  document.getElementById('records-tfoot').innerHTML = `<tr>
+    <td colspan="2">合計 ${sorted.length} 筆</td>
+    <td>${fmtMoney(totSales)}</td>
+    <td></td>
+    <td style="color:#166534">${fmtMoney(totExpected)}</td>
+    <td style="color:var(--red)">${totNhi2 ? '-' + fmtMoney(totNhi2) : '—'}</td>
+    <td style="color:var(--red)">${totTax5 ? '-' + fmtMoney(totTax5) : '—'}</td>
+    <td colspan="4"></td>
+  </tr>`;
 }
 
 // Sort headers
