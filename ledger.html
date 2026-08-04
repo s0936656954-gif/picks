@@ -770,7 +770,7 @@ td {
         <div class="stat-card-value stat-green" id="sb-unpaid-amount">$0</div>
       </div>
       <div class="stat-card">
-        <div class="stat-card-label">本月分潤</div>
+        <div class="stat-card-label">本月分潤 <span id="sb-month-label" style="font-size:11px;opacity:0.7"></span></div>
         <div class="stat-card-value stat-yellow" id="sb-month-commission">$0</div>
       </div>
       <div class="sidebar-section-title">未匯款廠商</div>
@@ -1284,6 +1284,7 @@ function loadRecords() {
     const raw = localStorage.getItem(STORAGE_KEY);
     records = raw ? JSON.parse(raw) : [];
     if (!Array.isArray(records)) records = [];
+    records.forEach(calcRecord);
   } catch(e) {
     records = [];
   }
@@ -1333,10 +1334,23 @@ function updateSidebar() {
   const unpaidAmount = records
     .filter(r => r.paymentStatus === '未匯款')
     .reduce((s, r) => s + (r.expectedPayment || 0), 0);
+  // 本月分潤：優先顯示本月，若本月無資料則顯示最近有資料的月份
   const tm = thisMonth();
-  const monthCommission = records
+  let activeMonth = tm;
+  const monthCommissionThisMonth = records
     .filter(r => r.date && r.date.startsWith(tm))
     .reduce((s, r) => s + (r.totalCommission || 0), 0);
+  let monthCommission = monthCommissionThisMonth;
+  if (monthCommission === 0 && records.length > 0) {
+    const months = [...new Set(records.filter(r => r.date).map(r => r.date.slice(0, 7)))].sort().reverse();
+    if (months.length > 0) {
+      activeMonth = months[0];
+      monthCommission = records
+        .filter(r => r.date && r.date.startsWith(activeMonth))
+        .reduce((s, r) => s + (r.totalCommission || 0), 0);
+    }
+  }
+  document.getElementById('sb-month-label').textContent = activeMonth !== tm ? `(${activeMonth})` : '';
 
   document.getElementById('sb-total-commission').textContent = fmtMoney(totalCommission);
   document.getElementById('sb-unpaid-amount').textContent = fmtMoney(unpaidAmount);
