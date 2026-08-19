@@ -359,8 +359,8 @@
     notesText:
 `一、工作時間為 08:00~12:00、13:00~17:00，加班費另計。
 二、本公司配有搭乘設備租借，費用如下。
-   活動式吊籃 1,000元　固定式吊籃 1,500元
-   合格活動式吊籃 2,000元　合格固定式吊籃 2,500元
+
+   合格活動式吊籃 1,000元、合格固定式吊籃 1,000元
 三、本報價以本公司車輛為主，若因現場需求調動同業車輛，以該同業費用計價。
 四、以上報價未含5%營業稅，稅金另計。
 五、此報價單自開立日起一個月內有效，逾期請重新洽詢報價。`
@@ -373,9 +373,21 @@
 
   function migrateNotesText(saved) {
     if (saved === undefined || saved === null) return DEFAULTS.notesText;
-    if (saved.includes('一個月內有效')) return saved;
-    const trimmed = saved.replace(/\s+$/, '');
-    return trimmed ? `${trimmed}\n五、此報價單自開立日起一個月內有效，逾期請重新洽詢報價。` : DEFAULTS.notesText;
+    let text = saved;
+
+    if (text.includes('固定式吊籃 1,500元')) {
+      text = text.replace(
+        /二、本公司配有搭乘設備租借，費用如下。[\s\S]*?(?=三、)/,
+        '二、本公司配有搭乘設備租借，費用如下。\n\n   合格活動式吊籃 1,000元、合格固定式吊籃 1,000元\n'
+      );
+    }
+
+    if (!text.includes('一個月內有效')) {
+      const trimmed = text.replace(/\s+$/, '');
+      text = trimmed ? `${trimmed}\n五、此報價單自開立日起一個月內有效，逾期請重新洽詢報價。` : DEFAULTS.notesText;
+    }
+
+    return text;
   }
 
   function toROCDateStr(str) {
