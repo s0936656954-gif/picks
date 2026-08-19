@@ -652,11 +652,15 @@
   }
 
   function resetForm() {
-    if (!confirm('確定要清空目前的報價單內容嗎？公司資訊將恢復預設值。')) return;
-    localStorage.removeItem(STORAGE_KEY);
+    if (!confirm('確定要清空客戶名稱、報價日期與項目內容嗎？公司資訊與備註條款不會被清除。')) return;
+    document.getElementById('clientName').value = '';
+    document.getElementById('quoDate').value = today();
     document.getElementById('itemsEditList').innerHTML = '';
     itemSeq = 0;
-    initForm(true);
+    addItem({ name: '60T', half: 12000, full: 21000, ot: 3500 });
+    addItem({ name: '平台', full: 25000 });
+    addItem();
+    saveDraft();
   }
 
   function applyState(saved, useTodayForDate) {
@@ -686,16 +690,14 @@
     toggleCompanyCard(false);
   }
 
-  function initForm(forceFresh) {
+  function initForm() {
     let saved = null;
-    if (!forceFresh) {
-      try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) {}
-    }
+    try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) {}
     applyState(saved, true);
     saveDraft();
   }
 
-  initForm(false);
+  initForm();
 </script>
 </body>
 </html>
