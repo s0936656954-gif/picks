@@ -733,8 +733,6 @@
       document.getElementById('quoDate').value = today();
       document.getElementById('itemsEditList').innerHTML = '';
       itemSeq = 0;
-      addItem({ name: '60T', half: 12000, full: 21000, ot: 3500 });
-      addItem({ name: '平台', full: 25000 });
       addItem();
       saveDraft();
     });
@@ -758,8 +756,6 @@
     if (saved?.items?.length) {
       saved.items.forEach(it => addItem(it));
     } else {
-      addItem({ name: '60T', half: 12000, full: 21000, ot: 3500 });
-      addItem({ name: '平台', full: 25000 });
       addItem();
     }
 
