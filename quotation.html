@@ -59,6 +59,18 @@
     font-size: 0.68rem; color: var(--navy); font-weight: 800; letter-spacing: 1px;
     margin-bottom: 10px; text-transform: uppercase;
   }
+  .card-label-row {
+    display: flex; align-items: center; justify-content: space-between; cursor: pointer;
+  }
+  .card-toggle-btn {
+    font-size: 0.68rem; font-weight: 700; color: var(--navy-mid);
+    background: #f4f7f9; border: 1px solid var(--border); border-radius: 6px;
+    padding: 4px 10px; cursor: pointer;
+  }
+  .company-summary {
+    font-size: 0.8rem; color: var(--text-mute); line-height: 1.6; margin-top: 2px;
+  }
+  .company-summary.hidden, #companyFields.hidden { display: none; }
   .field { margin-bottom: 10px; }
   .field:last-child { margin-bottom: 0; }
   .field-row { display: flex; gap: 8px; }
@@ -202,27 +214,33 @@
 <div id="editView" class="page">
 
   <div class="card">
-    <div class="card-label">公司資訊</div>
-    <div class="field">
-      <label class="field-label">公司名稱</label>
-      <input class="field-input" id="companyName" placeholder="統森企業有限公司">
+    <div class="card-label-row" onclick="toggleCompanyCard()">
+      <div class="card-label" style="margin-bottom:0">公司資訊</div>
+      <button class="card-toggle-btn" id="companyToggleBtn" type="button">編輯</button>
     </div>
-    <div class="field">
-      <label class="field-label">報價單標題</label>
-      <input class="field-input" id="companySubtitle" placeholder="吊運作業報價單">
-    </div>
-    <div class="field">
-      <label class="field-label">地址</label>
-      <input class="field-input" id="companyAddr" placeholder="高雄市大樹區竹寮里竹寮路723號">
-    </div>
-    <div class="field-row">
-      <div class="field">
-        <label class="field-label">電話</label>
-        <input class="field-input" id="companyTel" placeholder="(07)651-4331">
+    <div class="company-summary" id="companySummary"></div>
+    <div id="companyFields" class="hidden">
+      <div class="field" style="margin-top:12px">
+        <label class="field-label">公司名稱</label>
+        <input class="field-input" id="companyName" placeholder="統森企業有限公司">
       </div>
       <div class="field">
-        <label class="field-label">傳真</label>
-        <input class="field-input" id="companyFax" placeholder="(07)651-5584">
+        <label class="field-label">報價單標題</label>
+        <input class="field-input" id="companySubtitle" placeholder="吊運作業報價單">
+      </div>
+      <div class="field">
+        <label class="field-label">地址</label>
+        <input class="field-input" id="companyAddr" placeholder="高雄市大樹區竹寮里竹寮路723號">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">電話</label>
+          <input class="field-input" id="companyTel" placeholder="(07)651-4331">
+        </div>
+        <div class="field">
+          <label class="field-label">傳真</label>
+          <input class="field-input" id="companyFax" placeholder="(07)651-5584">
+        </div>
       </div>
     </div>
   </div>
@@ -331,7 +349,8 @@
    活動式吊籃 1,000元　固定式吊籃 1,500元
    合格活動式吊籃 2,000元　合格固定式吊籃 2,500元
 三、本報價以本公司車輛為主，若因現場需求調動同業車輛，以該同業費用計價。
-四、以上報價未含5%營業稅，稅金另計。`
+四、以上報價未含5%營業稅，稅金另計。
+五、此報價單自開立日起一個月內有效，逾期請重新洽詢報價。`
   };
 
   function today() {
@@ -343,7 +362,7 @@
     if (!str) return '';
     const [y, m, d] = str.split('-').map(Number);
     if (!y) return '';
-    return `五、報價日期：民國 ${y - 1911} 年 ${String(m).padStart(2,'0')} 月 ${String(d).padStart(2,'0')} 日`;
+    return `六、報價日期：民國 ${y - 1911} 年 ${String(m).padStart(2,'0')} 月 ${String(d).padStart(2,'0')} 日`;
   }
 
   function switchMode(mode) {
@@ -355,6 +374,22 @@
     document.getElementById('btnModeHistory').classList.toggle('active', mode === 'history');
     if (mode === 'preview') renderPreview();
     if (mode === 'history') renderHistoryList();
+  }
+
+  function toggleCompanyCard(forceExpanded) {
+    const fields = document.getElementById('companyFields');
+    const summary = document.getElementById('companySummary');
+    const btn = document.getElementById('companyToggleBtn');
+    const expanded = forceExpanded !== undefined ? forceExpanded : fields.classList.contains('hidden');
+    fields.classList.toggle('hidden', !expanded);
+    summary.classList.toggle('hidden', expanded);
+    btn.textContent = expanded ? '收合' : '編輯';
+  }
+
+  function renderCompanySummary() {
+    const name = document.getElementById('companyName').value;
+    const sub = document.getElementById('companySubtitle').value;
+    document.getElementById('companySummary').textContent = [name, sub].filter(Boolean).join('　');
   }
 
   /* ── Saved quotation history ── */
@@ -537,6 +572,7 @@
 
   ['companyName','companySubtitle','companyAddr','companyTel','companyFax','clientName','quoDate','notesText']
     .forEach(id => document.getElementById(id).addEventListener('input', saveDraft));
+  ['companyName','companySubtitle'].forEach(id => document.getElementById(id).addEventListener('input', renderCompanySummary));
 
   function renderPreview() {
     const s = collectState();
@@ -544,7 +580,7 @@
     document.getElementById('pvAddr').textContent = s.companyAddr || '';
     const telFax = [s.companyTel ? `電話：${s.companyTel}` : '', s.companyFax ? `傳真：${s.companyFax}` : ''].filter(Boolean).join('　');
     document.getElementById('pvTelFax').textContent = telFax;
-    document.getElementById('pvClient').textContent = s.clientName || '';
+    document.getElementById('pvClient').textContent = s.clientName ? `客戶：${s.clientName}` : '';
 
     const rows = s.items.length ? s.items : [];
     document.getElementById('pvItemsBody').innerHTML = (rows.length ? rows : new Array(4).fill({})).map((it, i) => `
@@ -603,14 +639,14 @@
     initForm(true);
   }
 
-  function applyState(saved) {
+  function applyState(saved, useTodayForDate) {
     document.getElementById('companyName').value = saved?.companyName ?? DEFAULTS.companyName;
     document.getElementById('companySubtitle').value = saved?.companySubtitle ?? DEFAULTS.companySubtitle;
     document.getElementById('companyAddr').value = saved?.companyAddr ?? DEFAULTS.companyAddr;
     document.getElementById('companyTel').value = saved?.companyTel ?? DEFAULTS.companyTel;
     document.getElementById('companyFax').value = saved?.companyFax ?? DEFAULTS.companyFax;
     document.getElementById('clientName').value = saved?.clientName ?? '';
-    document.getElementById('quoDate').value = saved?.quoDate || today();
+    document.getElementById('quoDate').value = useTodayForDate ? today() : (saved?.quoDate || today());
     document.getElementById('notesText').value = saved?.notesText ?? DEFAULTS.notesText;
 
     stampDataUrl = saved?.stampDataUrl || null;
@@ -625,6 +661,9 @@
       addItem({ name: '平台', full: 25000 });
       addItem();
     }
+
+    renderCompanySummary();
+    toggleCompanyCard(false);
   }
 
   function initForm(forceFresh) {
@@ -632,7 +671,7 @@
     if (!forceFresh) {
       try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) {}
     }
-    applyState(saved);
+    applyState(saved, true);
     saveDraft();
   }
 
