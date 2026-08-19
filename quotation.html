@@ -204,9 +204,29 @@
 
   .empty-hint { text-align: center; font-size: 0.75rem; color: #ccc; padding: 20px 0; }
 
+  /* ── Modal ── */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(7,27,48,0.55);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px; z-index: 100;
+  }
+  .modal-overlay.hidden { display: none; }
+  .modal-box {
+    background: #fff; border-radius: 10px; width: 100%; max-width: 340px;
+    padding: 22px 20px 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+  }
+  .modal-msg { font-size: 0.88rem; color: var(--text); line-height: 1.6; margin-bottom: 18px; white-space: pre-line; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
+  .modal-btn {
+    padding: 9px 18px; border-radius: 6px; font-size: 0.82rem; font-weight: 700;
+    border: none; cursor: pointer;
+  }
+  .modal-btn-cancel { background: #f4f7f9; color: var(--text-mute); }
+  .modal-btn-ok { background: var(--orange); color: #fff; }
+
   @media print {
     body { background: #fff; }
-    .topbar, .action-bar, #editView, #historyView { display: none !important; }
+    .topbar, .action-bar, #editView, #historyView, .modal-overlay { display: none !important; }
     .sheet-outer { box-shadow: none; padding: 0; }
     #sheet { width: 100%; }
   }
@@ -345,10 +365,53 @@
   <button class="btn btn-primary" id="btnPdf" onclick="exportPdf()">⬇ 產生 PDF</button>
 </div>
 
+<!-- ══ MODAL (replaces native confirm/alert, which some in-app browsers don't support) ══ -->
+<div id="modalOverlay" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-msg" id="modalMsg"></div>
+    <div class="modal-actions">
+      <button class="modal-btn modal-btn-cancel" id="modalCancelBtn">取消</button>
+      <button class="modal-btn modal-btn-ok" id="modalOkBtn">好</button>
+    </div>
+  </div>
+</div>
+
 <script>
   const STORAGE_KEY = 'sunsen_quotation_draft';
   const HISTORY_KEY = 'sunsen_quotation_history';
   let itemSeq = 0;
+
+  /* ── Modal (replaces window.confirm/alert — unreliable in some in-app browsers e.g. LINE) ── */
+  let modalOkCallback = null;
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.add('hidden');
+    modalOkCallback = null;
+  }
+
+  function showConfirmModal(message, onOk) {
+    document.getElementById('modalMsg').textContent = message;
+    document.getElementById('modalCancelBtn').style.display = '';
+    modalOkCallback = onOk;
+    document.getElementById('modalOverlay').classList.remove('hidden');
+  }
+
+  function showAlertModal(message) {
+    document.getElementById('modalMsg').textContent = message;
+    document.getElementById('modalCancelBtn').style.display = 'none';
+    modalOkCallback = null;
+    document.getElementById('modalOverlay').classList.remove('hidden');
+  }
+
+  document.getElementById('modalOkBtn').addEventListener('click', () => {
+    const cb = modalOkCallback;
+    closeModal();
+    if (cb) cb();
+  });
+  document.getElementById('modalCancelBtn').addEventListener('click', closeModal);
+  document.getElementById('modalOverlay').addEventListener('click', (e) => {
+    if (e.target.id === 'modalOverlay') closeModal();
+  });
 
   const DEFAULTS = {
     companyName: '統森企業有限公司',
@@ -433,7 +496,7 @@
     try { localStorage.setItem(HISTORY_KEY, JSON.stringify(arr)); } catch(e) {}
   }
 
-  function saveCurrentAsRecord(showAlert) {
+  function saveCurrentAsRecord(notify) {
     const state = collectState();
     const history = loadHistory();
     history.unshift({
@@ -442,9 +505,9 @@
       ...state
     });
     saveHistory(history);
-    if (showAlert) {
+    if (notify) {
       renderHistoryList();
-      alert('已存為新紀錄');
+      showAlertModal('已存為新紀錄');
     }
   }
 
@@ -481,16 +544,18 @@
     const history = loadHistory();
     const rec = history.find(r => r.id === id);
     if (!rec) return;
-    if (!confirm('開啟這筆紀錄會覆蓋目前填寫中的內容，確定要開啟嗎？')) return;
-    applyState(rec);
-    saveDraft();
-    switchMode('edit');
+    showConfirmModal('開啟這筆紀錄會覆蓋目前填寫中的內容，確定要開啟嗎？', () => {
+      applyState(rec);
+      saveDraft();
+      switchMode('edit');
+    });
   }
 
   function deleteRecord(id) {
-    if (!confirm('確定要刪除這筆報價紀錄嗎？此動作無法復原。')) return;
-    saveHistory(loadHistory().filter(r => r.id !== id));
-    renderHistoryList();
+    showConfirmModal('確定要刪除這筆報價紀錄嗎？此動作無法復原。', () => {
+      saveHistory(loadHistory().filter(r => r.id !== id));
+      renderHistoryList();
+    });
   }
 
   function addItem(data) {
@@ -655,7 +720,7 @@
       pdf.save(`報價單${clientPart}_${s.quoDate || today()}.pdf`);
       saveCurrentAsRecord(false);
     } catch (err) {
-      alert('產生 PDF 失敗，請再試一次。');
+      showAlertModal('產生 PDF 失敗，請再試一次。');
       console.error(err);
     } finally {
       btn.disabled = false;
@@ -664,15 +729,16 @@
   }
 
   function resetForm() {
-    if (!confirm('確定要清空客戶名稱、報價日期與項目內容嗎？公司資訊與備註條款不會被清除。')) return;
-    document.getElementById('clientName').value = '';
-    document.getElementById('quoDate').value = today();
-    document.getElementById('itemsEditList').innerHTML = '';
-    itemSeq = 0;
-    addItem({ name: '60T', half: 12000, full: 21000, ot: 3500 });
-    addItem({ name: '平台', full: 25000 });
-    addItem();
-    saveDraft();
+    showConfirmModal('確定要清空客戶名稱、報價日期與項目內容嗎？公司資訊與備註條款不會被清除。', () => {
+      document.getElementById('clientName').value = '';
+      document.getElementById('quoDate').value = today();
+      document.getElementById('itemsEditList').innerHTML = '';
+      itemSeq = 0;
+      addItem({ name: '60T', half: 12000, full: 21000, ot: 3500 });
+      addItem({ name: '平台', full: 25000 });
+      addItem();
+      saveDraft();
+    });
   }
 
   function applyState(saved, useTodayForDate) {
