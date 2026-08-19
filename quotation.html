@@ -371,6 +371,13 @@
     return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
   }
 
+  function migrateNotesText(saved) {
+    if (saved === undefined || saved === null) return DEFAULTS.notesText;
+    if (saved.includes('一個月內有效')) return saved;
+    const trimmed = saved.replace(/\s+$/, '');
+    return trimmed ? `${trimmed}\n五、此報價單自開立日起一個月內有效，逾期請重新洽詢報價。` : DEFAULTS.notesText;
+  }
+
   function toROCDateStr(str) {
     if (!str) return '';
     const [y, m, d] = str.split('-').map(Number);
@@ -660,7 +667,7 @@
     document.getElementById('companyFax').value = saved?.companyFax ?? DEFAULTS.companyFax;
     document.getElementById('clientName').value = saved?.clientName ?? '';
     document.getElementById('quoDate').value = useTodayForDate ? today() : (saved?.quoDate || today());
-    document.getElementById('notesText').value = saved?.notesText ?? DEFAULTS.notesText;
+    document.getElementById('notesText').value = migrateNotesText(saved?.notesText);
 
     stampDataUrl = saved?.stampDataUrl || null;
     document.getElementById('stampPreview').style.backgroundImage = stampDataUrl ? `url(${stampDataUrl})` : '';
