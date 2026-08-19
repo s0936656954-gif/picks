@@ -275,6 +275,17 @@
           <input class="field-input" id="companyFax" placeholder="(07)651-5584">
         </div>
       </div>
+      <div class="field">
+        <label class="field-label">公司印章</label>
+        <div class="stamp-row">
+          <div class="stamp-preview" id="stampPreview"></div>
+          <div class="stamp-actions">
+            <label class="stamp-btn" for="stampFile">上傳印章圖片</label>
+            <input type="file" id="stampFile" accept="image/*" style="display:none" onchange="onStampUpload(event)">
+            <button class="stamp-btn danger" onclick="removeStamp()">移除印章</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -300,18 +311,6 @@
     <div class="card-label">備註條款</div>
     <div class="field">
       <textarea class="field-textarea" id="notesText"></textarea>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-label">公司印章（選填）</div>
-    <div class="stamp-row">
-      <div class="stamp-preview" id="stampPreview"></div>
-      <div class="stamp-actions">
-        <label class="stamp-btn" for="stampFile">上傳印章圖片</label>
-        <input type="file" id="stampFile" accept="image/*" style="display:none" onchange="onStampUpload(event)">
-        <button class="stamp-btn danger" onclick="removeStamp()">移除印章</button>
-      </div>
     </div>
   </div>
 
