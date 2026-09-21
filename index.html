@@ -2909,7 +2909,7 @@
         if (!info) return;
         const span = document.createElement('span');
         span.className = 'group-row-promo';
-        span.textContent = `收單 ${end.getMonth() + 1}/${end.getDate()}`;
+        span.textContent = `${end.getMonth() + 1}/${end.getDate()}收單`;
         info.insertBefore(span, info.firstChild);
       });
     })();
