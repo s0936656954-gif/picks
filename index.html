@@ -2901,6 +2901,19 @@
     updateCountdowns();
     setInterval(updateCountdowns, 1000);
 
+    (function initClosingDates() {
+      groups.forEach(({ rowId, end }) => {
+        const row = document.getElementById(rowId);
+        if (!row) return;
+        const info = row.querySelector('.group-row-info');
+        if (!info) return;
+        const span = document.createElement('span');
+        span.className = 'group-row-promo';
+        span.textContent = `收單 ${end.getMonth() + 1}/${end.getDate()}`;
+        info.insertBefore(span, info.firstChild);
+      });
+    })();
+
     // ── 今天晚餐生存戰 Game ──
     const fridgeIngredients = [
       { id: 'cabbage',      name: '高麗菜', emoji: '🥬' },
