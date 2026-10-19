@@ -662,6 +662,68 @@
     .upcoming-chip-btn:hover { background: rgba(95,98,78,0.08); border-color: rgba(95,98,78,0.6); }
     .upcoming-chip-btn:active { background: rgba(95,98,78,0.16); }
 
+    /* ── 即將截止（< 24h）── */
+    .card-countdown.closing-soon .cd-block {
+      background: #c0392b;
+      animation: pulse-soon 1s ease-in-out infinite;
+    }
+    .card-countdown.closing-soon .cd-num,
+    .card-countdown.closing-soon .cd-label { color: #fff; }
+    .card-countdown.closing-soon::before,
+    .card-countdown.closing-soon::after { color: #c0392b !important; }
+    @keyframes pulse-soon {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.65; }
+    }
+
+    /* ── 新上架 badge ── */
+    .new-badge {
+      display: inline-block;
+      font-size: 0.48rem;
+      background: #c0392b;
+      color: #fff;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-family: sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-left: 5px;
+      vertical-align: middle;
+      line-height: 1.7;
+    }
+
+    /* ── 分享鈕 ── */
+    .share-btn {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      border: 1px solid rgba(95,98,78,0.22);
+      background: transparent;
+      color: #b7b397;
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, color 0.15s;
+      line-height: 1;
+    }
+    .share-btn:hover { background: rgba(95,98,78,0.1); color: #5f624e; }
+
+    /* ── 預備備今天開團 ── */
+    .upcoming-chip.open-today {
+      background: rgba(138,71,15,0.1);
+      border-color: rgba(138,71,15,0.45);
+    }
+    .upcoming-chip.open-today .upcoming-chip-date { color: #c0392b; font-size: 0.65rem; }
+    .upcoming-chip.open-today .upcoming-chip-btn {
+      background: #8A470F;
+      color: #fff;
+      border-color: #8A470F;
+    }
+    .upcoming-chip.open-today .upcoming-chip-btn:hover { background: #6d370b; }
+
     /* Toast */
     .toast {
       position: fixed;
@@ -2986,15 +3048,15 @@
       { n:59, rowId:'row59', end: new Date(2026, 9, 4, 23, 59) }, // Jway牽引無線吸塵器
       { n:60, rowId:'row60', end: new Date(2026, 9, 4, 23, 59) }, // MIGRATORY抱冰被
       { n:61, rowId:'row61', end: new Date(2026, 9, 4, 23, 59) }, // LOOP電動真空行李收納袋
-      { n:62, rowId:'row62', end: new Date(2026, 9, 5, 23, 59) }, // 汪汪隊立大功
-      { n:63, rowId:'row63', end: new Date(2026, 9, 7, 23, 59) }, // 抱抱起司脆脆
-      { n:64, rowId:'row64', end: new Date(2026, 9, 11, 23, 59) }, // 美國桌遊
-      { n:67, rowId:'row67', end: new Date(2026, 9, 16, 23, 59) }, // ACE軟糖
-      { n:65, rowId:'row65', end: new Date(2026, 9, 14, 23, 59) }, // LYRA學習鉛筆
-      { n:66, rowId:'row66', end: new Date(2026, 9, 20, 23, 59) }, // 藻作坊x蒜蒜屋
-      { n:68, rowId:'row68', end: new Date(2026, 9, 22, 23, 59) }, // 巧連智學習商品
-      { n:70, rowId:'row70', end: new Date(2026, 9, 26, 23, 59) }, // 台東初鹿保久乳
-      { n:69, rowId:'row69', end: new Date(2026, 9, 29, 23, 59) }, // 有富仁森益生菌
+      { n:62, rowId:'row62', end: new Date(2026, 9, 5, 23, 59),  added: +new Date(2026, 8, 29) }, // 汪汪隊立大功
+      { n:63, rowId:'row63', end: new Date(2026, 9, 7, 23, 59),  added: +new Date(2026, 8, 30) }, // 抱抱起司脆脆
+      { n:64, rowId:'row64', end: new Date(2026, 9, 11, 23, 59), added: +new Date(2026, 9, 5)  }, // 美國桌遊
+      { n:67, rowId:'row67', end: new Date(2026, 9, 16, 23, 59), added: +new Date(2026, 9, 8)  }, // ACE軟糖
+      { n:65, rowId:'row65', end: new Date(2026, 9, 14, 23, 59), added: +new Date(2026, 9, 5)  }, // LYRA學習鉛筆
+      { n:66, rowId:'row66', end: new Date(2026, 9, 20, 23, 59), added: +new Date(2026, 9, 7)  }, // 藻作坊x蒜蒜屋
+      { n:68, rowId:'row68', end: new Date(2026, 9, 22, 23, 59), added: +new Date(2026, 9, 12) }, // 巧連智學習商品
+      { n:70, rowId:'row70', end: new Date(2026, 9, 26, 23, 59), added: +new Date(2026, 9, 19) }, // 台東初鹿保久乳
+      { n:69, rowId:'row69', end: new Date(2026, 9, 29, 23, 59), added: +new Date(2026, 9, 18) }, // 有富仁森益生菌
       { n:56, rowId:'row56', end: new Date(2026, 8, 21, 23, 59) }, // Mideer兒童教具
       { n:57, rowId:'row57', end: new Date(2026, 8, 23, 23, 59) }, // Natub隨身皂
       { n:55, rowId:'row55', end: new Date(2026, 8, 24, 23, 59) }, // 良爽衛生棉
@@ -3021,6 +3083,8 @@
           if (row) row.style.display = 'none';
           return;
         }
+        const badge = document.getElementById(`badge${n}`);
+        if (badge) badge.classList.toggle('closing-soon', diff < 86400000);
         document.getElementById(`cd${n}_d`).textContent = pad(Math.floor(diff / 86400000));
         document.getElementById(`cd${n}_h`).textContent = pad(Math.floor((diff % 86400000) / 3600000));
         document.getElementById(`cd${n}_m`).textContent = pad(Math.floor((diff % 3600000) / 60000));
@@ -3041,6 +3105,57 @@
         span.className = 'group-row-promo';
         span.textContent = `${end.getMonth() + 1}/${end.getDate()}收單`;
         info.insertBefore(span, info.firstChild);
+      });
+    })();
+
+    (function initShareButtons() {
+      groups.forEach(({ rowId }) => {
+        const row = document.getElementById(rowId);
+        if (!row) return;
+        const btn = document.createElement('button');
+        btn.className = 'share-btn';
+        btn.title = '複製連結';
+        btn.textContent = '⎘';
+        btn.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          navigator.clipboard.writeText(row.href).then(() => showToast('🔗 連結已複製！'));
+        };
+        const arrow = row.querySelector('.btn-arrow');
+        if (arrow) row.insertBefore(btn, arrow);
+      });
+    })();
+
+    (function initNewBadges() {
+      const now = Date.now();
+      const THREE_DAYS = 3 * 86400000;
+      groups.forEach(({ rowId, added }) => {
+        if (!added || now - added > THREE_DAYS) return;
+        const row = document.getElementById(rowId);
+        if (!row) return;
+        const nameEl = row.querySelector('.group-row-name');
+        if (!nameEl) return;
+        const badge = document.createElement('span');
+        badge.className = 'new-badge';
+        badge.textContent = 'NEW';
+        nameEl.appendChild(badge);
+      });
+    })();
+
+    (function initUpcomingChipDates() {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      document.querySelectorAll('.upcoming-chip').forEach(chip => {
+        const dateEl = chip.querySelector('.upcoming-chip-date');
+        if (!dateEl) return;
+        const parts = dateEl.textContent.split('/').map(Number);
+        if (parts.length < 2) return;
+        const chipDate = new Date(2026, parts[0] - 1, parts[1]);
+        if (chipDate <= today) {
+          chip.classList.add('open-today');
+          const btn = chip.querySelector('.upcoming-chip-btn');
+          if (btn) btn.textContent = '🎉 今天開團！';
+        }
       });
     })();
 
