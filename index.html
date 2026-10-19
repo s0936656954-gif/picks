@@ -687,7 +687,7 @@
       font-family: sans-serif;
       font-weight: 700;
       letter-spacing: 0.05em;
-      margin-left: 5px;
+      margin-right: 4px;
       vertical-align: middle;
       line-height: 1.7;
     }
@@ -3114,12 +3114,12 @@
         if (!added || now - added > THREE_DAYS) return;
         const row = document.getElementById(rowId);
         if (!row) return;
-        const nameEl = row.querySelector('.group-row-name');
-        if (!nameEl) return;
+        const promoEl = row.querySelector('.group-row-promo');
+        if (!promoEl) return;
         const badge = document.createElement('span');
         badge.className = 'new-badge';
         badge.textContent = 'NEW';
-        nameEl.insertBefore(badge, nameEl.firstChild);
+        promoEl.insertBefore(badge, promoEl.firstChild);
       });
     })();
 
