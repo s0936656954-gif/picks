@@ -692,37 +692,21 @@
       line-height: 1.7;
     }
 
-    /* ── 分享鈕 ── */
-    .share-btn {
-      flex-shrink: 0;
-      width: 26px;
-      height: 26px;
-      border-radius: 6px;
-      border: 1px solid rgba(95,98,78,0.22);
-      background: transparent;
-      color: #b7b397;
-      font-size: 0.82rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.15s, color 0.15s;
-      line-height: 1;
-    }
-    .share-btn:hover { background: rgba(95,98,78,0.1); color: #5f624e; }
-
     /* ── 預備備今天開團 ── */
     .upcoming-chip.open-today {
-      background: rgba(138,71,15,0.1);
-      border-color: rgba(138,71,15,0.45);
+      background: rgba(248, 234, 225, 0.85);
+      border-color: rgba(138, 71, 15, 0.35);
     }
-    .upcoming-chip.open-today .upcoming-chip-date { color: #c0392b; font-size: 0.65rem; }
     .upcoming-chip.open-today .upcoming-chip-btn {
-      background: #8A470F;
-      color: #fff;
-      border-color: #8A470F;
+      order: -2;
+      background: rgba(138, 71, 15, 0.12);
+      color: #8A470F;
+      border-color: rgba(138, 71, 15, 0.4);
+      font-weight: 700;
     }
-    .upcoming-chip.open-today .upcoming-chip-btn:hover { background: #6d370b; }
+    .upcoming-chip.open-today .upcoming-chip-btn:hover {
+      background: rgba(138, 71, 15, 0.22);
+    }
 
     /* Toast */
     .toast {
@@ -3105,24 +3089,6 @@
         span.className = 'group-row-promo';
         span.textContent = `${end.getMonth() + 1}/${end.getDate()}收單`;
         info.insertBefore(span, info.firstChild);
-      });
-    })();
-
-    (function initShareButtons() {
-      groups.forEach(({ rowId }) => {
-        const row = document.getElementById(rowId);
-        if (!row) return;
-        const btn = document.createElement('button');
-        btn.className = 'share-btn';
-        btn.title = '複製連結';
-        btn.textContent = '⎘';
-        btn.onclick = (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          navigator.clipboard.writeText(row.href).then(() => showToast('🔗 連結已複製！'));
-        };
-        const arrow = row.querySelector('.btn-arrow');
-        if (arrow) row.insertBefore(btn, arrow);
       });
     })();
 
