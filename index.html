@@ -663,17 +663,13 @@
     .upcoming-chip-btn:active { background: rgba(95,98,78,0.16); }
 
     /* ── 即將截止（< 24h）── */
-    .card-countdown.closing-soon .cd-block {
-      background: #c0392b;
-      animation: pulse-soon 1s ease-in-out infinite;
+    .group-row.closing-soon {
+      box-shadow: 0 0 0 1.5px rgba(138, 71, 15, 0.4), 0 4px 18px rgba(138, 71, 15, 0.14);
+      animation: glow-soon 2s ease-in-out infinite;
     }
-    .card-countdown.closing-soon .cd-num,
-    .card-countdown.closing-soon .cd-label { color: #fff; }
-    .card-countdown.closing-soon::before,
-    .card-countdown.closing-soon::after { color: #c0392b !important; }
-    @keyframes pulse-soon {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.65; }
+    @keyframes glow-soon {
+      0%, 100% { box-shadow: 0 0 0 1.5px rgba(138, 71, 15, 0.4), 0 4px 18px rgba(138, 71, 15, 0.14); }
+      50%       { box-shadow: 0 0 0 1.5px rgba(138, 71, 15, 0.65), 0 6px 24px rgba(138, 71, 15, 0.28); }
     }
 
     /* ── 新上架 badge ── */
@@ -3088,8 +3084,8 @@
           if (row) row.style.display = 'none';
           return;
         }
-        const badge = document.getElementById(`badge${n}`);
-        if (badge) badge.classList.toggle('closing-soon', diff < 86400000);
+        const row = document.getElementById(rowId);
+        if (row) row.classList.toggle('closing-soon', diff < 86400000);
         document.getElementById(`cd${n}_d`).textContent = pad(Math.floor(diff / 86400000));
         document.getElementById(`cd${n}_h`).textContent = pad(Math.floor((diff % 86400000) / 3600000));
         document.getElementById(`cd${n}_m`).textContent = pad(Math.floor((diff % 3600000) / 60000));
