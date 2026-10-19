@@ -690,6 +690,12 @@
       margin-right: 4px;
       vertical-align: middle;
       line-height: 1.7;
+      animation: new-badge-pulse 1.4s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes new-badge-pulse {
+      0%, 100% { transform: scale(1);    opacity: 1;    }
+      50%       { transform: scale(1.18); opacity: 0.72; }
     }
 
     /* ── 預備備今天開團 ── */
