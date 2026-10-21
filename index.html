@@ -3141,7 +3141,7 @@
 
     (function initNewBadges() {
       const now = Date.now();
-      const THREE_DAYS = 3 * 86400000;
+      const THREE_DAYS = 2 * 86400000;
       groups.forEach(({ rowId, added }) => {
         if (!added || now - added > THREE_DAYS) return;
         const row = document.getElementById(rowId);
