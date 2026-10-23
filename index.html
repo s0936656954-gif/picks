@@ -3172,6 +3172,23 @@
       });
     })();
 
+    // ── 同步開團清單至 ledger ──
+    (function syncCampaignsToLedger() {
+      const campaigns = groups.map(g => {
+        const row = document.getElementById(g.rowId);
+        if (!row) return null;
+        const nameEl = row.querySelector('.group-row-name');
+        if (!nameEl) return null;
+        const name = Array.from(nameEl.childNodes)
+          .filter(n => n.nodeType === 3)
+          .map(n => n.textContent.trim())
+          .join('').trim();
+        if (!name) return null;
+        return { id: g.rowId, name, end: g.end.toISOString() };
+      }).filter(Boolean);
+      try { localStorage.setItem('picks_campaigns', JSON.stringify(campaigns)); } catch(e) {}
+    })();
+
     // ── 今天晚餐生存戰 Game ──
     const fridgeIngredients = [
       { id: 'cabbage',      name: '高麗菜', emoji: '🥬' },

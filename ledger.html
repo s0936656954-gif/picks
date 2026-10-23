@@ -749,6 +749,27 @@ td {
 
 /* Ops cell */
 .ops-cell { white-space: nowrap; display: flex; gap: 3px; align-items: center; }
+
+/* Sync banner */
+.sync-banner {
+  background: linear-gradient(135deg, #fff8ee, #fff3e0);
+  border: 1px solid #f97316;
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 16px;
+}
+.sync-banner-title { font-weight: 700; font-size: 13px; color: #c2410c; margin-bottom: 10px; }
+.sync-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(249,115,22,0.12);
+}
+.sync-item:last-of-type { border-bottom: none; }
+.sync-item-name { flex: 1; font-size: 13px; color: var(--text); font-weight: 500; }
+.sync-item-end { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+.sync-dismiss { margin-top: 10px; width: 100%; font-size: 11px; color: var(--text-muted); }
 </style>
 </head>
 <body>
@@ -803,6 +824,8 @@ td {
 
       <!-- TAB: 所有紀錄 -->
       <div class="tab-panel active" id="panel-records">
+        <div id="sync-banner" style="display:none"></div>
+
         <div id="welcome-banner" class="welcome-banner" style="display:none">
           <div class="welcome-banner-icon">👋</div>
           <div class="welcome-banner-text">
@@ -1200,7 +1223,9 @@ td {
 // ======================================================
 const STORAGE_KEY = 'picks_ledger';
 const API_KEY_STORAGE = 'picks_ledger_api_key';
+const CAMPAIGNS_KEY = 'picks_campaigns';
 let records = [];
+let _syncCampaigns = [];
 let sortField = 'date';
 let sortDir = 'desc';
 let confirmCallback = null;
@@ -2213,6 +2238,56 @@ function renderInvoiceStats() {
 function updateAll() {
   updateSidebar();
   renderRecords();
+  checkUnrecordedCampaigns();
+}
+
+// ======================================================
+// CAMPAIGN SYNC
+// ======================================================
+function checkUnrecordedCampaigns() {
+  let campaigns;
+  try {
+    const raw = localStorage.getItem(CAMPAIGNS_KEY);
+    campaigns = raw ? JSON.parse(raw) : null;
+  } catch(e) { return; }
+  if (!campaigns || !campaigns.length) return;
+
+  const recordedNames = new Set(records.map(r => r.vendor.trim().toLowerCase()));
+  _syncCampaigns = campaigns.filter(c => !recordedNames.has(c.name.trim().toLowerCase()));
+
+  const banner = document.getElementById('sync-banner');
+  if (!_syncCampaigns.length) { banner.style.display = 'none'; return; }
+
+  const fmtDate = iso => {
+    const d = new Date(iso);
+    return `${d.getMonth()+1}/${d.getDate()}收單`;
+  };
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+  banner.innerHTML = `<div class="sync-banner">
+    <div class="sync-banner-title">🔔 ${_syncCampaigns.length} 筆團購尚未記帳</div>
+    ${_syncCampaigns.map((c, i) => `
+      <div class="sync-item">
+        <span class="sync-item-name">${esc(c.name)}</span>
+        <span class="sync-item-end">${fmtDate(c.end)}</span>
+        <button class="btn btn-outline btn-sm" onclick="prefillFromCampaign(${i})">＋ 新增</button>
+      </div>
+    `).join('')}
+    <button class="btn btn-outline btn-sm sync-dismiss" onclick="document.getElementById('sync-banner').style.display='none'">暫時關閉提醒</button>
+  </div>`;
+  banner.style.display = 'block';
+}
+
+function prefillFromCampaign(i) {
+  const c = _syncCampaigns[i];
+  if (!c) return;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelector('[data-tab="add"]').classList.add('active');
+  document.getElementById('panel-add').classList.add('active');
+  document.getElementById('f-vendor').value = c.name;
+  calcForm();
+  document.getElementById('f-vendor').scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 // ======================================================
